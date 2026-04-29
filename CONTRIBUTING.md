@@ -51,10 +51,10 @@ Docs are published in three flavours, courtesy of
 - `<site>/<MAJOR>.<MINOR>/` — built from each release tag (`v0.1.0`,
   `v0.2.0`, …). Versioned, frozen.
 - `<site>/latest/` — alias that always points at the most recent release.
-  The bare site URL redirects here.
 
-Visitors hitting the bare site URL land on `/latest/` by default, so the
-homepage always shows the newest released version.
+The bare site URL redirects to `/latest/` once a release exists, and to
+`/dev/` before the first release — so the homepage always serves
+something useful.
 
 ## Data contributions are welcome
 

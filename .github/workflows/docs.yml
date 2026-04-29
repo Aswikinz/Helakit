@@ -36,3 +36,9 @@ jobs:
 
       - name: Deploy dev docs
         run: uv run mike deploy --push --update-aliases dev
+
+      - name: Set root default to dev (only if no release exists yet)
+        run: |
+          if ! uv run mike list 2>/dev/null | grep -qE '(^|[^a-z])latest([^a-z]|$)'; then
+            uv run mike set-default --push dev
+          fi

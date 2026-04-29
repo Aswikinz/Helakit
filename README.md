@@ -6,7 +6,7 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/helakit.svg)](https://pypi.org/project/helakit/)
 [![CI](https://github.com/Aswikinz/Helakit/actions/workflows/ci.yml/badge.svg)](https://github.com/Aswikinz/Helakit/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/codecov/c/github/Aswikinz/Helakit)](https://codecov.io/gh/Aswikinz/Helakit)
-[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://Aswikinz.github.io/Helakit/latest/)
+[![Docs](https://img.shields.io/badge/docs-online-blue)](https://Aswikinz.github.io/Helakit/)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
 Helakit is a small, dependency-free Python library for validating and
@@ -15,7 +15,7 @@ codes, and more. Each identifier lives in its own self-contained
 subpackage and shares a single result type, so adding a new validator
 is a matter of dropping in a folder.
 
-For usage and API reference, see the [docs](https://Aswikinz.github.io/Helakit/latest/).
+For usage and API reference, see the [docs](https://Aswikinz.github.io/Helakit/).
 This page is a tour of *how the project is laid out* — useful if you
 want to contribute, audit, or fork.
 
@@ -131,10 +131,12 @@ published in three flavours:
 
 - `/dev/` — built from every push to `main`. Tracks in-progress work.
 - `/<MAJOR>.<MINOR>/` — built from each release tag. Frozen.
-- `/latest/` — alias for the most recent release. The bare site URL
-  redirects here.
+- `/latest/` — alias for the most recent release.
 
-Links: [latest](https://Aswikinz.github.io/Helakit/latest/) ·
+The bare site URL ([Aswikinz.github.io/Helakit](https://Aswikinz.github.io/Helakit/))
+redirects to `/latest/` once a release exists, and to `/dev/` until then.
+
+Links: [docs](https://Aswikinz.github.io/Helakit/) ·
 [dev](https://Aswikinz.github.io/Helakit/dev/) ·
 [changelog](CHANGELOG.md) ·
 [contributing](CONTRIBUTING.md).
