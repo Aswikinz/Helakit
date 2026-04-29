@@ -971,11 +971,11 @@ uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> 
   in-progress work and may be ahead of the latest release.</li>
 <li><code>&lt;site&gt;/&lt;MAJOR&gt;.&lt;MINOR&gt;/</code> — built from each release tag (<code>v0.1.0</code>,
   <code>v0.2.0</code>, …). Versioned, frozen.</li>
-<li><code>&lt;site&gt;/latest/</code> — alias that always points at the most recent release.
-  The bare site URL redirects here.</li>
+<li><code>&lt;site&gt;/latest/</code> — alias that always points at the most recent release.</li>
 </ul>
-<p>Visitors hitting the bare site URL land on <code>/latest/</code> by default, so the
-homepage always shows the newest released version.</p>
+<p>The bare site URL redirects to <code>/latest/</code> once a release exists, and to
+<code>/dev/</code> before the first release — so the homepage always serves
+something useful.</p>
 <h2 id="data-contributions-are-welcome">Data contributions are welcome</h2>
 <p>A lot of helakit's value comes from accurate lookup tables — postal
 codes, mobile prefixes, district names, and so on. Adding entries (or
