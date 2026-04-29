@@ -31,9 +31,6 @@ htmlcov/
 .pyre/
 .pytype/
 
-# uv
-uv.lock
-
 # mkdocs
 site/
 
