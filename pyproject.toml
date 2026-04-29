@@ -76,6 +76,9 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["B", "SIM"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["helakit"]
+
 [tool.mypy]
 python_version = "3.10"
 strict = true

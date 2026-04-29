@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import pytest
+
 from helakit import is_valid_postal, validate_postal
 
 
