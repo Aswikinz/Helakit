@@ -7,7 +7,7 @@
 [![CI](https://github.com/Aswikinz/Helakit/actions/workflows/ci.yml/badge.svg)](https://github.com/Aswikinz/Helakit/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/codecov/c/github/Aswikinz/Helakit)](https://codecov.io/gh/Aswikinz/Helakit)
 [![Docs](https://img.shields.io/badge/docs-latest-blue)](https://Aswikinz.github.io/Helakit/latest/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
 Helakit is a small, dependency-free Python library for validating and
 parsing Sri Lankan identifiers — NIC numbers, phone numbers, postal
@@ -154,4 +154,4 @@ versions accordingly.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Apache License 2.0 — see [LICENSE](LICENSE).
