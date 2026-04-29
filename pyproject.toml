@@ -1,0 +1,105 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "helakit"
+description = "A toolkit for validating and working with Sri Lankan data."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "The helakit authors" }]
+keywords = ["sri-lanka", "validation", "nic", "phone", "postal"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+]
+dynamic = ["version"]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=5",
+    "hypothesis>=6",
+    "mypy>=1.10",
+    "ruff>=0.5",
+    "pre-commit>=3.7",
+]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.25",
+    "mkdocs-gen-files>=0.5",
+    "mkdocs-literate-nav>=0.6",
+    "mike>=2.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/Aswikinz/Helakit"
+Documentation = "https://Aswikinz.github.io/Helakit/"
+Repository = "https://github.com/Aswikinz/Helakit"
+Issues = "https://github.com/Aswikinz/Helakit/issues"
+Changelog = "https://github.com/Aswikinz/Helakit/blob/main/CHANGELOG.md"
+
+[tool.hatch.version]
+path = "src/helakit/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/helakit"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/helakit",
+    "tests",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["B", "SIM"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = ["src"]
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "helakit.*"
+disallow_any_unimported = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=helakit --cov-report=term-missing --cov-report=xml --strict-markers"
+
+[tool.coverage.run]
+branch = true
+source = ["helakit"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = false
+exclude_also = [
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "@overload",
+]

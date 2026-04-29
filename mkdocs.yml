@@ -1,0 +1,78 @@
+site_name: Helakit
+site_description: A toolkit for validating and working with Sri Lankan data.
+site_url: https://Aswikinz.github.io/Helakit/
+repo_url: https://github.com/Aswikinz/Helakit
+repo_name: Aswikinz/Helakit
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.integrate
+    - content.code.copy
+    - content.code.annotate
+    - search.highlight
+    - search.suggest
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs/_gen_api_nav.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: false
+            show_root_heading: true
+            show_signature_annotations: true
+            separate_signature: true
+            merge_init_into_class: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - tables
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Validators:
+      - NIC: validators/nic.md
+      - Phone: validators/phone.md
+      - Postal: validators/postal.md
+  - API Reference: api/
+  - Contributing: contributing.md
+  - Changelog: changelog.md
+
+extra:
+  version:
+    provider: mike
+    default: latest
