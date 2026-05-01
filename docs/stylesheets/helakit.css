@@ -25,9 +25,11 @@
 /* --- Light scheme ------------------------------------------------------ */
 
 [data-md-color-scheme="default"] {
-  --md-primary-fg-color:        var(--hk-teal);
-  --md-primary-fg-color--light:  var(--hk-teal-soft);
-  --md-primary-fg-color--dark:  var(--hk-teal-deep);
+  /* Header / nav bar uses forest so the teal icon stands out — the old
+     teal primary was the same hue as the logo and made it disappear. */
+  --md-primary-fg-color:        var(--hk-forest);
+  --md-primary-fg-color--light: var(--hk-forest-2);
+  --md-primary-fg-color--dark:  var(--hk-forest);
   --md-primary-bg-color:        var(--hk-cream);
   --md-primary-bg-color--light: var(--hk-cream-2);
 
