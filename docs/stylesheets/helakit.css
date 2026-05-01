@@ -177,8 +177,70 @@
   gap: 0.6rem;
 }
 
-.hk-hero__cta .md-button {
+/* --- Buttons: visible on both schemes -------------------------------- *
+ * Material's default md-button uses primary fg as border; in dark mode
+ * we set primary to forest (=body bg) which made the secondary buttons
+ * disappear. Pin everything to teal-soft so both schemes have contrast.
+ */
+
+.md-typeset .md-button {
+  border-color: var(--hk-teal-soft);
+  color: var(--hk-teal-soft);
+  background: transparent;
   border-radius: 999px;
+  font-weight: 600;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.md-typeset .md-button:hover,
+.md-typeset .md-button:focus {
+  background: var(--hk-teal-soft);
+  color: var(--hk-forest);
+  border-color: var(--hk-teal-soft);
+}
+
+.md-typeset .md-button--primary {
+  background: var(--hk-teal-soft);
+  border-color: var(--hk-teal-soft);
+  color: var(--hk-forest);
+}
+
+.md-typeset .md-button--primary:hover,
+.md-typeset .md-button--primary:focus {
+  background: var(--hk-cream);
+  border-color: var(--hk-cream);
+  color: var(--hk-forest);
+}
+
+[data-md-color-scheme="default"] .md-typeset .md-button {
+  border-color: var(--hk-teal);
+  color: var(--hk-teal-deep);
+}
+
+[data-md-color-scheme="default"] .md-typeset .md-button:hover,
+[data-md-color-scheme="default"] .md-typeset .md-button:focus {
+  background: var(--hk-teal);
+  color: var(--hk-cream);
+  border-color: var(--hk-teal);
+}
+
+[data-md-color-scheme="default"] .md-typeset .md-button--primary {
+  background: var(--hk-teal);
+  border-color: var(--hk-teal);
+  color: var(--hk-cream);
+}
+
+[data-md-color-scheme="default"] .md-typeset .md-button--primary:hover,
+[data-md-color-scheme="default"] .md-typeset .md-button--primary:focus {
+  background: var(--hk-teal-deep);
+  border-color: var(--hk-teal-deep);
+  color: var(--hk-cream);
+}
+
+/* Make sure the icon inside a button picks up the button colour */
+.md-typeset .md-button svg {
+  fill: currentColor;
+  vertical-align: middle;
 }
 
 .hk-hero__art {
