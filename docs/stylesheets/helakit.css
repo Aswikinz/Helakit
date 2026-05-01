@@ -102,29 +102,38 @@
   width: 1.6rem;
 }
 
-/* --- Sidebar nav alignment ------------------------------------------- *
- * Material renders section labels and leaf links at slightly different
- * indents which makes the validators sub-list look stair-stepped. Pin
- * everything to the same left edge for a tidier column.
+/* --- Sidebar polish -------------------------------------------------- *
+ * Section headers (Validators, API Reference) get a touch more weight
+ * so they stand apart from the leaf links underneath, and indentation
+ * stays at Material's default so the column edge is consistent.
  */
 
-.md-nav__item .md-nav__link {
-  padding-left: 0.4rem;
-}
-
-.md-nav--secondary .md-nav__link {
-  padding-left: 0.6rem;
-}
-
-.md-nav__item--section > .md-nav__link {
-  font-weight: 600;
+.md-nav__item--section > .md-nav__link,
+.md-nav__title {
+  font-weight: 700;
   letter-spacing: 0.01em;
   color: var(--md-default-fg-color);
 }
 
-/* Footer prev / next navigation pair */
+.md-nav__link--active {
+  font-weight: 600;
+  color: var(--hk-teal-soft);
+}
+
+[data-md-color-scheme="default"] .md-nav__link--active {
+  color: var(--hk-teal-deep);
+}
+
+/* Footer prev / next navigation pair: a touch tighter */
 .md-footer__inner.md-grid {
   padding-block: 0.6rem;
+}
+
+.md-footer__direction {
+  font-family: "Roboto Slab", serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 /* --- Homepage hero ---------------------------------------------------- *
@@ -303,7 +312,8 @@
  * if the validator is available.
  */
 
-.hk-section-title {
+.md-typeset .hk-section-title,
+h2.hk-section-title {
   text-align: center;
   margin: 3rem 0 1.5rem;
   font-family: "Roboto Slab", serif;

@@ -39,13 +39,13 @@ zero runtime dependencies.
 <span class="hk-validator__desc">National Identity Card numbers — old (9 digits + V/X) and new (12 digit) formats, with cross-checking against supplied DOB and gender.</span>
 </a>
 
-<a class="hk-validator" href="validators/phone/">
+<a class="hk-validator hk-validator--upcoming" href="validators/phone/">
 <span class="hk-validator__status">Planned</span>
 <span class="hk-validator__name">Phone</span>
 <span class="hk-validator__desc">Sri Lankan phone numbers — mobile and fixed-line, with carrier and region detection.</span>
 </a>
 
-<a class="hk-validator" href="validators/postal/">
+<a class="hk-validator hk-validator--upcoming" href="validators/postal/">
 <span class="hk-validator__status">Planned</span>
 <span class="hk-validator__name">Postal</span>
 <span class="hk-validator__desc">Postal codes mapped to province, district and the nearest post office.</span>
