@@ -31,8 +31,8 @@
   --md-primary-bg-color:        var(--hk-cream);
   --md-primary-bg-color--light: var(--hk-cream-2);
 
-  --md-accent-fg-color:         var(--hk-teal-deep);
-  --md-accent-fg-color--transparent: rgba(32, 128, 141, 0.1);
+  --md-accent-fg-color:         var(--hk-teal-soft);
+  --md-accent-fg-color--transparent: rgba(63, 184, 199, 0.12);
   --md-accent-bg-color:         var(--hk-cream);
 
   --md-default-bg-color:        var(--hk-cream);
@@ -133,14 +133,9 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-size: 0.72rem;
-  color: var(--hk-teal-deep);
-  background: rgba(32, 128, 141, 0.12);
-  border-radius: 999px;
-}
-
-[data-md-color-scheme="slate"] .hk-hero__tagline {
   color: var(--hk-teal-soft);
   background: rgba(63, 184, 199, 0.16);
+  border-radius: 999px;
 }
 
 .hk-hero__lede {
