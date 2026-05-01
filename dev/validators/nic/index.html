@@ -22,7 +22,7 @@
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/helakit-icon.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
     
     
@@ -48,12 +48,14 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
       
     
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/helakit.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -71,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -100,8 +102,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Helakit" class="md-header__button md-logo" aria-label="Helakit" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/helakit-icon.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -131,7 +132,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -141,7 +142,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -277,6 +278,8 @@
           
   
   
+    
+  
   Validators
 
         </a>
@@ -296,6 +299,8 @@
         <a href="../../api/helakit/" class="md-tabs__link">
           
   
+  
+    
   
   API Reference
 
@@ -363,14 +368,11 @@
   
 
 
-  
-
-<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Helakit" class="md-nav__button md-logo" aria-label="Helakit" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/helakit-icon.svg" alt="logo">
 
     </a>
     Helakit
@@ -453,6 +455,14 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -568,10 +578,193 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#planned-api" class="md-nav__link">
+  <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Planned API
+        Quick reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validate_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate_nic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="validate_nic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single NIC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restricting-the-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricting the format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#old-nic-century" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Old-NIC century
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-shorthand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean shorthand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convert_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        convert_nic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch input
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Batch input">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-of-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List of strings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-of-dicts-with-cross-checking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List of dicts (with cross-checking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pandas-polars-dataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pandas / polars DataFrames
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encoding-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoding details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoding details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#day-of-year" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Day-of-year
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leap-years" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leap years
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-digit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check digit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
       
     </span>
   </a>
@@ -657,6 +850,16 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -882,6 +1085,226 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validate_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate_nic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="validate_nic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single NIC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restricting-the-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricting the format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#old-nic-century" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Old-NIC century
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-shorthand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean shorthand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convert_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        convert_nic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch input
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Batch input">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-of-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List of strings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-of-dicts-with-cross-checking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List of dicts (with cross-checking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pandas-polars-dataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pandas / polars DataFrames
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encoding-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoding details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoding details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#day-of-year" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Day-of-year
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leap-years" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leap years
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-digit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check digit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           
             <div class="md-content" data-md-component="content">
@@ -896,23 +1319,293 @@
 
 
 <h1 id="nic">NIC</h1>
-<p>Sri Lanka issues a National Identity Card number that encodes the
-holder's date of birth, gender, and (in the old format) voting eligibility.</p>
-<div class="admonition note">
-<p class="admonition-title">Coming soon</p>
-<p>NIC validation is the next thing to land. Until then, calling
-<code>validate_nic</code> raises <code>NotImplementedError</code>.</p>
-</div>
-<h2 id="planned-api">Planned API</h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">helakit</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_nic</span><span class="p">,</span> <span class="n">is_valid_nic</span>
+<p>Sri Lanka issues a National Identity Card (NIC) number that encodes the
+holder's date of birth, gender, and (on old-format cards) voting eligibility.
+Helakit supports <strong>both</strong> formats:</p>
+<ul>
+<li><strong>Old</strong> — 9 digits + a <code>V</code> or <code>X</code> suffix (e.g. <code>820149894V</code>). Issued
+  before 2016. The trailing letter is the voting flag: <code>V</code> for eligible,
+  <code>X</code> for not eligible.</li>
+<li><strong>New</strong> — 12 fully numeric digits (e.g. <code>198201409894</code>). Issued from
+  2016 onwards.</li>
+</ul>
+<h2 id="quick-reference">Quick reference</h2>
+<table>
+<thead>
+<tr>
+<th>What you want</th>
+<th>Call</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Validate one NIC and decode it</td>
+<td><code>validate_nic("820149894V")</code></td>
+</tr>
+<tr>
+<td>Yes/no check</td>
+<td><code>is_valid_nic("820149894V")</code></td>
+</tr>
+<tr>
+<td>Old → new format</td>
+<td><code>convert_nic("820149894V")</code></td>
+</tr>
+<tr>
+<td>Audit a list / DataFrame</td>
+<td><code>validate_nic(df, nic_col=..., dob_col=..., ...)</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="validate_nic"><code>validate_nic</code></h2>
+<p>The headline function. Accepts a single string or any batch
+input — list, list-of-dicts, pandas DataFrame, or polars DataFrame.</p>
+<h3 id="single-nic">Single NIC</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">helakit</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_nic</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">validate_nic</span><span class="p">(</span><span class="s2">&quot;199012345678&quot;</span><span class="p">)</span>
-<span class="n">result</span><span class="o">.</span><span class="n">data</span>       <span class="c1"># {&quot;dob&quot;: date(1990, 5, 4), &quot;gender&quot;: &quot;male&quot;, ...}</span>
-<span class="n">result</span><span class="o">.</span><span class="n">normalized</span> <span class="c1"># &quot;199012345678&quot;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">validate_nic</span><span class="p">(</span><span class="s2">&quot;820149894V&quot;</span><span class="p">)</span>
 
-<span class="n">is_valid_nic</span><span class="p">(</span><span class="s2">&quot;199012345678&quot;</span><span class="p">)</span>  <span class="c1"># True</span>
+<span class="n">result</span><span class="o">.</span><span class="n">is_valid</span>          <span class="c1"># True</span>
+<span class="n">result</span><span class="o">.</span><span class="n">normalized</span>        <span class="c1"># &quot;820149894&quot;  (V/X stripped, used for dedup)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;decoded&quot;</span><span class="p">]</span>   <span class="c1"># NICDecoded(...)</span>
+
+<span class="n">decoded</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;decoded&quot;</span><span class="p">]</span>
+<span class="n">decoded</span><span class="o">.</span><span class="n">format</span>           <span class="c1"># &quot;old&quot;</span>
+<span class="n">decoded</span><span class="o">.</span><span class="n">dob</span>              <span class="c1"># datetime.date(1982, 1, 14)</span>
+<span class="n">decoded</span><span class="o">.</span><span class="n">gender</span>           <span class="c1"># &quot;male&quot;</span>
+<span class="n">decoded</span><span class="o">.</span><span class="n">age</span>              <span class="c1"># 44 (computed at call time)</span>
+<span class="n">decoded</span><span class="o">.</span><span class="n">voting_eligible</span>  <span class="c1"># True</span>
+<span class="n">decoded</span><span class="o">.</span><span class="n">serial</span>           <span class="c1"># 989</span>
+<span class="n">decoded</span><span class="o">.</span><span class="n">check_digit</span>      <span class="c1"># 4</span>
 </code></pre></div>
-<p>Both old (<code>901234567V</code>) and new (<code>199012345678</code>) formats will be supported.</p>
+<p><code>ValidationResult</code> is truthy when <code>is_valid</code> is <code>True</code>, so the rich
+form drops into <code>if</code> statements naturally:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">result</span> <span class="o">:=</span> <span class="n">validate_nic</span><span class="p">(</span><span class="n">user_input</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;decoded&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dob</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">err</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="restricting-the-format">Restricting the format</h3>
+<div class="highlight"><pre><span></span><code><span class="n">validate_nic</span><span class="p">(</span><span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;old&quot;</span><span class="p">)</span>    <span class="c1"># passes</span>
+<span class="n">validate_nic</span><span class="p">(</span><span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;new&quot;</span><span class="p">)</span>    <span class="c1"># rejected with nic.format_mismatch</span>
+</code></pre></div>
+<h3 id="old-nic-century">Old-NIC century</h3>
+<p>Old NICs encode only the last two digits of the birth year. Helakit
+defaults to <strong>1900s</strong> because the format was retired in 2016 and almost
+every old NIC in circulation belongs to a 20th-century birth. If you
+have a known cohort that goes the other way, override it:</p>
+<div class="highlight"><pre><span></span><code><span class="n">validate_nic</span><span class="p">(</span><span class="s2">&quot;100149894V&quot;</span><span class="p">,</span> <span class="n">century</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="c1"># decoded.year == 2010</span>
+</code></pre></div>
+<h3 id="boolean-shorthand">Boolean shorthand</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">helakit</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_valid_nic</span>
+
+<span class="n">is_valid_nic</span><span class="p">(</span><span class="s2">&quot;820149894V&quot;</span><span class="p">)</span>                  <span class="c1"># True</span>
+<span class="n">is_valid_nic</span><span class="p">(</span><span class="s2">&quot;garbage&quot;</span><span class="p">)</span>                     <span class="c1"># False</span>
+<span class="n">is_valid_nic</span><span class="p">(</span><span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;new&quot;</span><span class="p">)</span>    <span class="c1"># False</span>
+</code></pre></div>
+<p><code>is_valid_nic</code> is <strong>scalar-only</strong>. For batch checks, use
+<code>validate_nic</code> and inspect each result.</p>
+<h2 id="convert_nic"><code>convert_nic</code></h2>
+<p>Old → new conversion. The reverse direction is not supported because
+new NICs do not encode the V/X voting flag.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">helakit</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_nic</span>
+
+<span class="n">convert_nic</span><span class="p">(</span><span class="s2">&quot;820149894V&quot;</span><span class="p">)</span>     <span class="c1"># &quot;198201409894&quot;</span>
+<span class="n">convert_nic</span><span class="p">(</span><span class="s2">&quot;198201409894&quot;</span><span class="p">)</span>   <span class="c1"># &quot;198201409894&quot;  (idempotent)</span>
+<span class="n">convert_nic</span><span class="p">(</span><span class="s2">&quot;garbage&quot;</span><span class="p">)</span>        <span class="c1"># raises NICFormatError</span>
+</code></pre></div>
+<p>For lists and DataFrames see the <strong>Batch input</strong> section below.</p>
+<h2 id="batch-input">Batch input</h2>
+<p><code>validate_nic</code> and <code>convert_nic</code> accept four batch shapes; the return
+type follows the input shape.</p>
+<h3 id="list-of-strings">List of strings</h3>
+<div class="highlight"><pre><span></span><code><span class="n">batch</span> <span class="o">=</span> <span class="n">validate_nic</span><span class="p">([</span><span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="s2">&quot;820149894X&quot;</span><span class="p">,</span> <span class="s2">&quot;199201409894&quot;</span><span class="p">])</span>
+
+<span class="n">batch</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">valid</span>              <span class="c1"># 3</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">duplicate_groups</span>   <span class="c1"># 1   (the V and X stripped to the same key)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">duplicates</span>                 <span class="c1"># {&quot;820149894&quot;: [0, 1]}</span>
+
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">is_valid</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">normalized</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="list-of-dicts-with-cross-checking">List of dicts (with cross-checking)</h3>
+<p>When you supply <code>dob_col</code> and/or <code>gender_col</code>, helakit cross-checks the
+decoded NIC fields against your supplied values and records any
+mismatch in detail.</p>
+<div class="highlight"><pre><span></span><code><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;nic&quot;</span><span class="p">:</span> <span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="s2">&quot;dob&quot;</span><span class="p">:</span> <span class="s2">&quot;1982-01-14&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">:</span> <span class="s2">&quot;M&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;nic&quot;</span><span class="p">:</span> <span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="s2">&quot;dob&quot;</span><span class="p">:</span> <span class="s2">&quot;1982-03-14&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">:</span> <span class="s2">&quot;F&quot;</span><span class="p">},</span>
+<span class="p">]</span>
+
+<span class="n">batch</span> <span class="o">=</span> <span class="n">validate_nic</span><span class="p">(</span>
+    <span class="n">rows</span><span class="p">,</span>
+    <span class="n">nic_col</span><span class="o">=</span><span class="s2">&quot;nic&quot;</span><span class="p">,</span>
+    <span class="n">dob_col</span><span class="o">=</span><span class="s2">&quot;dob&quot;</span><span class="p">,</span>
+    <span class="n">gender_col</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">batch</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">dob_mismatches</span>      <span class="c1"># 1</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">gender_mismatches</span>   <span class="c1"># 1</span>
+
+<span class="n">mismatch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">mismatch</span><span class="p">[</span><span class="s2">&quot;mismatch_reasons&quot;</span><span class="p">]</span>      <span class="c1"># [&quot;dob&quot;, &quot;gender&quot;]</span>
+<span class="n">mismatch</span><span class="p">[</span><span class="s2">&quot;mismatch_detail&quot;</span><span class="p">]</span>
+<span class="c1"># &quot;dob: NIC says 1982-01-14, supplied 1982-03-14;</span>
+<span class="c1">#  gender: NIC says male, supplied female&quot;</span>
+<span class="n">mismatch</span><span class="p">[</span><span class="s2">&quot;dob_decoded&quot;</span><span class="p">]</span>           <span class="c1"># date(1982, 1, 14)</span>
+<span class="n">mismatch</span><span class="p">[</span><span class="s2">&quot;dob_supplied&quot;</span><span class="p">]</span>          <span class="c1"># date(1982, 3, 14)</span>
+</code></pre></div>
+<p>Accepted formats:</p>
+<ul>
+<li><strong>Gender:</strong> <code>"M"</code>, <code>"F"</code>, <code>"Male"</code>, <code>"Female"</code>, <code>"MALE"</code>, <code>"FEMALE"</code>
+  (case-insensitive). Anything else raises <code>InvalidInputError</code>.</li>
+<li><strong>DOB:</strong> <code>datetime.date</code>, <code>datetime.datetime</code>, ISO 8601 string
+  (<code>"YYYY-MM-DD"</code>), or any object exposing <code>to_pydatetime()</code> (covers
+  pandas Timestamp and numpy datetime64).</li>
+<li>Missing values (<code>None</code>, <code>NaN</code>, <code>pd.NaT</code>, polars <code>Null</code>) are treated
+  as "no value supplied" — that row's match field stays unset rather
+  than triggering a mismatch.</li>
+</ul>
+<h3 id="pandas-polars-dataframes">pandas / polars DataFrames</h3>
+<p>Pass a DataFrame and helakit returns a copy with diagnostic columns
+appended. The original frame is never mutated.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">helakit</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_nic</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;nic&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="s2">&quot;199201409894&quot;</span><span class="p">,</span> <span class="s2">&quot;garbage&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;dob&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;1982-01-14&quot;</span><span class="p">,</span> <span class="s2">&quot;1982-03-14&quot;</span><span class="p">,</span> <span class="s2">&quot;1992-01-14&quot;</span><span class="p">,</span>   <span class="kc">None</span><span class="p">],</span>
+    <span class="s2">&quot;gender&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;M&quot;</span><span class="p">,</span>          <span class="s2">&quot;F&quot;</span><span class="p">,</span>          <span class="s2">&quot;Male&quot;</span><span class="p">,</span>         <span class="kc">None</span><span class="p">],</span>
+<span class="p">})</span>
+
+<span class="n">batch</span> <span class="o">=</span> <span class="n">validate_nic</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">nic_col</span><span class="o">=</span><span class="s2">&quot;nic&quot;</span><span class="p">,</span> <span class="n">dob_col</span><span class="o">=</span><span class="s2">&quot;dob&quot;</span><span class="p">,</span> <span class="n">gender_col</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">df</span>  <span class="c1"># copy of df with the columns below appended</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nic_valid</code></td>
+<td><code>True</code> if the NIC parsed cleanly.</td>
+</tr>
+<tr>
+<td><code>nic_normalized</code></td>
+<td>Canonical form (uppercase, V/X stripped). Use for dedup.</td>
+</tr>
+<tr>
+<td><code>nic_format</code></td>
+<td><code>"old"</code> / <code>"new"</code> / <code>None</code>.</td>
+</tr>
+<tr>
+<td><code>nic_decoded_dob</code></td>
+<td>Date decoded from the NIC.</td>
+</tr>
+<tr>
+<td><code>nic_decoded_gender</code></td>
+<td><code>"male"</code> / <code>"female"</code> / <code>None</code>.</td>
+</tr>
+<tr>
+<td><code>nic_dob_match</code></td>
+<td><code>True</code> / <code>False</code> / <code>None</code> (skipped when no <code>dob_col</code>).</td>
+</tr>
+<tr>
+<td><code>nic_gender_match</code></td>
+<td>Same idea.</td>
+</tr>
+<tr>
+<td><code>nic_mismatch_reasons</code></td>
+<td>Comma-joined list: <code>"dob"</code>, <code>"gender"</code>, or <code>"dob,gender"</code>.</td>
+</tr>
+<tr>
+<td><code>nic_mismatch_detail</code></td>
+<td>Human-readable string showing supplied vs decoded values.</td>
+</tr>
+<tr>
+<td><code>nic_errors</code></td>
+<td>Comma-joined error codes for invalid rows.</td>
+</tr>
+</tbody>
+</table>
+<p><code>pyproject.toml</code> keeps pandas and polars as optional extras. Install
+them only if you need DataFrame support:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>helakit<span class="o">[</span>pandas<span class="o">]</span><span class="w">   </span><span class="c1"># or [polars], or [pandas,polars]</span>
+</code></pre></div>
+<p><code>convert_nic</code> works the same way — pass a DataFrame and <code>nic_col</code> and
+get a frame back with a <code>nic_converted</code> column. Conversion is strict:
+an invalid value in any row raises <code>NICFormatError</code>. Pre-filter with
+<code>validate_nic</code> first if you need lenient handling.</p>
+<h2 id="encoding-details">Encoding details</h2>
+<h3 id="day-of-year">Day-of-year</h3>
+<p>Both formats encode birth date as <strong>day-of-year</strong>, with female DOBs
+offset by 500. So day codes 1–366 are male and 501–866 are female; the
+parser strips the offset before decoding.</p>
+<h3 id="leap-years">Leap years</h3>
+<p>Sri Lankan NICs reserve <strong>day 60 for February 29 in every year</strong>, leap
+or not. In a non-leap year day 60 is therefore a <em>phantom</em> date with no
+real calendar equivalent and is reported as <code>nic.invalid_date</code>. Days
+61–366 in non-leap years shift down by one to land on the correct
+calendar date; for example <strong>March 1 in 1982 encodes as day 61, not
+day 60</strong>.</p>
+<h3 id="check-digit">Check digit</h3>
+<p>The Department for Registration of Persons has not published the
+modulo-11 check digit algorithm and no public implementation has
+reverse-engineered it. Helakit extracts the digit (<code>decoded.check_digit</code>)
+but does <strong>not</strong> verify it. Once the algorithm becomes available,
+verification can be enabled without changing the public API.</p>
+<h2 id="errors">Errors</h2>
+<p>Validation failures are reported via <code>result.errors</code> — a list of
+<a class="autorefs autorefs-internal" title="ValidationError
+
+
+  
+      dataclass
+  " href="../../api/helakit/#helakit.ValidationError"><code>ValidationError</code></a> objects. Programmer errors
+(wrong input type, unparseable gender, etc.) raise
+<a class="autorefs autorefs-internal" title="InvalidInputError" href="../../api/helakit/#helakit.InvalidInputError"><code>InvalidInputError</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>Error code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nic.bad_length</code></td>
+<td>Input was not 10 (old) or 12 (new) characters.</td>
+</tr>
+<tr>
+<td><code>nic.non_numeric</code></td>
+<td>Digits expected but got letters elsewhere than V/X.</td>
+</tr>
+<tr>
+<td><code>nic.bad_suffix</code></td>
+<td>Old NIC didn't end in <code>V</code> or <code>X</code>.</td>
+</tr>
+<tr>
+<td><code>nic.bad_day_code</code></td>
+<td>Day-of-year encoding was outside 1-366 / 501-866.</td>
+</tr>
+<tr>
+<td><code>nic.invalid_date</code></td>
+<td>Day code does not yield a real date in the given year.</td>
+</tr>
+<tr>
+<td><code>nic.format_mismatch</code></td>
+<td>Format hint (<code>old</code> / <code>new</code>) didn't match the input.</td>
+</tr>
+<tr>
+<td><code>nic.not_a_string</code></td>
+<td>A row in a batch supplied a non-string NIC.</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -943,6 +1636,46 @@ holder's date of birth, gender, and (in the old format) voting eligibility.</p>
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../getting-started/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting Started">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Getting Started
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../phone/" class="md-footer__link md-footer__link--next" aria-label="Next: Phone">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Phone
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -968,7 +1701,7 @@ holder's date of birth, gender, and (in the old format) voting eligibility.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.integrate", "content.code.copy", "content.code.annotate", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "content.code.copy", "content.code.annotate", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
