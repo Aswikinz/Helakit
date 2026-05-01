@@ -1,0 +1,126 @@
+"""Tests for pandas and polars DataFrame integration.
+
+These tests skip cleanly if the optional dependency isn't installed.
+"""
+
+from __future__ import annotations
+
+from datetime import date
+
+import pytest
+
+from helakit import InvalidInputError, NICFormatError, convert_nic, validate_nic
+
+pd = pytest.importorskip("pandas")
+pl = pytest.importorskip("polars")
+
+
+def test_pandas_validate_appends_columns() -> None:
+    df = pd.DataFrame(
+        {
+            "nic": ["820149894V", "199201409894", "garbage"],
+            "dob": ["1982-01-14", "1992-03-14", None],
+            "gender": ["M", "F", None],
+        }
+    )
+    batch = validate_nic(df, nic_col="nic", dob_col="dob", gender_col="gender")
+    assert batch.df is not None
+    expected_cols = {
+        "nic_valid",
+        "nic_normalized",
+        "nic_format",
+        "nic_decoded_dob",
+        "nic_decoded_gender",
+        "nic_dob_match",
+        "nic_gender_match",
+        "nic_mismatch_reasons",
+        "nic_mismatch_detail",
+        "nic_errors",
+    }
+    assert expected_cols.issubset(set(batch.df.columns))
+    assert batch.df["nic_valid"].tolist() == [True, True, False]
+    assert batch.df["nic_decoded_gender"].tolist()[:2] == ["male", "male"]
+
+
+def test_pandas_does_not_mutate_input() -> None:
+    df = pd.DataFrame({"nic": ["820149894V"]})
+    validate_nic(df, nic_col="nic")
+    assert "nic_valid" not in df.columns
+
+
+def test_pandas_mismatch_detail_populated() -> None:
+    df = pd.DataFrame(
+        {
+            "nic": ["820149894V"],
+            "dob": ["1982-03-14"],
+            "gender": ["F"],
+        }
+    )
+    batch = validate_nic(df, nic_col="nic", dob_col="dob", gender_col="gender")
+    detail = batch.df["nic_mismatch_detail"].iloc[0]
+    assert "dob" in detail and "gender" in detail
+    assert "1982-01-14" in detail and "1982-03-14" in detail
+
+
+def test_pandas_missing_column_raises() -> None:
+    df = pd.DataFrame({"nic": ["820149894V"]})
+    with pytest.raises(InvalidInputError):
+        validate_nic(df, nic_col="nic", dob_col="missing")
+
+
+def test_pandas_handles_nan_dob() -> None:
+    df = pd.DataFrame({"nic": ["820149894V"], "dob": [float("nan")]})
+    batch = validate_nic(df, nic_col="nic", dob_col="dob")
+    assert "dob_match" not in batch.results[0].data
+
+
+def test_polars_validate_appends_columns() -> None:
+    df = pl.DataFrame(
+        {
+            "nic": ["820149894V", "199201409894"],
+            "dob": ["1982-01-14", "1992-03-14"],
+            "gender": ["Male", "F"],
+        }
+    )
+    batch = validate_nic(df, nic_col="nic", dob_col="dob", gender_col="gender")
+    assert batch.df is not None
+    out = batch.df
+    assert out["nic_valid"].to_list() == [True, True]
+    assert out["nic_dob_match"].to_list() == [True, False]
+
+
+def test_polars_missing_column_raises() -> None:
+    df = pl.DataFrame({"nic": ["820149894V"]})
+    with pytest.raises(InvalidInputError):
+        validate_nic(df, nic_col="nic", gender_col="missing")
+
+
+def test_pandas_convert_appends_column() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "830250995X"]})
+    out = convert_nic(df, nic_col="nic")
+    assert out["nic_converted"].tolist() == ["198201409894", "198302500995"]
+
+
+def test_pandas_convert_propagates_invalid() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    with pytest.raises(NICFormatError):
+        convert_nic(df, nic_col="nic")
+
+
+def test_polars_convert_appends_column() -> None:
+    df = pl.DataFrame({"nic": ["820149894V"]})
+    out = convert_nic(df, nic_col="nic")
+    assert out["nic_converted"].to_list() == ["198201409894"]
+
+
+def test_polars_convert_requires_nic_col() -> None:
+    df = pl.DataFrame({"nic": ["820149894V"]})
+    with pytest.raises(InvalidInputError):
+        convert_nic(df)
+
+
+def test_pandas_decoded_dob_is_real_date() -> None:
+    df = pd.DataFrame({"nic": ["820149894V"]})
+    batch = validate_nic(df, nic_col="nic")
+    decoded_dob = batch.df["nic_decoded_dob"].iloc[0]
+    assert decoded_dob == date(1982, 1, 14)

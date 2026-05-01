@@ -26,6 +26,8 @@ dynamic = ["version"]
 dependencies = []
 
 [project.optional-dependencies]
+pandas = ["pandas>=2.0"]
+polars = ["polars>=0.20"]
 dev = [
     "pytest>=8",
     "pytest-cov>=5",
@@ -33,6 +35,9 @@ dev = [
     "mypy>=1.10",
     "ruff>=0.5",
     "pre-commit>=3.7",
+    "pandas>=2.0",
+    "polars>=0.20",
+    "ipykernel>=6",
 ]
 docs = [
     "mkdocs>=1.6",

@@ -43,3 +43,8 @@ site/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local scratch / notebooks
+notebooks/
+.ipynb_checkpoints/
+*.ipynb
