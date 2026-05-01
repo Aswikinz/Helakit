@@ -297,53 +297,92 @@
   display: block;
 }
 
-/* --- Color swatches block -------------------------------------------- *
- * Use on any markdown page like:
- *   <div class="hk-swatches">
- *     <div class="hk-swatch" style="--c: #20808d;"><span>Helakit Teal</span><code>#20808D</code></div>
- *   </div>
+/* --- Validator card grid (homepage) ---------------------------------- *
+ * Replaces the old left-aligned table. Each card is a self-contained
+ * pill with status, name and a short description, optionally clickable
+ * if the validator is available.
  */
 
-.hk-swatches {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
+.hk-section-title {
+  text-align: center;
+  margin: 3rem 0 1.5rem;
+  font-family: "Roboto Slab", serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-.hk-swatch {
+.hk-validators {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 0 auto 2rem;
+  max-width: 1100px;
+}
+
+.hk-validator {
   position: relative;
-  padding: 1rem 1rem 0.85rem;
-  min-height: 8rem;
-  border-radius: 0.75rem;
-  background: var(--c, var(--hk-teal));
-  color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  font-family: "Roboto Slab", serif;
+  gap: 0.5rem;
+  padding: 1.4rem 1.4rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-default-fg-color--lightest);
+  text-decoration: none !important;
+  color: var(--md-default-fg-color);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
-.hk-swatch span {
-  font-weight: 600;
-  font-size: 0.95rem;
+a.hk-validator {
+  cursor: pointer;
 }
 
-.hk-swatch code {
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-  background: rgba(0, 0, 0, 0.18);
-  padding: 0.1rem 0.45rem;
-  border-radius: 0.4rem;
+a.hk-validator:hover {
+  transform: translateY(-2px);
+  border-color: var(--hk-teal-soft);
+  background: rgba(63, 184, 199, 0.08);
+}
+
+.hk-validator__status {
   align-self: flex-start;
-  margin-top: 0.25rem;
+  font-family: "Roboto Slab", serif;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  color: var(--md-default-fg-color--light);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--md-default-fg-color--lightest);
 }
 
-/* Light swatches need dark text — caller adds the .light modifier */
-.hk-swatch.light {
-  color: var(--hk-forest);
+.hk-validator--available .hk-validator__status {
+  color: var(--hk-teal-soft);
+  background: rgba(63, 184, 199, 0.16);
+  border-color: transparent;
 }
 
-.hk-swatch.light code {
-  background: rgba(9, 23, 23, 0.08);
+[data-md-color-scheme="default"] .hk-validator--available .hk-validator__status {
+  color: var(--hk-teal-deep);
+  background: rgba(32, 128, 141, 0.12);
+}
+
+.hk-validator__name {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--md-default-fg-color);
+}
+
+.hk-validator__desc {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--md-default-fg-color--light);
+}
+
+.hk-validator--upcoming {
+  opacity: 0.72;
 }

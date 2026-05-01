@@ -29,43 +29,40 @@ zero runtime dependencies.
 </div>
 </div>
 
-## What's inside
+<h2 class="hk-section-title">Validators</h2>
 
-```python
-from helakit import validate_nic, is_valid_nic, convert_nic
+<div class="hk-validators" markdown>
 
-result = validate_nic("820149894V")
-result.data["decoded"].dob       # date(1982, 1, 14)
-result.data["decoded"].gender    # "male"
+<a class="hk-validator hk-validator--available" href="validators/nic/">
+<span class="hk-validator__status">Available</span>
+<span class="hk-validator__name">NIC</span>
+<span class="hk-validator__desc">National Identity Card numbers — old (9 digits + V/X) and new (12 digit) formats, with cross-checking against supplied DOB and gender.</span>
+</a>
 
-is_valid_nic("199201409894")     # True
-convert_nic("820149894V")        # "198201409894"
-```
+<a class="hk-validator" href="validators/phone/">
+<span class="hk-validator__status">Planned</span>
+<span class="hk-validator__name">Phone</span>
+<span class="hk-validator__desc">Sri Lankan phone numbers — mobile and fixed-line, with carrier and region detection.</span>
+</a>
 
-Pass a list, a `list[dict]`, a pandas DataFrame or a polars DataFrame
-and the same call cross-checks every row against the supplied date of
-birth and gender — flagging mismatches in detail.
+<a class="hk-validator" href="validators/postal/">
+<span class="hk-validator__status">Planned</span>
+<span class="hk-validator__name">Postal</span>
+<span class="hk-validator__desc">Postal codes mapped to province, district and the nearest post office.</span>
+</a>
 
-## Validators
+<div class="hk-validator hk-validator--upcoming">
+<span class="hk-validator__status">Planned</span>
+<span class="hk-validator__name">Passport</span>
+<span class="hk-validator__desc">Sri Lankan passport numbers, with type and issue-era detection.</span>
+</div>
 
-| Identifier | Status      | Reference                                  |
-| ---------- | ----------- | ------------------------------------------ |
-| NIC        | Available   | [NIC validator →](validators/nic.md)       |
-| Phone      | Planned     | [Phone validator →](validators/phone.md)   |
-| Postal     | Planned     | [Postal validator →](validators/postal.md) |
-| Passport   | Planned     | —                                          |
-| Vehicle    | Planned     | —                                          |
+<div class="hk-validator hk-validator--upcoming">
+<span class="hk-validator__status">Planned</span>
+<span class="hk-validator__name">Vehicle</span>
+<span class="hk-validator__desc">Vehicle registration numbers (cars, motorcycles, three-wheelers, lorries).</span>
+</div>
 
-## Brand colours
-
-The site uses the Helakit palette throughout. If you're integrating
-helakit into a product, these are the tokens to reuse.
-
-<div class="hk-swatches" markdown>
-<div class="hk-swatch" style="--c: #20808d;"><span>Helakit Teal</span><code>#20808D</code></div>
-<div class="hk-swatch" style="--c: #091717;"><span>Forest</span><code>#091717</code></div>
-<div class="hk-swatch light" style="--c: #f8f4ec;"><span>Cream</span><code>#F8F4EC</code></div>
-<div class="hk-swatch" style="--c: #3fb8c7;"><span>Teal Soft</span><code>#3FB8C7</code></div>
 </div>
 
 !!! warning "Alpha software"
