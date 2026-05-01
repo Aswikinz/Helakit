@@ -7,18 +7,23 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
+  logo: assets/helakit-icon.svg
+  favicon: assets/helakit-icon.svg
+  font:
+    text: Roboto
+    code: JetBrains Mono
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: teal
-      accent: teal
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: teal
-      accent: teal
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -31,6 +36,9 @@ theme:
     - content.code.annotate
     - search.highlight
     - search.suggest
+
+extra_css:
+  - stylesheets/helakit.css
 
 plugins:
   - search
