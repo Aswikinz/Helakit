@@ -102,6 +102,31 @@
   width: 1.6rem;
 }
 
+/* --- Sidebar nav alignment ------------------------------------------- *
+ * Material renders section labels and leaf links at slightly different
+ * indents which makes the validators sub-list look stair-stepped. Pin
+ * everything to the same left edge for a tidier column.
+ */
+
+.md-nav__item .md-nav__link {
+  padding-left: 0.4rem;
+}
+
+.md-nav--secondary .md-nav__link {
+  padding-left: 0.6rem;
+}
+
+.md-nav__item--section > .md-nav__link {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--md-default-fg-color);
+}
+
+/* Footer prev / next navigation pair */
+.md-footer__inner.md-grid {
+  padding-block: 0.6rem;
+}
+
 /* --- Homepage hero ---------------------------------------------------- *
  * Triggered by adding `class: hk-home` to a page's frontmatter or by
  * wrapping content in a div.hk-hero block in markdown.

@@ -31,7 +31,8 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
-    - toc.integrate
+    - navigation.footer
+    - navigation.indexes
     - content.code.copy
     - content.code.annotate
     - search.highlight
