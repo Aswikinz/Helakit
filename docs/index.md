@@ -25,7 +25,7 @@ zero runtime dependencies.
 </div>
 
 <div class="hk-hero__art">
-<img src="assets/art/hero.svg" alt="Retro-futuristic illustration — placeholder until brand art is dropped in" />
+<img src="assets/art/2.png" alt="Helakit — Know it all, Check it All" />
 </div>
 </div>
 
