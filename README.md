@@ -93,11 +93,10 @@ write `from helakit import validate_nic` without thinking about layout.
 
 | Validator | Function          | Status      |
 | --------- | ----------------- | ----------- |
-| NIC       | `validate_nic`    | In progress |
+| NIC       | `validate_nic`    | Available   |
 | Phone     | `validate_phone`  | Planned     |
 | Postal    | `validate_postal` | Planned     |
 | Passport  | (planned)         | Planned     |
-| Vehicle   | (planned)         | Planned     |
 
 More (driving licence numbers, BR numbers, …) will follow. Stubs for
 unimplemented validators raise `NotImplementedError` so call-sites
