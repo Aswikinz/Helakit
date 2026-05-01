@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-05-01
+
 ### Added
 
 - NIC validation, decoding, and format conversion. `validate_nic` accepts
@@ -17,6 +19,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `helakit[polars]`); the library itself remains dependency-free.
 - `NICDecoded`, `NICBatchResult`, `NICSummary`, `NICError`, and
   `NICFormatError` re-exported from the top-level package.
+- Helakit brand identity in the docs site: SVG logo and tick favicon,
+  brand-palette stylesheet (teal / forest / cream / teal-soft) wired
+  into Material's CSS variables for both schemes, slab-serif headings.
+- Homepage hero with brand artwork, featured-validator block for NIC,
+  and a roadmap pill row for upcoming validators.
+
+### Changed
+
+- Homepage navigation buttons now render Material icons inline
+  (`pymdownx.emoji` enabled).
+- Material `.md-button` styling pinned to teal-soft borders / labels so
+  secondary buttons stay visible in both light and dark modes.
+- Docs default to light mode, with dark mode kicked in by OS preference
+  and a manual toggle in the header.
+- Light-mode header now uses forest (`#091717`) as the primary colour
+  so the teal helakit-icon stands out against it.
+- Validator pages get a previous / next pair at the bottom
+  (`navigation.footer`), and the page TOC moves back to the right column
+  (`toc.integrate` removed) for tidier sidebar alignment.
+
+### Removed
+
+- Vehicle registration validator from the planned roadmap.
+- Brand-colour swatch and "What's inside" sections from the homepage.
 
 ### Notes
 

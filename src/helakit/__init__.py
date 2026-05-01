@@ -15,7 +15,7 @@ from helakit.nic import (
 from helakit.phone import is_valid_phone, validate_phone
 from helakit.postal import is_valid_postal, validate_postal
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "HelakitError",
