@@ -1,7 +1,7 @@
 """Phone-number validation for Sri Lankan numbers.
 
 Supports both local (``"0712345678"``) and international (``"+94712345678"``)
-formats.  The validator normalises input, checks length and prefix, and
+formats. The validator normalises input, checks length and prefix, and
 returns a :class:`~helakit._core.result.ValidationResult` with carrier and
 line-type metadata on success.
 """
@@ -15,12 +15,13 @@ from helakit._core.result import ValidationError, ValidationResult
 from helakit.phone._data import (
     ALL_PREFIXES,
     COUNTRY_CODE,
-    INTL_PREFIX,
     INTL_LENGTH,
+    INTL_PREFIX,
     LOCAL_LENGTH,
 )
+from helakit.phone._types import PhoneDecoded
 
-_DIGIT_RE = re.compile(r"^\+?\d+$")
+_DIGIT_RE = re.compile(r"^\+?[0-9]+$")
 
 
 def validate_phone(value: str) -> ValidationResult:
@@ -28,25 +29,25 @@ def validate_phone(value: str) -> ValidationResult:
 
     Args:
         value: The phone number in local (``"0712345678"``) or international
-            (``"+94712345678"``) form.  Spaces and hyphens are stripped
+            (``"+94712345678"``) form. Spaces and hyphens are stripped
             before validation.
 
     Returns:
-        A :class:`~helakit._core.result.ValidationResult`.  When valid,
+        A :class:`~helakit._core.result.ValidationResult`. When valid,
         ``normalized`` holds the canonical ``+94XXXXXXXXX`` form and
         ``data`` contains:
 
-        - ``"carrier"`` – the network operator name (e.g. ``"Dialog"``).
-        - ``"line_type"`` – ``"mobile"`` or ``"fixed"``.
-        - ``"local"`` – the local ``0XXXXXXXXX`` representation.
+        - ``"decoded"`` - a :class:`PhoneDecoded` with carrier, line_type
+          and local representation.
+        - ``"carrier"`` - the network operator name (e.g. ``"Dialog"``).
+        - ``"line_type"`` - ``"mobile"`` or ``"fixed"``.
+        - ``"local"`` - the local ``0XXXXXXXXX`` representation.
 
     Raises:
         InvalidInputError: If ``value`` is not a string.
     """
     if not isinstance(value, str):
-        raise InvalidInputError(
-            f"validate_phone requires a string; got {type(value).__name__}."
-        )
+        raise InvalidInputError(f"validate_phone requires a string; got {type(value).__name__}.")
 
     cleaned = _clean(value)
     errors: list[ValidationError] = []
@@ -92,14 +93,16 @@ def validate_phone(value: str) -> ValidationResult:
         return ValidationResult(is_valid=False, value=value, errors=errors)
 
     normalized = INTL_PREFIX + local[1:]
+    decoded = PhoneDecoded(carrier=info.carrier, line_type=info.line_type, local=local)
     return ValidationResult(
         is_valid=True,
         value=value,
         normalized=normalized,
         data={
-            "carrier": info.carrier,
-            "line_type": info.line_type,
-            "local": local,
+            "decoded": decoded,
+            "carrier": decoded.carrier,
+            "line_type": decoded.line_type,
+            "local": decoded.local,
         },
     )
 
@@ -125,13 +128,13 @@ def _clean(value: str) -> str:
 
 def _to_local(cleaned: str) -> tuple[str, ValidationError | None]:
     if cleaned.startswith(INTL_PREFIX):
-        digits = cleaned[len(INTL_PREFIX):]
+        digits = cleaned[len(INTL_PREFIX) :]
         if not digits.startswith("0"):
             digits = "0" + digits
         return digits, None
 
     if cleaned.startswith(COUNTRY_CODE) and len(cleaned) == INTL_LENGTH:
-        return "0" + cleaned[len(COUNTRY_CODE):], None
+        return "0" + cleaned[len(COUNTRY_CODE) :], None
 
     if cleaned.startswith("0"):
         return cleaned, None
