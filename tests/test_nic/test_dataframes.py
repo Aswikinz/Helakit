@@ -68,6 +68,35 @@ def test_pandas_missing_column_raises() -> None:
         validate_nic(df, nic_col="nic", dob_col="missing")
 
 
+def test_pandas_validate_errors_coerce_survives_bad_row() -> None:
+    df = pd.DataFrame(
+        {
+            "nic": ["820149894V", "820149894V", "199201409894"],
+            "dob": ["1982-01-14", "not a date", "1992-03-14"],
+            "gender": ["M", "alien", "F"],
+        }
+    )
+    batch = validate_nic(
+        df, nic_col="nic", dob_col="dob", gender_col="gender", errors="coerce"
+    )
+    assert batch.df is not None
+    assert batch.df["nic_valid"].tolist() == [True, False, True]
+    bad_codes = batch.df["nic_errors"].tolist()[1]
+    assert "nic.bad_dob_input" in bad_codes
+    assert "nic.bad_gender_input" in bad_codes
+
+
+def test_pandas_validate_default_errors_raise_on_bad_row() -> None:
+    df = pd.DataFrame(
+        {
+            "nic": ["820149894V"],
+            "dob": ["not a date"],
+        }
+    )
+    with pytest.raises(InvalidInputError):
+        validate_nic(df, nic_col="nic", dob_col="dob")
+
+
 def test_pandas_handles_nan_dob() -> None:
     df = pd.DataFrame({"nic": ["820149894V"], "dob": [float("nan")]})
     batch = validate_nic(df, nic_col="nic", dob_col="dob")
@@ -110,7 +139,10 @@ def test_pandas_convert_propagates_invalid() -> None:
 def test_pandas_convert_errors_coerce() -> None:
     df = pd.DataFrame({"nic": ["820149894V", "garbage", "830250995X"]})
     out = convert_nic(df, nic_col="nic", errors="coerce")
-    assert out["nic_converted"].tolist() == ["198201409894", None, "198302500995"]
+    converted = out["nic_converted"].tolist()
+    assert converted[0] == "198201409894"
+    assert pd.isna(converted[1])
+    assert converted[2] == "198302500995"
 
 
 def test_pandas_convert_errors_ignore() -> None:
@@ -122,9 +154,11 @@ def test_pandas_convert_errors_ignore() -> None:
 def test_pandas_convert_error_col_implies_coerce() -> None:
     df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
     out = convert_nic(df, nic_col="nic", error_col="nic_error")
-    assert out["nic_converted"].tolist() == ["198201409894", None]
+    converted = out["nic_converted"].tolist()
+    assert converted[0] == "198201409894"
+    assert pd.isna(converted[1])
     errors = out["nic_error"].tolist()
-    assert errors[0] is None
+    assert pd.isna(errors[0])
     assert isinstance(errors[1], str) and "garbage" in errors[1]
 
 
@@ -132,7 +166,7 @@ def test_pandas_convert_error_col_with_explicit_ignore() -> None:
     df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
     out = convert_nic(df, nic_col="nic", errors="ignore", error_col="nic_error")
     assert out["nic_converted"].tolist() == ["198201409894", "garbage"]
-    assert out["nic_error"].iloc[0] is None
+    assert pd.isna(out["nic_error"].iloc[0])
     assert "garbage" in out["nic_error"].iloc[1]
 
 

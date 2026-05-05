@@ -29,6 +29,8 @@ from helakit.nic._parse import ParsedNIC, parse
 from helakit.nic._types import NICBatchResult, NICDecoded, NICSummary
 
 FormatHint = Literal["old", "new", "any"]
+BatchErrorMode = Literal["raise", "coerce"]
+_VALID_BATCH_ERROR_MODES: tuple[BatchErrorMode, ...] = ("raise", "coerce")
 
 
 @overload
@@ -49,6 +51,7 @@ def validate_nic(
     dob_col: str | None = ...,
     gender_col: str | None = ...,
     century: int = ...,
+    errors: BatchErrorMode = ...,
 ) -> NICBatchResult: ...
 
 
@@ -61,6 +64,7 @@ def validate_nic(
     dob_col: str | None = ...,
     gender_col: str | None = ...,
     century: int = ...,
+    errors: BatchErrorMode = ...,
 ) -> NICBatchResult: ...
 
 
@@ -72,6 +76,7 @@ def validate_nic(
     dob_col: str | None = None,
     gender_col: str | None = None,
     century: int = DEFAULT_OLD_NIC_CENTURY,
+    errors: BatchErrorMode = "raise",
 ) -> ValidationResult | NICBatchResult:
     """Validate one or many Sri Lankan NIC numbers.
 
@@ -88,15 +93,28 @@ def validate_nic(
             ``Female``, case-insensitive).
         century: Century to assume for two-digit years on old NICs.
             Defaults to ``1900``.
+        errors: Batch-only. ``"raise"`` (default) propagates
+            :class:`InvalidInputError` if any cross-check ``dob`` or
+            ``gender`` value is unparseable, matching strict pandas
+            semantics. ``"coerce"`` records the failure as a per-row
+            error in :attr:`ValidationResult.errors` (and the
+            ``nic_errors`` column on DataFrame output) so a single
+            malformed row no longer aborts the whole batch.
 
     Returns:
         A :class:`ValidationResult` for scalar input, or a
         :class:`NICBatchResult` for any iterable input.
 
     Raises:
-        InvalidInputError: For unsupported input types or unparseable
-            gender / DOB values.
+        InvalidInputError: For unsupported input types, an invalid
+            ``errors`` value, or unparseable gender / DOB values when
+            ``errors="raise"``.
     """
+    if errors not in _VALID_BATCH_ERROR_MODES:
+        raise InvalidInputError(
+            f"errors must be one of {_VALID_BATCH_ERROR_MODES}; got {errors!r}."
+        )
+
     kind = detect_kind(data)
     if kind == "str":
         return _validate_one(data, format=format, century=century)
@@ -117,6 +135,7 @@ def validate_nic(
         gender_col=gender_col,
         format=format,
         century=century,
+        errors=errors,
     )
 
 
@@ -242,6 +261,23 @@ def _cross_check(
     return extras
 
 
+def _coerce_optional(
+    coercer: Any,
+    value: Any,
+    *,
+    field: str,
+    code: str,
+    errors: BatchErrorMode,
+) -> tuple[Any, ValidationError | None]:
+    """Run a cross-check coercer, raising or capturing failures per the mode."""
+    if errors == "raise":
+        return coercer(value), None
+    try:
+        return coercer(value), None
+    except InvalidInputError as exc:
+        return None, ValidationError(code=code, message=str(exc), field=field)
+
+
 def _age(dob: date, *, today: date | None = None) -> int:
     today = today or date.today()
     years = today.year - dob.year
@@ -332,6 +368,7 @@ def _validate_batch(
     gender_col: str | None,
     format: FormatHint,
     century: int,
+    errors: BatchErrorMode,
 ) -> NICBatchResult:
     results: list[ValidationResult] = []
     normalized_index: dict[str, list[int]] = {}
@@ -355,8 +392,22 @@ def _validate_batch(
             )
             continue
 
-        expected_dob = coerce_dob(row.get("dob")) if dob_col else None
-        expected_gender = coerce_gender(row.get("gender")) if gender_col else None
+        expected_dob, dob_error = _coerce_optional(
+            coerce_dob,
+            row.get("dob"),
+            field="dob",
+            code="nic.bad_dob_input",
+            errors=errors,
+        ) if dob_col else (None, None)
+        expected_gender, gender_error = _coerce_optional(
+            coerce_gender,
+            row.get("gender"),
+            field="gender",
+            code="nic.bad_gender_input",
+            errors=errors,
+        ) if gender_col else (None, None)
+
+        coercion_errors = [e for e in (dob_error, gender_error) if e is not None]
 
         result = _validate_one(
             raw_nic,
@@ -365,6 +416,14 @@ def _validate_batch(
             expected_dob=expected_dob,
             expected_gender=expected_gender,
         )
+        if coercion_errors:
+            result = ValidationResult(
+                is_valid=False,
+                value=result.value,
+                normalized=result.normalized,
+                errors=[*result.errors, *coercion_errors],
+                data=result.data,
+            )
         results.append(result)
 
         if result.normalized is not None:

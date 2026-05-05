@@ -134,3 +134,50 @@ def test_batch_handles_non_string_input() -> None:
     batch = validate_nic([{"nic": 12345}], nic_col="nic")
     assert not batch.results[0].is_valid
     assert batch.results[0].errors[0].code == "nic.not_a_string"
+
+
+def test_errors_coerce_captures_bad_gender_per_row() -> None:
+    rows = [
+        {"nic": "820149894V", "gender": "M"},
+        {"nic": "820149894V", "gender": "other"},
+        {"nic": "820149894V", "gender": "F"},
+    ]
+    batch = validate_nic(rows, nic_col="nic", gender_col="gender", errors="coerce")
+    assert batch.results[0].is_valid
+    assert not batch.results[1].is_valid
+    bad_codes = [e.code for e in batch.results[1].errors]
+    assert "nic.bad_gender_input" in bad_codes
+    # Third row should still process even though row 2 was bad.
+    assert batch.results[2].data["gender_match"] is False
+
+
+def test_errors_coerce_captures_bad_dob_per_row() -> None:
+    rows = [
+        {"nic": "820149894V", "dob": "not a date"},
+        {"nic": "820149894V", "dob": "1982-01-14"},
+    ]
+    batch = validate_nic(rows, nic_col="nic", dob_col="dob", errors="coerce")
+    assert not batch.results[0].is_valid
+    codes = [e.code for e in batch.results[0].errors]
+    assert "nic.bad_dob_input" in codes
+    assert batch.results[1].data["dob_match"] is True
+
+
+def test_errors_coerce_captures_both_dob_and_gender() -> None:
+    rows = [{"nic": "820149894V", "dob": "bogus", "gender": "alien"}]
+    batch = validate_nic(
+        rows, nic_col="nic", dob_col="dob", gender_col="gender", errors="coerce"
+    )
+    codes = {e.code for e in batch.results[0].errors}
+    assert {"nic.bad_dob_input", "nic.bad_gender_input"} <= codes
+
+
+def test_errors_invalid_value_rejected() -> None:
+    with pytest.raises(InvalidInputError):
+        validate_nic(["820149894V"], errors="silently-fail")  # type: ignore[arg-type]
+
+
+def test_errors_raise_default_still_propagates() -> None:
+    rows = [{"nic": "820149894V", "gender": "other"}]
+    with pytest.raises(InvalidInputError):
+        validate_nic(rows, nic_col="nic", gender_col="gender")
