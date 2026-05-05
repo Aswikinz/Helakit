@@ -175,10 +175,67 @@ def test_pandas_convert_does_not_mutate_input() -> None:
     assert "nic_error" not in df.columns
 
 
+def test_pandas_convert_accepts_series() -> None:
+    series = pd.Series(["820149894V", "830250995X"], name="nic")
+    out = convert_nic(series, errors="coerce")
+    assert isinstance(out, pd.Series)
+    assert out.tolist() == ["198201409894", "198302500995"]
+    assert out.name == "nic"
+
+
+def test_pandas_convert_series_assigns_back_to_frame() -> None:
+    """Regression: df[col] = convert_nic(df[col], ...) must not trip
+    pandas' "Columns must be same length as key" by returning a frame.
+    """
+    df = pd.DataFrame({"nic": ["820149894V", "garbage", "830250995X"]})
+    df["nic_new"] = convert_nic(df["nic"], errors="coerce")
+    assert df["nic_new"].iloc[0] == "198201409894"
+    assert pd.isna(df["nic_new"].iloc[1])
+    assert df["nic_new"].iloc[2] == "198302500995"
+
+
+def test_pandas_convert_series_preserves_index() -> None:
+    series = pd.Series(["820149894V", "830250995X"], index=[10, 20], name="nic")
+    out = convert_nic(series, errors="coerce")
+    assert out.index.tolist() == [10, 20]
+
+
+def test_pandas_convert_series_rejects_nic_col() -> None:
+    series = pd.Series(["820149894V"], name="nic")
+    with pytest.raises(InvalidInputError):
+        convert_nic(series, nic_col="nic")
+
+
+def test_pandas_convert_series_rejects_error_col() -> None:
+    series = pd.Series(["820149894V"], name="nic")
+    with pytest.raises(InvalidInputError):
+        convert_nic(series, error_col="nic_error")
+
+
 def test_polars_convert_appends_column() -> None:
     df = pl.DataFrame({"nic": ["820149894V"]})
     out = convert_nic(df, nic_col="nic")
     assert out["nic_converted"].to_list() == ["198201409894"]
+
+
+def test_polars_convert_accepts_series() -> None:
+    series = pl.Series("nic", ["820149894V", "garbage", "830250995X"])
+    out = convert_nic(series, errors="coerce")
+    assert isinstance(out, pl.Series)
+    assert out.to_list() == ["198201409894", None, "198302500995"]
+    assert out.name == "nic"
+
+
+def test_polars_convert_series_rejects_nic_col() -> None:
+    series = pl.Series("nic", ["820149894V"])
+    with pytest.raises(InvalidInputError):
+        convert_nic(series, nic_col="nic")
+
+
+def test_polars_convert_series_rejects_error_col() -> None:
+    series = pl.Series("nic", ["820149894V"])
+    with pytest.raises(InvalidInputError):
+        convert_nic(series, error_col="nic_error")
 
 
 def test_polars_convert_requires_nic_col() -> None:

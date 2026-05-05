@@ -57,7 +57,9 @@ def convert_nic(
 
     Args:
         value: Either a single NIC string, a list of strings, a pandas
-            DataFrame or a polars DataFrame. For tabular input, ``nic_col``
+            or polars Series, or a pandas/polars DataFrame. For Series
+            input the function returns a Series of the same length,
+            preserving index/name. For DataFrame input ``nic_col``
             specifies which column to convert; the function returns a
             copy of the frame with a new ``nic_converted`` column added.
         century: Century to assume for two-digit years on old NICs.
@@ -163,18 +165,31 @@ def _convert_pandas(
     errors: ErrorMode,
     error_col: str | None,
 ) -> Any:
+    import pandas as pd
+
+    if isinstance(df, pd.Series):
+        if nic_col is not None:
+            raise InvalidInputError("nic_col only applies to DataFrame input, not Series.")
+        if error_col is not None:
+            raise InvalidInputError(
+                "error_col only applies to DataFrame input. For Series, pass the "
+                "Series to validate_nic for per-row diagnostics, or call convert_nic "
+                "on the DataFrame with error_col instead."
+            )
+        converted = [_convert_with_mode(v, century=century, errors=errors)[0] for v in df.tolist()]
+        return pd.Series(converted, index=df.index, name=df.name, dtype=object)
     if nic_col is None:
         raise InvalidInputError("nic_col is required when converting a DataFrame.")
     if nic_col not in df.columns:
         raise InvalidInputError(f"Column {nic_col!r} not found. Available: {sorted(df.columns)}.")
-    converted: list[Any] = []
+    converted_list: list[Any] = []
     error_messages: list[str | None] = []
     for raw in df[nic_col].tolist():
         value, message = _convert_with_mode(raw, century=century, errors=errors)
-        converted.append(value)
+        converted_list.append(value)
         error_messages.append(message)
     annotated = df.copy()
-    annotated["nic_converted"] = converted
+    annotated["nic_converted"] = converted_list
     if error_col is not None:
         annotated[error_col] = error_messages
     return annotated
@@ -187,19 +202,30 @@ def _convert_polars(
     errors: ErrorMode,
     error_col: str | None,
 ) -> Any:
+    import polars as pl
+
+    if isinstance(df, pl.Series):
+        if nic_col is not None:
+            raise InvalidInputError("nic_col only applies to DataFrame input, not Series.")
+        if error_col is not None:
+            raise InvalidInputError(
+                "error_col only applies to DataFrame input. For Series, pass the "
+                "Series to validate_nic for per-row diagnostics, or call convert_nic "
+                "on the DataFrame with error_col instead."
+            )
+        converted = [_convert_with_mode(v, century=century, errors=errors)[0] for v in df.to_list()]
+        return pl.Series(df.name, converted, dtype=pl.Utf8)
     if nic_col is None:
         raise InvalidInputError("nic_col is required when converting a DataFrame.")
     if nic_col not in df.columns:
         raise InvalidInputError(f"Column {nic_col!r} not found. Available: {sorted(df.columns)}.")
-    import polars as pl
-
-    converted: list[Any] = []
+    converted_list: list[Any] = []
     error_messages: list[str | None] = []
     for raw in df[nic_col].to_list():
         value, message = _convert_with_mode(raw, century=century, errors=errors)
-        converted.append(value)
+        converted_list.append(value)
         error_messages.append(message)
-    new_columns = [pl.Series("nic_converted", converted, dtype=pl.Utf8)]
+    new_columns = [pl.Series("nic_converted", converted_list, dtype=pl.Utf8)]
     if error_col is not None:
         new_columns.append(pl.Series(error_col, error_messages, dtype=pl.Utf8))
     return df.with_columns(new_columns)
