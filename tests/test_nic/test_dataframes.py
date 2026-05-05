@@ -107,6 +107,42 @@ def test_pandas_convert_propagates_invalid() -> None:
         convert_nic(df, nic_col="nic")
 
 
+def test_pandas_convert_errors_coerce() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage", "830250995X"]})
+    out = convert_nic(df, nic_col="nic", errors="coerce")
+    assert out["nic_converted"].tolist() == ["198201409894", None, "198302500995"]
+
+
+def test_pandas_convert_errors_ignore() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", errors="ignore")
+    assert out["nic_converted"].tolist() == ["198201409894", "garbage"]
+
+
+def test_pandas_convert_error_col_implies_coerce() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", error_col="nic_error")
+    assert out["nic_converted"].tolist() == ["198201409894", None]
+    errors = out["nic_error"].tolist()
+    assert errors[0] is None
+    assert isinstance(errors[1], str) and "garbage" in errors[1]
+
+
+def test_pandas_convert_error_col_with_explicit_ignore() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", errors="ignore", error_col="nic_error")
+    assert out["nic_converted"].tolist() == ["198201409894", "garbage"]
+    assert out["nic_error"].iloc[0] is None
+    assert "garbage" in out["nic_error"].iloc[1]
+
+
+def test_pandas_convert_does_not_mutate_input() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    convert_nic(df, nic_col="nic", errors="coerce", error_col="nic_error")
+    assert "nic_converted" not in df.columns
+    assert "nic_error" not in df.columns
+
+
 def test_polars_convert_appends_column() -> None:
     df = pl.DataFrame({"nic": ["820149894V"]})
     out = convert_nic(df, nic_col="nic")
@@ -117,6 +153,21 @@ def test_polars_convert_requires_nic_col() -> None:
     df = pl.DataFrame({"nic": ["820149894V"]})
     with pytest.raises(InvalidInputError):
         convert_nic(df)
+
+
+def test_polars_convert_errors_coerce() -> None:
+    df = pl.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", errors="coerce")
+    assert out["nic_converted"].to_list() == ["198201409894", None]
+
+
+def test_polars_convert_error_col_populated() -> None:
+    df = pl.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", error_col="nic_error")
+    assert out["nic_converted"].to_list() == ["198201409894", None]
+    errors = out["nic_error"].to_list()
+    assert errors[0] is None
+    assert isinstance(errors[1], str) and "garbage" in errors[1]
 
 
 def test_pandas_decoded_dob_is_real_date() -> None:
