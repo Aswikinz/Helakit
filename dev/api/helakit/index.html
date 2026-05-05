@@ -2181,7 +2181,9 @@ birth, gender). Empty when no fields could be extracted.</p>
             <td>
               <div class="doc-md-description">
                 <p>Either a single NIC string, a list of strings, a pandas
-DataFrame or a polars DataFrame. For tabular input, <code>nic_col</code>
+or polars Series, or a pandas/polars DataFrame. For Series
+input the function returns a Series of the same length,
+preserving index/name. For DataFrame input <code>nic_col</code>
 specifies which column to convert; the function returns a
 copy of the frame with a new <code>nic_converted</code> column added.</p>
               </div>
