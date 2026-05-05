@@ -68,6 +68,33 @@ def test_pandas_missing_column_raises() -> None:
         validate_nic(df, nic_col="nic", dob_col="missing")
 
 
+def test_pandas_validate_errors_coerce_survives_bad_row() -> None:
+    df = pd.DataFrame(
+        {
+            "nic": ["820149894V", "820149894V", "199201409894"],
+            "dob": ["1982-01-14", "not a date", "1992-03-14"],
+            "gender": ["M", "alien", "F"],
+        }
+    )
+    batch = validate_nic(df, nic_col="nic", dob_col="dob", gender_col="gender", errors="coerce")
+    assert batch.df is not None
+    assert batch.df["nic_valid"].tolist() == [True, False, True]
+    bad_codes = batch.df["nic_errors"].tolist()[1]
+    assert "nic.bad_dob_input" in bad_codes
+    assert "nic.bad_gender_input" in bad_codes
+
+
+def test_pandas_validate_default_errors_raise_on_bad_row() -> None:
+    df = pd.DataFrame(
+        {
+            "nic": ["820149894V"],
+            "dob": ["not a date"],
+        }
+    )
+    with pytest.raises(InvalidInputError):
+        validate_nic(df, nic_col="nic", dob_col="dob")
+
+
 def test_pandas_handles_nan_dob() -> None:
     df = pd.DataFrame({"nic": ["820149894V"], "dob": [float("nan")]})
     batch = validate_nic(df, nic_col="nic", dob_col="dob")
@@ -107,6 +134,47 @@ def test_pandas_convert_propagates_invalid() -> None:
         convert_nic(df, nic_col="nic")
 
 
+def test_pandas_convert_errors_coerce() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage", "830250995X"]})
+    out = convert_nic(df, nic_col="nic", errors="coerce")
+    converted = out["nic_converted"].tolist()
+    assert converted[0] == "198201409894"
+    assert pd.isna(converted[1])
+    assert converted[2] == "198302500995"
+
+
+def test_pandas_convert_errors_ignore() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", errors="ignore")
+    assert out["nic_converted"].tolist() == ["198201409894", "garbage"]
+
+
+def test_pandas_convert_error_col_implies_coerce() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", error_col="nic_error")
+    converted = out["nic_converted"].tolist()
+    assert converted[0] == "198201409894"
+    assert pd.isna(converted[1])
+    errors = out["nic_error"].tolist()
+    assert pd.isna(errors[0])
+    assert isinstance(errors[1], str) and "garbage" in errors[1]
+
+
+def test_pandas_convert_error_col_with_explicit_ignore() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", errors="ignore", error_col="nic_error")
+    assert out["nic_converted"].tolist() == ["198201409894", "garbage"]
+    assert pd.isna(out["nic_error"].iloc[0])
+    assert "garbage" in out["nic_error"].iloc[1]
+
+
+def test_pandas_convert_does_not_mutate_input() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage"]})
+    convert_nic(df, nic_col="nic", errors="coerce", error_col="nic_error")
+    assert "nic_converted" not in df.columns
+    assert "nic_error" not in df.columns
+
+
 def test_polars_convert_appends_column() -> None:
     df = pl.DataFrame({"nic": ["820149894V"]})
     out = convert_nic(df, nic_col="nic")
@@ -117,6 +185,21 @@ def test_polars_convert_requires_nic_col() -> None:
     df = pl.DataFrame({"nic": ["820149894V"]})
     with pytest.raises(InvalidInputError):
         convert_nic(df)
+
+
+def test_polars_convert_errors_coerce() -> None:
+    df = pl.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", errors="coerce")
+    assert out["nic_converted"].to_list() == ["198201409894", None]
+
+
+def test_polars_convert_error_col_populated() -> None:
+    df = pl.DataFrame({"nic": ["820149894V", "garbage"]})
+    out = convert_nic(df, nic_col="nic", error_col="nic_error")
+    assert out["nic_converted"].to_list() == ["198201409894", None]
+    errors = out["nic_error"].to_list()
+    assert errors[0] is None
+    assert isinstance(errors[1], str) and "garbage" in errors[1]
 
 
 def test_pandas_decoded_dob_is_real_date() -> None:

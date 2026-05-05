@@ -203,9 +203,74 @@ pip install helakit[pandas]   # or [polars], or [pandas,polars]
 ```
 
 `convert_nic` works the same way — pass a DataFrame and `nic_col` and
-get a frame back with a `nic_converted` column. Conversion is strict:
-an invalid value in any row raises `NICFormatError`. Pre-filter with
-`validate_nic` first if you need lenient handling.
+get a frame back with a `nic_converted` column. By default, conversion
+is strict and an invalid value raises `NICFormatError`. See
+**Lenient batch handling** below for `errors="coerce"` and `error_col`.
+
+## Lenient batch handling
+
+By default both batch entry points fail loudly the moment they hit a
+value they cannot interpret — `convert_nic` raises `NICFormatError`,
+and `validate_nic` raises `InvalidInputError` on a bad cross-check
+`dob` / `gender`. That is the right behaviour when bad data is a bug
+in your pipeline, but a hassle when you are auditing a real-world
+file with the usual smattering of typos.
+
+Pass `errors="coerce"` (mirrors `pandas.to_numeric`) to keep going:
+
+```python
+from helakit import convert_nic, validate_nic
+
+# Single bad row no longer kills the whole batch.
+convert_nic(["820149894V", "garbage", "830250995X"], errors="coerce")
+# ["198201409894", None, "198302500995"]
+
+convert_nic(df, nic_col="nic", errors="coerce")
+# garbage rows get None in nic_converted
+
+# Same idea, but keep the original string instead of None:
+convert_nic(df, nic_col="nic", errors="ignore")
+```
+
+`validate_nic` accepts `errors="raise"` (default) and `errors="coerce"`.
+Coerce mode catches unparseable `dob` / `gender` values and turns them
+into per-row `nic.bad_dob_input` / `nic.bad_gender_input` errors:
+
+```python
+df = pd.DataFrame({
+    "nic":    ["820149894V", "820149894V", "199201409894"],
+    "dob":    ["1982-01-14", "not a date", "1992-03-14"],
+    "gender": ["M",          "alien",      "F"],
+})
+
+batch = validate_nic(
+    df,
+    nic_col="nic",
+    dob_col="dob",
+    gender_col="gender",
+    errors="coerce",
+)
+batch.summary.invalid          # 1
+batch.df["nic_errors"].iloc[1] # "nic.bad_dob_input,nic.bad_gender_input"
+```
+
+### Capturing failures in a separate column
+
+For `convert_nic` on DataFrames, pass `error_col` to add a per-row
+error-message column alongside `nic_converted`. It implies
+`errors="coerce"` unless you set `errors` explicitly:
+
+```python
+out = convert_nic(df, nic_col="nic", error_col="nic_error")
+out[["nic_converted", "nic_error"]]
+#   nic_converted   nic_error
+# 0 198201409894    None
+# 1 None            Cannot convert 'garbage' — input is not a valid old NIC (...)
+```
+
+`validate_nic` already exposes failures through the `nic_errors`
+column on DataFrame output, so a separate `error_col` is unnecessary
+there.
 
 ## Encoding details
 
@@ -248,3 +313,5 @@ Validation failures are reported via `result.errors` — a list of
 | `nic.invalid_date`    | Day code does not yield a real date in the given year.   |
 | `nic.format_mismatch` | Format hint (`old` / `new`) didn't match the input.      |
 | `nic.not_a_string`    | A row in a batch supplied a non-string NIC.              |
+| `nic.bad_dob_input`   | Cross-check `dob` was unparseable; only emitted with `errors="coerce"`. |
+| `nic.bad_gender_input`| Cross-check `gender` was unparseable; only emitted with `errors="coerce"`. |

@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-05
+
+### Added
+
+- `errors` keyword on `convert_nic` and `validate_nic`, mirroring
+  `pandas.to_numeric(errors=...)` semantics. `convert_nic` accepts
+  `"raise"` (default), `"coerce"` (replace bad values with `None`), or
+  `"ignore"` (pass the original input through unchanged). `validate_nic`
+  accepts `"raise"` (default) or `"coerce"`; the latter turns previously
+  fatal `dob` / `gender` cross-check failures into per-row
+  `nic.bad_dob_input` / `nic.bad_gender_input` validation errors so a
+  single malformed row no longer aborts the whole batch.
+- `error_col` keyword on `convert_nic` for DataFrame input — adds a
+  per-row error-message column alongside `nic_converted`. Implies
+  `errors="coerce"` when `errors` is left at the default.
+
 ## [0.1.1] - 2026-05-01
 
 ### Added
