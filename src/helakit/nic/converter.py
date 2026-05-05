@@ -165,9 +165,7 @@ def _convert_pandas(
     errors: ErrorMode,
     error_col: str | None,
 ) -> Any:
-    import pandas as pd
-
-    if isinstance(df, pd.Series):
+    if type(df).__name__ == "Series":
         if nic_col is not None:
             raise InvalidInputError("nic_col only applies to DataFrame input, not Series.")
         if error_col is not None:
@@ -177,7 +175,7 @@ def _convert_pandas(
                 "on the DataFrame with error_col instead."
             )
         converted = [_convert_with_mode(v, century=century, errors=errors)[0] for v in df.tolist()]
-        return pd.Series(converted, index=df.index, name=df.name, dtype=object)
+        return type(df)(converted, index=df.index, name=df.name, dtype=object)
     if nic_col is None:
         raise InvalidInputError("nic_col is required when converting a DataFrame.")
     if nic_col not in df.columns:
