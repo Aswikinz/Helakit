@@ -76,9 +76,7 @@ def test_pandas_validate_errors_coerce_survives_bad_row() -> None:
             "gender": ["M", "alien", "F"],
         }
     )
-    batch = validate_nic(
-        df, nic_col="nic", dob_col="dob", gender_col="gender", errors="coerce"
-    )
+    batch = validate_nic(df, nic_col="nic", dob_col="dob", gender_col="gender", errors="coerce")
     assert batch.df is not None
     assert batch.df["nic_valid"].tolist() == [True, False, True]
     bad_codes = batch.df["nic_errors"].tolist()[1]

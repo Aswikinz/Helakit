@@ -165,9 +165,7 @@ def test_errors_coerce_captures_bad_dob_per_row() -> None:
 
 def test_errors_coerce_captures_both_dob_and_gender() -> None:
     rows = [{"nic": "820149894V", "dob": "bogus", "gender": "alien"}]
-    batch = validate_nic(
-        rows, nic_col="nic", dob_col="dob", gender_col="gender", errors="coerce"
-    )
+    batch = validate_nic(rows, nic_col="nic", dob_col="dob", gender_col="gender", errors="coerce")
     codes = {e.code for e in batch.results[0].errors}
     assert {"nic.bad_dob_input", "nic.bad_gender_input"} <= codes
 

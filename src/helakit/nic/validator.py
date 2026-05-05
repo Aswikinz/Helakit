@@ -392,20 +392,28 @@ def _validate_batch(
             )
             continue
 
-        expected_dob, dob_error = _coerce_optional(
-            coerce_dob,
-            row.get("dob"),
-            field="dob",
-            code="nic.bad_dob_input",
-            errors=errors,
-        ) if dob_col else (None, None)
-        expected_gender, gender_error = _coerce_optional(
-            coerce_gender,
-            row.get("gender"),
-            field="gender",
-            code="nic.bad_gender_input",
-            errors=errors,
-        ) if gender_col else (None, None)
+        expected_dob, dob_error = (
+            _coerce_optional(
+                coerce_dob,
+                row.get("dob"),
+                field="dob",
+                code="nic.bad_dob_input",
+                errors=errors,
+            )
+            if dob_col
+            else (None, None)
+        )
+        expected_gender, gender_error = (
+            _coerce_optional(
+                coerce_gender,
+                row.get("gender"),
+                field="gender",
+                code="nic.bad_gender_input",
+                errors=errors,
+            )
+            if gender_col
+            else (None, None)
+        )
 
         coercion_errors = [e for e in (dob_error, gender_error) if e is not None]
 

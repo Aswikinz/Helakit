@@ -87,9 +87,7 @@ def convert_nic(
             ``errors`` values.
     """
     if errors not in _VALID_ERROR_MODES:
-        raise InvalidInputError(
-            f"errors must be one of {_VALID_ERROR_MODES}; got {errors!r}."
-        )
+        raise InvalidInputError(f"errors must be one of {_VALID_ERROR_MODES}; got {errors!r}.")
 
     kind = detect_kind(value)
     if kind == "str":
