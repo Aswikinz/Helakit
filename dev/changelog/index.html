@@ -881,6 +881,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#020-2026-05-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.2.0] - 2026-05-05
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.2.0] - 2026-05-05">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#011-2026-05-01" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -893,7 +921,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -954,7 +982,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
+  <a href="#added_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1015,6 +1043,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#020-2026-05-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.2.0] - 2026-05-05
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.2.0] - 2026-05-05">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#011-2026-05-01" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1027,7 +1083,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1088,7 +1144,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
+  <a href="#added_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1128,8 +1184,23 @@
 <p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>,
 and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <h2 id="unreleased">[Unreleased]</h2>
-<h2 id="011-2026-05-01">[0.1.1] - 2026-05-01</h2>
+<h2 id="020-2026-05-05">[0.2.0] - 2026-05-05</h2>
 <h3 id="added">Added</h3>
+<ul>
+<li><code>errors</code> keyword on <code>convert_nic</code> and <code>validate_nic</code>, mirroring
+  <code>pandas.to_numeric(errors=...)</code> semantics. <code>convert_nic</code> accepts
+  <code>"raise"</code> (default), <code>"coerce"</code> (replace bad values with <code>None</code>), or
+  <code>"ignore"</code> (pass the original input through unchanged). <code>validate_nic</code>
+  accepts <code>"raise"</code> (default) or <code>"coerce"</code>; the latter turns previously
+  fatal <code>dob</code> / <code>gender</code> cross-check failures into per-row
+  <code>nic.bad_dob_input</code> / <code>nic.bad_gender_input</code> validation errors so a
+  single malformed row no longer aborts the whole batch.</li>
+<li><code>error_col</code> keyword on <code>convert_nic</code> for DataFrame input — adds a
+  per-row error-message column alongside <code>nic_converted</code>. Implies
+  <code>errors="coerce"</code> when <code>errors</code> is left at the default.</li>
+</ul>
+<h2 id="011-2026-05-01">[0.1.1] - 2026-05-01</h2>
+<h3 id="added_1">Added</h3>
 <ul>
 <li>NIC validation, decoding, and format conversion. <code>validate_nic</code> accepts
   a single string, a list of strings, a list of dicts, a pandas DataFrame
@@ -1173,7 +1244,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   down by one to land on the actual calendar.</li>
 </ul>
 <h2 id="010-2026-04-29">[0.1.0] - 2026-04-29</h2>
-<h3 id="added_1">Added</h3>
+<h3 id="added_2">Added</h3>
 <ul>
 <li>Initial scaffolding: package layout, validator stubs (NIC, phone, postal),
   <code>ValidationResult</code> core, docs site, CI / docs / release workflows, and

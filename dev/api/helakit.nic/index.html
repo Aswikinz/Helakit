@@ -1684,10 +1684,10 @@ NIC-decoded DOB (only counted when both were available).</p>
 </h3>
           <div class="doc-overloads">
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
-</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">ErrorMode</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">ErrorMode</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">error_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span>
 </code></pre></div>          </div>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_OLD_NIC_CENTURY</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_OLD_NIC_CENTURY</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">ErrorMode</span> <span class="o">=</span> <span class="s1">&#39;raise&#39;</span><span class="p">,</span> <span class="n">error_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1757,6 +1757,48 @@ copy of the frame with a new <code>nic_converted</code> column added.</p>
                   <code>None</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>errors</code>
+            </td>
+            <td>
+                  <code><span title="helakit.nic.converter.ErrorMode">ErrorMode</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>How to handle individual values that cannot be converted.
+<code>"raise"</code> (default) propagates :class:<code>NICFormatError</code> on
+the first bad value — same as <code>pandas</code> strict mode.
+<code>"coerce"</code> replaces bad values with <code>None</code> so a single
+malformed row no longer fails the whole batch. <code>"ignore"</code>
+leaves the original input through untouched. Scalar input
+always raises regardless of this setting.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;raise&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>error_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name for per-row error messages (DataFrame
+input only). When supplied, the returned frame gets an extra
+column with the failure message or <code>None</code> for rows that
+converted cleanly. Implies <code>errors="coerce"</code> if <code>errors</code>
+is left at the default of <code>"raise"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -1810,8 +1852,8 @@ copy of the frame with a new <code>nic_converted</code> column added.</p>
             <td>
               <div class="doc-md-description">
                 <p>If a value cannot be parsed (e.g. wrong length,
-non-numeric content). New-format input passes through
-unchanged.</p>
+non-numeric content) and <code>errors="raise"</code>. New-format input
+passes through unchanged.</p>
               </div>
             </td>
           </tr>
@@ -1821,7 +1863,8 @@ unchanged.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>For unsupported input types.</p>
+                <p>For unsupported input types or invalid
+<code>errors</code> values.</p>
               </div>
             </td>
           </tr>
@@ -1888,10 +1931,10 @@ each <code>ValidationResult</code>.</p>
 </h3>
           <div class="doc-overloads">
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span>
-</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NICBatchResult</span>
-</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NICBatchResult</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">BatchErrorMode</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NICBatchResult</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">BatchErrorMode</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NICBatchResult</span>
 </code></pre></div>          </div>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_OLD_NIC_CENTURY</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span> <span class="o">|</span> <span class="n">NICBatchResult</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_OLD_NIC_CENTURY</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">BatchErrorMode</span> <span class="o">=</span> <span class="s1">&#39;raise&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span> <span class="o">|</span> <span class="n">NICBatchResult</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2012,6 +2055,28 @@ Defaults to <code>1900</code>.</p>
                   <code><span title="helakit.nic._data.DEFAULT_OLD_NIC_CENTURY">DEFAULT_OLD_NIC_CENTURY</span></code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>errors</code>
+            </td>
+            <td>
+                  <code><span title="helakit.nic.validator.BatchErrorMode">BatchErrorMode</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Batch-only. <code>"raise"</code> (default) propagates
+:class:<code>InvalidInputError</code> if any cross-check <code>dob</code> or
+<code>gender</code> value is unparseable, matching strict pandas
+semantics. <code>"coerce"</code> records the failure as a per-row
+error in :attr:<code>ValidationResult.errors</code> (and the
+<code>nic_errors</code> column on DataFrame output) so a single
+malformed row no longer aborts the whole batch.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;raise&#39;</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -2084,8 +2149,9 @@ Defaults to <code>1900</code>.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>For unsupported input types or unparseable
-gender / DOB values.</p>
+                <p>For unsupported input types, an invalid
+<code>errors</code> value, or unparseable gender / DOB values when
+<code>errors="raise"</code>.</p>
               </div>
             </td>
           </tr>

@@ -711,6 +711,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lenient-batch-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lenient batch handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lenient batch handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capturing-failures-in-a-separate-column" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capturing failures in a separate column
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#encoding-details" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1238,6 +1266,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#lenient-batch-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lenient batch handling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lenient batch handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capturing-failures-in-a-separate-column" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capturing failures in a separate column
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#encoding-details" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1537,9 +1593,61 @@ them only if you need DataFrame support:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>helakit<span class="o">[</span>pandas<span class="o">]</span><span class="w">   </span><span class="c1"># or [polars], or [pandas,polars]</span>
 </code></pre></div>
 <p><code>convert_nic</code> works the same way — pass a DataFrame and <code>nic_col</code> and
-get a frame back with a <code>nic_converted</code> column. Conversion is strict:
-an invalid value in any row raises <code>NICFormatError</code>. Pre-filter with
-<code>validate_nic</code> first if you need lenient handling.</p>
+get a frame back with a <code>nic_converted</code> column. By default, conversion
+is strict and an invalid value raises <code>NICFormatError</code>. See
+<strong>Lenient batch handling</strong> below for <code>errors="coerce"</code> and <code>error_col</code>.</p>
+<h2 id="lenient-batch-handling">Lenient batch handling</h2>
+<p>By default both batch entry points fail loudly the moment they hit a
+value they cannot interpret — <code>convert_nic</code> raises <code>NICFormatError</code>,
+and <code>validate_nic</code> raises <code>InvalidInputError</code> on a bad cross-check
+<code>dob</code> / <code>gender</code>. That is the right behaviour when bad data is a bug
+in your pipeline, but a hassle when you are auditing a real-world
+file with the usual smattering of typos.</p>
+<p>Pass <code>errors="coerce"</code> (mirrors <code>pandas.to_numeric</code>) to keep going:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">helakit</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_nic</span><span class="p">,</span> <span class="n">validate_nic</span>
+
+<span class="c1"># Single bad row no longer kills the whole batch.</span>
+<span class="n">convert_nic</span><span class="p">([</span><span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="s2">&quot;garbage&quot;</span><span class="p">,</span> <span class="s2">&quot;830250995X&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+<span class="c1"># [&quot;198201409894&quot;, None, &quot;198302500995&quot;]</span>
+
+<span class="n">convert_nic</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">nic_col</span><span class="o">=</span><span class="s2">&quot;nic&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+<span class="c1"># garbage rows get None in nic_converted</span>
+
+<span class="c1"># Same idea, but keep the original string instead of None:</span>
+<span class="n">convert_nic</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">nic_col</span><span class="o">=</span><span class="s2">&quot;nic&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><code>validate_nic</code> accepts <code>errors="raise"</code> (default) and <code>errors="coerce"</code>.
+Coerce mode catches unparseable <code>dob</code> / <code>gender</code> values and turns them
+into per-row <code>nic.bad_dob_input</code> / <code>nic.bad_gender_input</code> errors:</p>
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;nic&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="s2">&quot;820149894V&quot;</span><span class="p">,</span> <span class="s2">&quot;199201409894&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;dob&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="s2">&quot;1982-01-14&quot;</span><span class="p">,</span> <span class="s2">&quot;not a date&quot;</span><span class="p">,</span> <span class="s2">&quot;1992-03-14&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;gender&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;M&quot;</span><span class="p">,</span>          <span class="s2">&quot;alien&quot;</span><span class="p">,</span>      <span class="s2">&quot;F&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+
+<span class="n">batch</span> <span class="o">=</span> <span class="n">validate_nic</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">nic_col</span><span class="o">=</span><span class="s2">&quot;nic&quot;</span><span class="p">,</span>
+    <span class="n">dob_col</span><span class="o">=</span><span class="s2">&quot;dob&quot;</span><span class="p">,</span>
+    <span class="n">gender_col</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span>
+    <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">invalid</span>          <span class="c1"># 1</span>
+<span class="n">batch</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;nic_errors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># &quot;nic.bad_dob_input,nic.bad_gender_input&quot;</span>
+</code></pre></div>
+<h3 id="capturing-failures-in-a-separate-column">Capturing failures in a separate column</h3>
+<p>For <code>convert_nic</code> on DataFrames, pass <code>error_col</code> to add a per-row
+error-message column alongside <code>nic_converted</code>. It implies
+<code>errors="coerce"</code> unless you set <code>errors</code> explicitly:</p>
+<div class="highlight"><pre><span></span><code><span class="n">out</span> <span class="o">=</span> <span class="n">convert_nic</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">nic_col</span><span class="o">=</span><span class="s2">&quot;nic&quot;</span><span class="p">,</span> <span class="n">error_col</span><span class="o">=</span><span class="s2">&quot;nic_error&quot;</span><span class="p">)</span>
+<span class="n">out</span><span class="p">[[</span><span class="s2">&quot;nic_converted&quot;</span><span class="p">,</span> <span class="s2">&quot;nic_error&quot;</span><span class="p">]]</span>
+<span class="c1">#   nic_converted   nic_error</span>
+<span class="c1"># 0 198201409894    None</span>
+<span class="c1"># 1 None            Cannot convert &#39;garbage&#39; — input is not a valid old NIC (...)</span>
+</code></pre></div>
+<p><code>validate_nic</code> already exposes failures through the <code>nic_errors</code>
+column on DataFrame output, so a separate <code>error_col</code> is unnecessary
+there.</p>
 <h2 id="encoding-details">Encoding details</h2>
 <h3 id="day-of-year">Day-of-year</h3>
 <p>Both formats encode birth date as <strong>day-of-year</strong>, with female DOBs
@@ -1603,6 +1711,14 @@ verification can be enabled without changing the public API.</p>
 <tr>
 <td><code>nic.not_a_string</code></td>
 <td>A row in a batch supplied a non-string NIC.</td>
+</tr>
+<tr>
+<td><code>nic.bad_dob_input</code></td>
+<td>Cross-check <code>dob</code> was unparseable; only emitted with <code>errors="coerce"</code>.</td>
+</tr>
+<tr>
+<td><code>nic.bad_gender_input</code></td>
+<td>Cross-check <code>gender</code> was unparseable; only emitted with <code>errors="coerce"</code>.</td>
 </tr>
 </tbody>
 </table>
