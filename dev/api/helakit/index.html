@@ -2404,6 +2404,60 @@ each <code>ValidationResult</code>.</p>
         <p>Return <code>True</code> if <code>value</code> is a valid Sri Lankan phone number.</p>
 
 
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>value</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The phone number to check (local or international form).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>True</code> when valid, <code>False</code> otherwise.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
 <p><span class="doc-section-title">Raises:</span></p>
     <table>
       <thead>
@@ -2415,11 +2469,11 @@ each <code>ValidationResult</code>.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="NotImplementedError">NotImplementedError</span></code>
+                  <code><a class="autorefs autorefs-internal" title="InvalidInputError (helakit._core.exceptions.InvalidInputError)" href="#helakit.InvalidInputError">InvalidInputError</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Phone validation has not been implemented yet.</p>
+                <p>If <code>value</code> is not a string.</p>
               </div>
             </td>
           </tr>
@@ -2752,8 +2806,9 @@ malformed row no longer aborts the whole batch.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The phone number, either local (<code>"0712345678"</code>) or
-international (<code>"+94712345678"</code>) form.</p>
+                <p>The phone number in local (<code>"0712345678"</code>) or international
+(<code>"+94712345678"</code>) form. Spaces and hyphens are stripped
+before validation.</p>
               </div>
             </td>
             <td>
@@ -2784,7 +2839,7 @@ international (<code>"+94712345678"</code>) form.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>class:<code>ValidationResult</code> with the carrier and number type</p>
+                <p>class:<code>~helakit._core.result.ValidationResult</code>. When valid,</p>
               </div>
             </td>
           </tr>
@@ -2799,7 +2854,91 @@ international (<code>"+94712345678"</code>) form.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>populated when valid.</p>
+                <p><code>normalized</code> holds the canonical <code>+94XXXXXXXXX</code> form and</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ValidationResult
+
+
+  
+      dataclass
+   (helakit._core.result.ValidationResult)" href="#helakit.ValidationResult">ValidationResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>data</code> contains:</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ValidationResult
+
+
+  
+      dataclass
+   (helakit._core.result.ValidationResult)" href="#helakit.ValidationResult">ValidationResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li><code>"decoded"</code> - a :class:<code>PhoneDecoded</code> with carrier, line_type
+and local representation.</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ValidationResult
+
+
+  
+      dataclass
+   (helakit._core.result.ValidationResult)" href="#helakit.ValidationResult">ValidationResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li><code>"carrier"</code> - the network operator name (e.g. <code>"Dialog"</code>).</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ValidationResult
+
+
+  
+      dataclass
+   (helakit._core.result.ValidationResult)" href="#helakit.ValidationResult">ValidationResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li><code>"line_type"</code> - <code>"mobile"</code> or <code>"fixed"</code>.</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ValidationResult
+
+
+  
+      dataclass
+   (helakit._core.result.ValidationResult)" href="#helakit.ValidationResult">ValidationResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li><code>"local"</code> - the local <code>0XXXXXXXXX</code> representation.</li>
+</ul>
               </div>
             </td>
           </tr>
@@ -2818,11 +2957,11 @@ international (<code>"+94712345678"</code>) form.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="NotImplementedError">NotImplementedError</span></code>
+                  <code><a class="autorefs autorefs-internal" title="InvalidInputError (helakit._core.exceptions.InvalidInputError)" href="#helakit.InvalidInputError">InvalidInputError</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Phone validation has not been implemented yet.</p>
+                <p>If <code>value</code> is not a string.</p>
               </div>
             </td>
           </tr>
