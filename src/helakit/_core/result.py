@@ -110,10 +110,7 @@ class ValidationResult:
                 f"normalized={self.normalized!r}, data={self.data!r})"
             )
         codes = [e.code for e in self.errors]
-        return (
-            f"{type(self).__name__}(is_valid=False, value={self.value!r}, "
-            f"errors={codes!r})"
-        )
+        return f"{type(self).__name__}(is_valid=False, value={self.value!r}, errors={codes!r})"
 
     def __getitem__(self, key: str) -> Any:
         """Look up an extracted field by name.
