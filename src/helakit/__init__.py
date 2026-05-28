@@ -7,13 +7,14 @@ from helakit.nic import (
     NICDecoded,
     NICError,
     NICFormatError,
+    NicResult,
     NICSummary,
     convert_nic,
     is_valid_nic,
     validate_nic,
 )
-from helakit.phone import is_valid_phone, validate_phone
-from helakit.postal import is_valid_postal, validate_postal
+from helakit.phone import PhoneDecoded, PhoneResult, is_valid_phone, validate_phone
+from helakit.postal import PostalDecoded, PostalResult, is_valid_postal, validate_postal
 
 __version__ = "0.2.0"
 
@@ -25,6 +26,11 @@ __all__ = [
     "NICError",
     "NICFormatError",
     "NICSummary",
+    "NicResult",
+    "PhoneDecoded",
+    "PhoneResult",
+    "PostalDecoded",
+    "PostalResult",
     "ValidationError",
     "ValidationResult",
     "__version__",

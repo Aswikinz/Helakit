@@ -76,6 +76,9 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
+  - Concepts:
+      - Working with results: concepts/results.md
+      - Error handling: concepts/errors.md
   - Validators:
       - NIC: validators/nic.md
       - Phone: validators/phone.md

@@ -6,7 +6,7 @@ import pytest
 
 from helakit import is_valid_phone, validate_phone
 from helakit._core.exceptions import InvalidInputError
-from helakit.phone import PhoneDecoded
+from helakit.phone import PhoneDecoded, PhoneResult
 
 # ---------------------------------------------------------------------------
 # Valid numbers — local form
@@ -31,9 +31,16 @@ def test_valid_local(number, carrier, line_type):
     result = validate_phone(number)
     assert result.is_valid
     assert result.normalized == "+94" + number[1:]
+    # Attribute access (pandas-feel)
+    assert result.carrier == carrier
+    assert result.line_type == line_type
+    assert result.local == number
+    # Dict-style access still works
+    assert result["carrier"] == carrier
+    assert result["line_type"] == line_type
+    assert result["local"] == number
+    # Original .data dict still populated
     assert result.data["carrier"] == carrier
-    assert result.data["line_type"] == line_type
-    assert result.data["local"] == number
 
 
 # ---------------------------------------------------------------------------
@@ -53,7 +60,7 @@ def test_valid_international(number):
     result = validate_phone(number)
     assert result.is_valid
     assert result.normalized == number
-    assert result.data["local"] == "0" + number[3:]
+    assert result.local == "0" + number[3:]
 
 
 def test_valid_international_no_plus():
@@ -77,6 +84,10 @@ def test_hyphens_stripped():
 
 def test_mixed_formatting():
     assert validate_phone("+94 71-234 5678").is_valid
+
+
+def test_parentheses_stripped():
+    assert validate_phone("(071) 234-5678").is_valid
 
 
 # ---------------------------------------------------------------------------
@@ -180,6 +191,11 @@ def test_invalid_result_bool_false():
     assert bool(validate_phone("0001234567")) is False
 
 
+def test_result_is_phone_result_instance():
+    result = validate_phone("0712345678")
+    assert isinstance(result, PhoneResult)
+
+
 # ---------------------------------------------------------------------------
 # Typed decoded payload
 # ---------------------------------------------------------------------------
@@ -187,11 +203,50 @@ def test_invalid_result_bool_false():
 
 def test_decoded_payload_is_dataclass():
     result = validate_phone("0712345678")
-    decoded = result.data["decoded"]
+    decoded = result.decoded
     assert isinstance(decoded, PhoneDecoded)
     assert decoded.carrier == "Mobitel"
     assert decoded.line_type == "mobile"
     assert decoded.local == "0712345678"
+
+
+def test_decoded_also_accessible_via_data():
+    """Backwards compatibility: ``data["decoded"]`` still works."""
+    result = validate_phone("0712345678")
+    assert result.data["decoded"] is result.decoded
+
+
+# ---------------------------------------------------------------------------
+# Pandas-like access patterns on the result
+# ---------------------------------------------------------------------------
+
+
+def test_attribute_access_on_invalid_returns_none():
+    """Properties never raise — they return None when the field wasn't set."""
+    result = validate_phone("0001234567")
+    assert result.carrier is None
+    assert result.line_type is None
+    assert result.local is None
+    assert result.decoded is None
+
+
+def test_dict_access_on_invalid_raises_keyerror():
+    """Dict-style access still raises, matching pandas/dict semantics."""
+    result = validate_phone("0001234567")
+    with pytest.raises(KeyError):
+        result["carrier"]
+
+
+def test_contains_check():
+    result = validate_phone("0712345678")
+    assert "carrier" in result
+    assert "missing" not in result
+
+
+def test_get_with_default():
+    result = validate_phone("0001234567")
+    assert result.get("carrier") is None
+    assert result.get("carrier", "Unknown") == "Unknown"
 
 
 # ---------------------------------------------------------------------------

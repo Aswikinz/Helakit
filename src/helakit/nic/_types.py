@@ -40,6 +40,98 @@ class NICDecoded:
     voting_eligible: bool | None
 
 
+class NicResult(ValidationResult):
+    """Validation result returned by :func:`~helakit.nic.validate_nic`.
+
+    Adds typed property accessors for every field the NIC validator
+    extracts, including pass-through accessors that reach into
+    :class:`NICDecoded` so the most commonly-used fields are one
+    attribute away::
+
+        result.decoded.dob   # works
+        result.dob           # also works — same value
+
+    Properties return ``None`` on invalid results so attribute access
+    never raises — guard with ``if result:`` before reading.
+    """
+
+    __slots__ = ()
+
+    @property
+    def decoded(self) -> NICDecoded | None:
+        """Full :class:`NICDecoded` payload. ``None`` if invalid."""
+        return self.data.get("decoded")
+
+    @property
+    def format(self) -> Literal["old", "new"] | None:
+        """``"old"`` or ``"new"``. ``None`` if invalid."""
+        return self.data.get("format")
+
+    # --- Pass-through to `decoded` for ergonomics ---------------------------
+
+    @property
+    def dob(self) -> date | None:
+        """Decoded date of birth. ``None`` if invalid."""
+        decoded = self.decoded
+        return decoded.dob if decoded else None
+
+    @property
+    def gender(self) -> Literal["male", "female"] | None:
+        """``"male"`` or ``"female"``. ``None`` if invalid."""
+        decoded = self.decoded
+        return decoded.gender if decoded else None
+
+    @property
+    def age(self) -> int | None:
+        """Age in completed years at validation time. ``None`` if invalid."""
+        decoded = self.decoded
+        return decoded.age if decoded else None
+
+    @property
+    def year(self) -> int | None:
+        """Full birth year. ``None`` if invalid."""
+        decoded = self.decoded
+        return decoded.year if decoded else None
+
+    @property
+    def serial(self) -> int | None:
+        """Serial number assigned on the registration day. ``None`` if invalid."""
+        decoded = self.decoded
+        return decoded.serial if decoded else None
+
+    @property
+    def voting_eligible(self) -> bool | None:
+        """``True`` / ``False`` for old NICs; ``None`` for new NICs or
+        invalid results."""
+        decoded = self.decoded
+        return decoded.voting_eligible if decoded else None
+
+    # --- Cross-check results (only populated when dob_col / gender_col
+    #     are supplied in batch mode) -----------------------------------------
+
+    @property
+    def dob_match(self) -> bool | None:
+        """``True`` / ``False`` if a DOB was cross-checked; ``None`` otherwise."""
+        return self.data.get("dob_match")
+
+    @property
+    def gender_match(self) -> bool | None:
+        """``True`` / ``False`` if a gender was cross-checked; ``None`` otherwise."""
+        return self.data.get("gender_match")
+
+    @property
+    def mismatch_reasons(self) -> list[str] | None:
+        """Which cross-check fields disagreed with the NIC. ``None`` when
+        no cross-check ran."""
+        return self.data.get("mismatch_reasons")
+
+    @property
+    def mismatch_detail(self) -> str | None:
+        """Human-readable diff of cross-check vs decoded. ``None`` when
+        no cross-check ran or everything matched."""
+        return self.data.get("mismatch_detail")
+
+
 @dataclass(frozen=True, slots=True)
 class NICSummary:
     """Aggregate counts for a batch validation run.
@@ -70,7 +162,7 @@ class NICBatchResult:
     """The outcome of validating a list / dataframe of NICs.
 
     Attributes:
-        results: One :class:`ValidationResult` per input row, in the same
+        results: One :class:`NicResult` per input row, in the same
             order as the input.
         duplicates: Mapping from canonical NIC (uppercased, V/X stripped)
             to the row indices it appeared at. Only entries with two or
@@ -81,18 +173,18 @@ class NICBatchResult:
             ``None`` when the input was a list.
     """
 
-    results: list[ValidationResult]
+    results: list[NicResult]
     duplicates: dict[str, list[int]] = field(default_factory=dict)
     summary: NICSummary = field(default_factory=lambda: NICSummary(0, 0, 0, 0, 0, 0, 0))
     df: Any | None = None
 
-    def __iter__(self) -> Iterator[ValidationResult]:
+    def __iter__(self) -> Iterator[NicResult]:
         return iter(self.results)
 
     def __len__(self) -> int:
         return len(self.results)
 
-    def __getitem__(self, index: int) -> ValidationResult:
+    def __getitem__(self, index: int) -> NicResult:
         return self.results[index]
 
     def __bool__(self) -> bool:

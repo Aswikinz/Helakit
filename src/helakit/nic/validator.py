@@ -17,7 +17,7 @@ from datetime import date
 from typing import Any, Literal, overload
 
 from helakit._core.exceptions import InvalidInputError
-from helakit._core.result import ValidationError, ValidationResult
+from helakit._core.result import ValidationError
 from helakit.nic._data import (
     DEFAULT_OLD_NIC_CENTURY,
     NEW_FORMAT_LENGTH,
@@ -26,7 +26,7 @@ from helakit.nic._data import (
 from helakit.nic._dispatch import coerce_dob, coerce_gender, detect_kind
 from helakit.nic._normalize import normalize_for_dedup
 from helakit.nic._parse import ParsedNIC, parse
-from helakit.nic._types import NICBatchResult, NICDecoded, NICSummary
+from helakit.nic._types import NICBatchResult, NICDecoded, NicResult, NICSummary
 
 FormatHint = Literal["old", "new", "any"]
 BatchErrorMode = Literal["raise", "coerce"]
@@ -39,7 +39,7 @@ def validate_nic(
     *,
     format: FormatHint = ...,
     century: int = ...,
-) -> ValidationResult: ...
+) -> NicResult: ...
 
 
 @overload
@@ -77,7 +77,7 @@ def validate_nic(
     gender_col: str | None = None,
     century: int = DEFAULT_OLD_NIC_CENTURY,
     errors: BatchErrorMode = "raise",
-) -> ValidationResult | NICBatchResult:
+) -> NicResult | NICBatchResult:
     """Validate one or many Sri Lankan NIC numbers.
 
     Args:
@@ -102,7 +102,7 @@ def validate_nic(
             malformed row no longer aborts the whole batch.
 
     Returns:
-        A :class:`ValidationResult` for scalar input, or a
+        A :class:`NicResult` for scalar input, or a
         :class:`NICBatchResult` for any iterable input.
 
     Raises:
@@ -160,7 +160,7 @@ def _validate_one(
     century: int = DEFAULT_OLD_NIC_CENTURY,
     expected_dob: date | None = None,
     expected_gender: Literal["male", "female"] | None = None,
-) -> ValidationResult:
+) -> NicResult:
     parsed, errors = parse(value, century=century)
 
     format_error = _check_format_hint(parsed, format)
@@ -194,7 +194,7 @@ def _validate_one(
     is_valid = parsed is not None and not errors
     normalized = normalize_for_dedup(value) if parsed is not None else None
 
-    return ValidationResult(
+    return NicResult(
         is_valid=is_valid,
         value=value,
         normalized=normalized,
@@ -370,7 +370,7 @@ def _validate_batch(
     century: int,
     errors: BatchErrorMode,
 ) -> NICBatchResult:
-    results: list[ValidationResult] = []
+    results: list[NicResult] = []
     normalized_index: dict[str, list[int]] = {}
     dob_mismatches = 0
     gender_mismatches = 0
@@ -379,7 +379,7 @@ def _validate_batch(
         raw_nic = row["nic"]
         if not isinstance(raw_nic, str):
             results.append(
-                ValidationResult(
+                NicResult(
                     is_valid=False,
                     value="" if raw_nic is None else str(raw_nic),
                     errors=[
@@ -425,7 +425,7 @@ def _validate_batch(
             expected_gender=expected_gender,
         )
         if coercion_errors:
-            result = ValidationResult(
+            result = NicResult(
                 is_valid=False,
                 value=result.value,
                 normalized=result.normalized,
@@ -468,7 +468,7 @@ def _validate_batch(
     )
 
 
-def _result_columns(results: list[ValidationResult]) -> dict[str, list[Any]]:
+def _result_columns(results: list[NicResult]) -> dict[str, list[Any]]:
     cols: dict[str, list[Any]] = {
         "nic_valid": [],
         "nic_normalized": [],
@@ -497,7 +497,7 @@ def _result_columns(results: list[ValidationResult]) -> dict[str, list[Any]]:
     return cols
 
 
-def _annotate_pandas(df: Any, results: list[ValidationResult]) -> Any:
+def _annotate_pandas(df: Any, results: list[NicResult]) -> Any:
     cols = _result_columns(results)
     annotated = df.copy()
     for name, values in cols.items():
@@ -505,7 +505,7 @@ def _annotate_pandas(df: Any, results: list[ValidationResult]) -> Any:
     return annotated
 
 
-def _annotate_polars(df: Any, results: list[ValidationResult]) -> Any:
+def _annotate_polars(df: Any, results: list[NicResult]) -> Any:
     import polars as pl
 
     cols = _result_columns(results)
