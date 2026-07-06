@@ -1462,7 +1462,7 @@ fields it extracts.</p>
 <tr>
 <td><code>validate_nic</code></td>
 <td><code>NicResult</code></td>
-<td><code>decoded</code>, <code>format</code>, <code>dob</code>, <code>gender</code>, <code>age</code>, <code>year</code>, <code>serial</code>, <code>voting_eligible</code>, <code>dob_match</code>, <code>gender_match</code>, <code>mismatch_reasons</code>, <code>mismatch_detail</code></td>
+<td><code>decoded</code>, <code>format</code>, <code>dob</code>, <code>gender</code>, <code>age</code>, <code>age_at(...)</code>, <code>year</code>, <code>serial</code>, <code>voting_eligible</code>, <code>dob_match</code>, <code>gender_match</code>, <code>mismatch_reasons</code>, <code>mismatch_detail</code>, <code>to_dict()</code></td>
 </tr>
 <tr>
 <td><code>validate_postal</code></td>
@@ -1519,10 +1519,14 @@ helpers also work:</p>
 <span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>                   <span class="c1"># [&#39;decoded&#39;, &#39;carrier&#39;, &#39;line_type&#39;, &#39;local&#39;]</span>
 </code></pre></div>
 <h2 id="equality-and-hashing">Equality and hashing</h2>
-<p><code>ValidationResult</code> does <strong>not</strong> override <code>__eq__</code> or <code>__hash__</code> — two
-distinct results compare by identity, not by content. If you need
-content equality (e.g. in tests), compare specific fields or compare
-<code>result.data</code>.</p>
+<p><code>ValidationResult</code> is a dataclass, so two results with the same field
+values <strong>compare equal by content</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">validate_phone</span><span class="p">(</span><span class="s2">&quot;0712345678&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">validate_phone</span><span class="p">(</span><span class="s2">&quot;0712345678&quot;</span><span class="p">)</span>   <span class="c1"># True</span>
+</code></pre></div>
+<p>Results are <strong>not hashable</strong> — the <code>errors</code> list makes <code>hash()</code> raise
+<code>TypeError</code> — so they cannot be used as dict keys or set members. Use
+the frozen <code>decoded</code> dataclass (or <code>result.normalized</code>) for that
+instead.</p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><strong><a href="../errors/">Error handling</a></strong> — every error code, what triggers it,

@@ -1021,6 +1021,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1036,7 +1075,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1064,7 +1103,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
+  <a href="#added_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1075,7 +1114,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
+  <a href="#changed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -1125,7 +1164,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_2" class="md-nav__link">
+  <a href="#added_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1183,6 +1222,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="[Unreleased]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1198,7 +1276,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1226,7 +1304,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
+  <a href="#added_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1237,7 +1315,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
+  <a href="#changed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -1287,7 +1365,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_2" class="md-nav__link">
+  <a href="#added_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -1327,8 +1405,51 @@
 <p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>,
 and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <h2 id="unreleased">[Unreleased]</h2>
-<h2 id="020-2026-05-05">[0.2.0] - 2026-05-05</h2>
 <h3 id="added">Added</h3>
+<ul>
+<li>pandas-style API on <code>NICBatchResult</code> so batch results feel like the
+  containers DataFrame users already know:</li>
+<li><code>to_pandas()</code> / <code>to_polars()</code> — return the batch as a DataFrame for
+    <em>any</em> input shape (list, list-of-dicts, Series, DataFrame), not just
+    DataFrame input.</li>
+<li><code>to_dicts()</code> — list of flat record dicts, zero optional dependencies.</li>
+<li><code>describe()</code> — the <code>NICSummary</code> roll-up, mirroring <code>DataFrame.describe()</code>.</li>
+<li><code>is_valid</code> — row-aligned boolean mask that drops into <code>df[batch.is_valid]</code>.</li>
+<li><code>valid</code> / <code>invalid</code> — filtered lists of per-row results.</li>
+<li><code>head(n)</code> and slice indexing (<code>batch[:3]</code>), mirroring pandas.</li>
+<li>a concise <code>repr</code> showing the summary counts.</li>
+<li><code>NicResult.to_dict()</code> flattens a single result into the same record
+  shape as one <code>to_pandas()</code> row; <code>NICSummary.to_dict()</code> returns the
+  counts as a plain dict.</li>
+<li><code>validate_nic</code> now accepts a pandas or polars <strong>Series</strong> directly
+  (<code>validate_nic(df["nic"])</code>), treated like a list of strings. Previously
+  Series input crashed with an <code>AttributeError</code> (pandas) or a misleading
+  <code>nic_col is required</code> error (polars).</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li><code>convert_nic</code> now validates new-format (12-digit) input instead of
+  passing it through unchecked. A 12-digit string that encodes an
+  impossible birth date (day code out of range, phantom Feb 29 in a
+  non-leap year) now raises <code>NICFormatError</code> — or coerces to <code>None</code>
+  under <code>errors="coerce"</code> — instead of being silently returned as-is.</li>
+<li><code>NICDecoded.age</code> is now computed on access instead of being baked into the
+  immutable result at validation time, so it no longer goes stale. Age is no
+  longer a constructor field on <code>NICDecoded</code>. New <code>NICDecoded.age_at(today)</code>
+  (and <code>NicResult.age_at(today)</code>) compute completed years against an explicit
+  reference date for deterministic, testable results; the <code>age</code> property
+  remains as a convenience measured against the current date.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li><code>validate_nic</code> no longer raises an unhandled <code>ValueError</code> on a new-format
+  NIC whose four-digit year decodes to <code>0000</code> (e.g. <code>"000020000018"</code>). The
+  year is outside the range <code>datetime.date</code> can represent, so it is now
+  reported as a <code>nic.invalid_date</code> validation error instead. Previously this
+  also aborted an entire batch when one such row was present.</li>
+</ul>
+<h2 id="020-2026-05-05">[0.2.0] - 2026-05-05</h2>
+<h3 id="added_1">Added</h3>
 <ul>
 <li><code>errors</code> keyword on <code>convert_nic</code> and <code>validate_nic</code>, mirroring
   <code>pandas.to_numeric(errors=...)</code> semantics. <code>convert_nic</code> accepts
@@ -1343,7 +1464,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   <code>errors="coerce"</code> when <code>errors</code> is left at the default.</li>
 </ul>
 <h2 id="011-2026-05-01">[0.1.1] - 2026-05-01</h2>
-<h3 id="added_1">Added</h3>
+<h3 id="added_2">Added</h3>
 <ul>
 <li>NIC validation, decoding, and format conversion. <code>validate_nic</code> accepts
   a single string, a list of strings, a list of dicts, a pandas DataFrame
@@ -1359,7 +1480,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Homepage hero with brand artwork, featured-validator block for NIC,
   and a roadmap pill row for upcoming validators.</li>
 </ul>
-<h3 id="changed">Changed</h3>
+<h3 id="changed_1">Changed</h3>
 <ul>
 <li>Homepage navigation buttons now render Material icons inline
   (<code>pymdownx.emoji</code> enabled).</li>
@@ -1387,7 +1508,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   down by one to land on the actual calendar.</li>
 </ul>
 <h2 id="010-2026-04-29">[0.1.0] - 2026-04-29</h2>
-<h3 id="added_2">Added</h3>
+<h3 id="added_3">Added</h3>
 <ul>
 <li>Initial scaffolding: package layout, validator stubs (NIC, phone, postal),
   <code>ValidationResult</code> core, docs site, CI / docs / release workflows, and

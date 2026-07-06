@@ -1521,9 +1521,10 @@ or pass an unparseable cross-check value in batch mode with
 only way to get an <code>InvalidInputError</code> is to pass the wrong type.</p>
 <h3 id="nicformaterror"><code>NICFormatError</code></h3>
 <p>Raised by <code>convert_nic</code> when its input cannot be parsed as either NIC
-format. Conversion has no sensible result object to return — failure
-must propagate as an exception. In batch mode, pass <code>errors="coerce"</code>
-to capture the failure inline instead.</p>
+format, or parses but fails validation (for example a 12-digit input
+encoding an impossible birth date). Conversion has no sensible result
+object to return — failure must propagate as an exception. In batch
+mode, pass <code>errors="coerce"</code> to capture the failure inline instead.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">helakit</span><span class="w"> </span><span class="kn">import</span> <span class="n">NICFormatError</span><span class="p">,</span> <span class="n">convert_nic</span>
 
 <span class="k">try</span><span class="p">:</span>
