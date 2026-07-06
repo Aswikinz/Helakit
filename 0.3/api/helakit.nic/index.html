@@ -1,0 +1,3958 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A toolkit for validating and working with Sri Lankan data.">
+      
+      
+      
+        <link rel="canonical" href="https://Aswikinz.github.io/Helakit/0.3/api/helakit.nic/">
+      
+      
+        <link rel="prev" href="../helakit/">
+      
+      
+        <link rel="next" href="../helakit.phone/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/helakit-icon.svg">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>helakit.nic - Helakit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/helakit.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#helakitnic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Helakit" class="md-header__button md-logo" aria-label="Helakit" data-md-component="logo">
+      
+  <img src="../../assets/helakit-icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Helakit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              helakit.nic
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Aswikinz/Helakit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Aswikinz/Helakit
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../concepts/results/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../validators/nic/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Validators
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../helakit/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contributing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Helakit" class="md-nav__button md-logo" aria-label="Helakit" data-md-component="logo">
+      
+  <img src="../../assets/helakit-icon.svg" alt="logo">
+
+    </a>
+    Helakit
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Aswikinz/Helakit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Aswikinz/Helakit
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Working with results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validators
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Validators
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validators/nic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NIC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validators/phone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validators/postal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helakit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    helakit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    helakit.nic
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    helakit.nic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#helakit.nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="nic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICBatchResult
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NICBatchResult">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.invalid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.__bool__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __bool__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.__getitem__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __getitem__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.describe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        describe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        head
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.to_dicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_dicts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.to_pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_pandas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.to_polars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_polars
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICDecoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICDecoded
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NICDecoded">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICDecoded.age" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        age
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICDecoded.age_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        age_at
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICFormatError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICFormatError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICSummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICSummary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NICSummary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICSummary.to_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NicResult
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NicResult">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.age" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        age
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.decoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decoded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.dob" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dob
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.dob_match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dob_match
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.gender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.gender_match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gender_match
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.mismatch_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mismatch_detail
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.mismatch_reasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mismatch_reasons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.serial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        serial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.voting_eligible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        voting_eligible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.year" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        year
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.age_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        age_at
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.record_fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        record_fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.to_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.convert_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        convert_nic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.is_valid_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_valid_nic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.validate_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate_nic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helakit.phone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    helakit.phone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helakit.postal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    helakit.postal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#helakit.nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="nic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICBatchResult
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NICBatchResult">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.invalid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.is_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.__bool__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __bool__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.__getitem__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __getitem__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.describe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        describe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        head
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.to_dicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_dicts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.to_pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_pandas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICBatchResult.to_polars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_polars
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICDecoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICDecoded
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NICDecoded">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICDecoded.age" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        age
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICDecoded.age_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        age_at
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICFormatError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICFormatError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICSummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NICSummary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NICSummary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NICSummary.to_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NicResult
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NicResult">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.age" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        age
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.decoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decoded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.dob" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dob
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.dob_match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dob_match
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.gender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.gender_match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gender_match
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.mismatch_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mismatch_detail
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.mismatch_reasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mismatch_reasons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.serial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        serial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.voting_eligible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        voting_eligible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.year" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        year
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.age_at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        age_at
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.record_fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        record_fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.NicResult.to_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.convert_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        convert_nic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.is_valid_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_valid_nic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helakit.nic.validate_nic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate_nic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="helakitnic"><code>helakit.nic</code></h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="helakit.nic" class="doc doc-heading">
+            <span class="doc doc-object-name doc-module-name">helakit.nic</span>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+        <p>NIC (National Identity Card) validation, decoding, and conversion.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helakit.nic.NICBatchResult" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">NICBatchResult</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">NICBatchResult</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">NicResult</span><span class="p">],</span> <span class="n">duplicates</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="n">summary</span><span class="p">:</span> <span class="n">NICSummary</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">NICSummary</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))(),</span> <span class="n">df</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>The outcome of validating a list / Series / DataFrame of NICs.</p>
+<p>Behaves like a familiar pandas-style container: it has a length,
+iterates over its rows, supports integer <em>and</em> slice indexing, and
+converts to tabular form via :meth:<code>to_pandas</code> / :meth:<code>to_polars</code> /
+:meth:<code>to_dicts</code> regardless of what shape the input was.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICBatchResult.results">results</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="NicResult
+
+
+  
+      dataclass
+   (helakit.nic._types.NicResult)" href="#helakit.nic.NicResult">NicResult</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>One :class:<code>NicResult</code> per input row, in the same
+order as the input.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICBatchResult.duplicates">duplicates</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="list">list</span>[<span title="int">int</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from canonical NIC (uppercased, V/X stripped)
+to the row indices it appeared at. Only entries with two or
+more indices are included.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICBatchResult.summary">summary</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="NICSummary
+
+
+  
+      dataclass
+   (helakit.nic._types.NICSummary)" href="#helakit.nic.NICSummary">NICSummary</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Roll-up counts. Also reachable via :meth:<code>describe</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICBatchResult.df">df</span></code></td>
+            <td>
+                  <code><span title="typing.Any">Any</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>When the input was a pandas or polars DataFrame, this is a
+copy of that frame with helakit's per-row columns appended.
+<code>None</code> for list and Series input — use :meth:<code>to_pandas</code>
+or :meth:<code>to_polars</code> there.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NICBatchResult.invalid" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">invalid</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">invalid</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">NicResult</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Only the rows that failed validation (order preserved).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NICBatchResult.is_valid" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">is_valid</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">is_valid</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Row-aligned boolean mask, like a boolean Series.</p>
+<p>Drops straight into pandas/polars filtering::</p>
+<pre><code>df[batch.is_valid]           # keep only rows with valid NICs
+df[[not v for v in batch.is_valid]]  # the offenders
+</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NICBatchResult.valid" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">valid</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">valid</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">NicResult</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Only the rows that validated cleanly (order preserved).</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICBatchResult.__bool__" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">__bool__</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__bool__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p><code>True</code> only when <em>every</em> row validated cleanly.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICBatchResult.__getitem__" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">__getitem__</span>
+
+
+</h4>
+          <div class="doc-overloads">
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NicResult</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NicResult</span><span class="p">]</span>
+</code></pre></div>          </div>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NicResult</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">NicResult</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Integer indexing returns one result; slices return a list.</p>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>batch[0]      # first NicResult
+batch[:3]     # first three, like df[:3]</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICBatchResult.describe" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">describe</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">describe</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">NICSummary</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Aggregate counts, mirroring <code>DataFrame.describe</code>.</p>
+<p>Returns the same object as :attr:<code>summary</code>; call
+<code>batch.describe().to_dict()</code> for a plain dict.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICBatchResult.head" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">head</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">head</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NicResult</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>First <code>n</code> results, mirroring <code>DataFrame.head</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICBatchResult.to_dicts" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">to_dicts</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">to_dicts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>One flat record dict per row (polars-style <code>to_dicts</code>).</p>
+<p>Needs no optional dependencies. The keys are the same
+<code>nic_*</code> diagnostic columns documented on :meth:<code>to_pandas</code>,
+plus <code>nic</code> holding the original input value.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICBatchResult.to_pandas" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">to_pandas</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">to_pandas</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the batch as a pandas DataFrame.</p>
+<p>When the input was already a pandas DataFrame this returns
+:attr:<code>df</code> (the input copy with diagnostic columns appended).
+For every other input shape — list, list-of-dicts, Series,
+polars frame — a fresh frame is built with one row per input
+and the <code>nic_*</code> diagnostic columns.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvalidInputError (helakit._core.exceptions.InvalidInputError)" href="../helakit/#helakit.InvalidInputError">InvalidInputError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If pandas is not installed. Install it
+with <code>pip install helakit[pandas]</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICBatchResult.to_polars" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">to_polars</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">to_polars</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the batch as a polars DataFrame.</p>
+<p>Mirrors :meth:<code>to_pandas</code>: returns :attr:<code>df</code> when the input was
+a polars DataFrame, otherwise builds a fresh frame from
+:meth:<code>to_dicts</code>.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvalidInputError (helakit._core.exceptions.InvalidInputError)" href="../helakit/#helakit.InvalidInputError">InvalidInputError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If polars is not installed. Install it
+with <code>pip install helakit[polars]</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helakit.nic.NICDecoded" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">NICDecoded</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">NICDecoded</span><span class="p">(</span><span class="nb">format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;old&#39;</span><span class="p">,</span> <span class="s1">&#39;new&#39;</span><span class="p">],</span> <span class="n">dob</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span> <span class="n">gender</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">],</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day_code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">serial</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">check_digit</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">voting_eligible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Structured fields extracted from a valid NIC.</p>
+<p>Age is intentionally <em>not</em> a stored field: it depends on the current
+date, which the NIC does not encode. Read it through :meth:<code>age_at</code>
+(deterministic — pass the reference date) or the :attr:<code>age</code> property
+(convenience — computed against today on each access).</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICDecoded.format">format</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;old&#39;, &#39;new&#39;]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Either <code>"old"</code> (9 digits + V/X) or <code>"new"</code> (12 digits).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICDecoded.dob">dob</span></code></td>
+            <td>
+                  <code><span title="datetime.date">date</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Decoded date of birth.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICDecoded.gender">gender</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;male&#39;, &#39;female&#39;]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Either <code>"male"</code> or <code>"female"</code>, derived from the
+day-of-year encoding.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICDecoded.year">year</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Full birth year.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICDecoded.day_code">day_code</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Day-of-year encoding with the female 500 offset removed.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICDecoded.serial">serial</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Serial number assigned on the registration day.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICDecoded.check_digit">check_digit</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Final check digit (not currently verified — see
+:mod:<code>helakit.nic._parse</code>).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICDecoded.voting_eligible">voting_eligible</span></code></td>
+            <td>
+                  <code><span title="bool">bool</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>True</code> if the old NIC ends in <code>V</code>, <code>False</code>
+if <code>X</code>, <code>None</code> for new-format NICs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NICDecoded.age" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">age</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">age</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Completed years as of today.</p>
+<p>Recomputed on every access (against the current date), so it never
+goes stale. For a fixed reference date, use :meth:<code>age_at</code>.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICDecoded.age_at" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">age_at</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">age_at</span><span class="p">(</span><span class="n">today</span><span class="p">:</span> <span class="n">date</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Completed years between :attr:<code>dob</code> and <code>today</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>today</code>
+            </td>
+            <td>
+                  <code><span title="datetime.date">date</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The reference date to measure age against. Defaults to
+:func:<code>datetime.date.today</code> when omitted — pass an explicit
+date for deterministic, testable results.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>from datetime import date
+decoded.age_at(date(2026, 1, 1))
+43</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helakit.nic.NICError" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">NICError</span>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="HelakitError (helakit._core.exceptions.HelakitError)" href="../helakit/#helakit.HelakitError">HelakitError</a></code></p>
+
+
+
+        <p>Base class for NIC-related errors raised by helakit.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helakit.nic.NICFormatError" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">NICFormatError</span>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="NICError (helakit.nic.exceptions.NICError)" href="#helakit.nic.NICError">NICError</a></code></p>
+
+
+
+        <p>Raised when an input cannot be parsed as either NIC format.</p>
+<p>Used by :func:<code>helakit.nic.convert_nic</code> because conversion has no
+sensible <code>ValidationResult</code> to return — failure must propagate as
+an exception.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helakit.nic.NICSummary" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">NICSummary</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">NICSummary</span><span class="p">(</span><span class="n">total</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">valid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">invalid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duplicate_groups</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">duplicate_rows</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dob_mismatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">gender_mismatches</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Aggregate counts for a batch validation run.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICSummary.total">total</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of input rows processed.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICSummary.valid">valid</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Rows whose NIC passed structural validation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICSummary.invalid">invalid</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Rows that failed structural validation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICSummary.duplicate_groups">duplicate_groups</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of distinct NICs that appear in more than
+one row (after canonicalisation that strips V/X suffixes).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICSummary.duplicate_rows">duplicate_rows</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total rows participating in any duplicate group.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICSummary.dob_mismatches">dob_mismatches</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Rows where the supplied DOB differed from the
+NIC-decoded DOB (only counted when both were available).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="helakit.nic.NICSummary.gender_mismatches">gender_mismatches</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Same idea for gender.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NICSummary.to_dict" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">to_dict</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">to_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the counts as a plain dict.</p>
+<p>Useful for turning the summary into a pandas object::</p>
+<pre><code>pd.Series(batch.describe().to_dict())
+</code></pre>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="helakit.nic.NicResult" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">NicResult</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">NicResult</span><span class="p">(</span><span class="n">is_valid</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">normalized</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ValidationError</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(),</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">())</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ValidationResult
+
+
+  
+      dataclass
+   (helakit._core.result.ValidationResult)" href="../helakit/#helakit.ValidationResult">ValidationResult</a></code></p>
+
+
+
+        <p>Validation result returned by :func:<code>~helakit.nic.validate_nic</code>.</p>
+<p>Adds typed property accessors for every field the NIC validator
+extracts, including pass-through accessors that reach into
+:class:<code>NICDecoded</code> so the most commonly-used fields are one
+attribute away::</p>
+<pre><code>result.decoded.dob   # works
+result.dob           # also works — same value
+</code></pre>
+<p>Properties return <code>None</code> on invalid results so attribute access
+never raises — guard with <code>if result:</code> before reading.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.age" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">age</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">age</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Completed years as of today, recomputed on access. <code>None</code> if
+invalid. For a fixed reference date, use :meth:<code>age_at</code>.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.decoded" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">decoded</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">decoded</span><span class="p">:</span> <span class="n">NICDecoded</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Full :class:<code>NICDecoded</code> payload. <code>None</code> if invalid.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.dob" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">dob</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">dob</span><span class="p">:</span> <span class="n">date</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Decoded date of birth. <code>None</code> if invalid.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.dob_match" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">dob_match</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">dob_match</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p><code>True</code> / <code>False</code> if a DOB was cross-checked; <code>None</code> otherwise.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.format" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">format</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nb">format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;old&#39;</span><span class="p">,</span> <span class="s1">&#39;new&#39;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p><code>"old"</code> or <code>"new"</code>. <code>None</code> if invalid.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.gender" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">gender</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">gender</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p><code>"male"</code> or <code>"female"</code>. <code>None</code> if invalid.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.gender_match" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">gender_match</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">gender_match</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p><code>True</code> / <code>False</code> if a gender was cross-checked; <code>None</code> otherwise.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.mismatch_detail" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">mismatch_detail</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mismatch_detail</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Human-readable diff of cross-check vs decoded. <code>None</code> when
+no cross-check ran or everything matched.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.mismatch_reasons" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">mismatch_reasons</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">mismatch_reasons</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Which cross-check fields disagreed with the NIC. <code>None</code> when
+no cross-check ran.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.serial" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">serial</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">serial</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Serial number assigned on the registration day. <code>None</code> if invalid.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.voting_eligible" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">voting_eligible</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">voting_eligible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p><code>True</code> / <code>False</code> for old NICs; <code>None</code> for new NICs or
+invalid results.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="helakit.nic.NicResult.year" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">year</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Full birth year. <code>None</code> if invalid.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NicResult.age_at" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">age_at</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">age_at</span><span class="p">(</span><span class="n">today</span><span class="p">:</span> <span class="n">date</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Completed years between the decoded DOB and <code>today</code>.</p>
+<p>Deterministic counterpart to :attr:<code>age</code> — pass an explicit
+reference date. Returns <code>None</code> on invalid results.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NicResult.record_fields" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">record_fields</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">record_fields</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Names of the keys :meth:<code>to_dict</code> emits, in column order.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="helakit.nic.NicResult.to_dict" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">to_dict</span>
+
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">to_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Flatten this result into one plain, column-per-field dict.</p>
+<p>The keys match the diagnostic columns that
+:meth:<code>NICBatchResult.to_pandas</code> produces, so one row of that
+frame and <code>result.to_dict()</code> look identical. Handy for feeding
+a single result into <code>pd.DataFrame([result.to_dict()])</code> or a
+JSON serialiser.</p>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p True_="True," _820149894V_="'820149894V'," _820149894_="'820149894'," _nic_:="'nic':" _nic_normalized_:="'nic_normalized':" _nic_valid_:="'nic_valid':" class="..">validate_nic("820149894V").to_dict()</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="helakit.nic.convert_nic" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">convert_nic</span>
+
+
+</h3>
+          <div class="doc-overloads">
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">ErrorMode</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">ErrorMode</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">error_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span>
+</code></pre></div>          </div>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">convert_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_OLD_NIC_CENTURY</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">ErrorMode</span> <span class="o">=</span> <span class="s1">&#39;raise&#39;</span><span class="p">,</span> <span class="n">error_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Convert an old-format NIC to the new 12-digit format.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>value</code>
+            </td>
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Either a single NIC string, a list of strings, a pandas
+or polars Series, or a pandas/polars DataFrame. For Series
+input the function returns a Series of the same length,
+preserving index/name. For DataFrame input <code>nic_col</code>
+specifies which column to convert; the function returns a
+copy of the frame with a new <code>nic_converted</code> column added.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>century</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Century to assume for two-digit years on old NICs.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="helakit.nic._data.DEFAULT_OLD_NIC_CENTURY">DEFAULT_OLD_NIC_CENTURY</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>nic_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required for tabular input.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>errors</code>
+            </td>
+            <td>
+                  <code><span title="helakit.nic.converter.ErrorMode">ErrorMode</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>How to handle individual values that cannot be converted.
+<code>"raise"</code> (default) propagates :class:<code>NICFormatError</code> on
+the first bad value — same as <code>pandas</code> strict mode.
+<code>"coerce"</code> replaces bad values with <code>None</code> so a single
+malformed row no longer fails the whole batch. <code>"ignore"</code>
+leaves the original input through untouched. Scalar input
+always raises regardless of this setting.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;raise&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>error_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name for per-row error messages (DataFrame
+input only). When supplied, the returned frame gets an extra
+column with the failure message or <code>None</code> for rows that
+converted cleanly. Implies <code>errors="coerce"</code> if <code>errors</code>
+is left at the default of <code>"raise"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The same shape as the input — string for string, list for list,</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DataFrame for DataFrame.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="NICFormatError (helakit.nic.exceptions.NICFormatError)" href="#helakit.nic.NICFormatError">NICFormatError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a value cannot be parsed (e.g. wrong length,
+non-numeric content, impossible birth date) and
+<code>errors="raise"</code>. Valid new-format input passes through
+unchanged; invalid new-format input is rejected like any
+other bad value.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvalidInputError (helakit._core.exceptions.InvalidInputError)" href="../helakit/#helakit.InvalidInputError">InvalidInputError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>For unsupported input types or invalid
+<code>errors</code> values.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="helakit.nic.is_valid_nic" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">is_valid_nic</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">is_valid_nic</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="s1">&#39;any&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return <code>True</code> if <code>value</code> is a structurally valid NIC.</p>
+<p>Scalar-only — for batch checks use :func:<code>validate_nic</code> and inspect
+each <code>ValidationResult</code>.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvalidInputError (helakit._core.exceptions.InvalidInputError)" href="../helakit/#helakit.InvalidInputError">InvalidInputError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>value</code> is not a string.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="helakit.nic.validate_nic" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">validate_nic</span>
+
+
+</h3>
+          <div class="doc-overloads">
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NicResult</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">BatchErrorMode</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NICBatchResult</span>
+</code></pre></div><div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">BatchErrorMode</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NICBatchResult</span>
+</code></pre></div>          </div>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">validate_nic</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">FormatHint</span> <span class="o">=</span> <span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="n">nic_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dob_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gender_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">century</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_OLD_NIC_CENTURY</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="n">BatchErrorMode</span> <span class="o">=</span> <span class="s1">&#39;raise&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NicResult</span> <span class="o">|</span> <span class="n">NICBatchResult</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Validate one or many Sri Lankan NIC numbers.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>data</code>
+            </td>
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A single NIC string, a <code>list[str]</code>, a <code>list[dict]</code>, a
+pandas/polars Series, or a pandas/polars DataFrame. A Series
+is treated like a list of strings — <code>nic_col</code> and friends
+do not apply (a Series has no columns).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>format</code>
+            </td>
+            <td>
+                  <code><span title="helakit.nic.validator.FormatHint">FormatHint</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Restrict to <code>"old"</code> or <code>"new"</code> only. <code>"any"</code>
+(default) accepts both.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;any&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>nic_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name holding NICs (required for DataFrame and
+list-of-dicts input; not accepted for Series input).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dob_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name holding dates of birth. When supplied each
+row is cross-checked and the per-row result records whether
+the decoded DOB matched.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>gender_col</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Column name holding gender (<code>M</code>/<code>F</code>/<code>Male</code>/
+<code>Female</code>, case-insensitive).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>century</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Century to assume for two-digit years on old NICs.
+Defaults to <code>1900</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="helakit.nic._data.DEFAULT_OLD_NIC_CENTURY">DEFAULT_OLD_NIC_CENTURY</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>errors</code>
+            </td>
+            <td>
+                  <code><span title="helakit.nic.validator.BatchErrorMode">BatchErrorMode</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Batch-only. <code>"raise"</code> (default) propagates
+:class:<code>InvalidInputError</code> if any cross-check <code>dob</code> or
+<code>gender</code> value is unparseable, matching strict pandas
+semantics. <code>"coerce"</code> records the failure as a per-row
+error in :attr:<code>ValidationResult.errors</code> (and the
+<code>nic_errors</code> column on DataFrame output) so a single
+malformed row no longer aborts the whole batch.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;raise&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>A</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="NicResult
+
+
+  
+      dataclass
+   (helakit.nic._types.NicResult)" href="#helakit.nic.NicResult">NicResult</a> | <a class="autorefs autorefs-internal" title="NICBatchResult
+
+
+  
+      dataclass
+   (helakit.nic._types.NICBatchResult)" href="#helakit.nic.NICBatchResult">NICBatchResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>NicResult</code> for scalar input, or a</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="NicResult
+
+
+  
+      dataclass
+   (helakit.nic._types.NicResult)" href="#helakit.nic.NicResult">NicResult</a> | <a class="autorefs autorefs-internal" title="NICBatchResult
+
+
+  
+      dataclass
+   (helakit.nic._types.NICBatchResult)" href="#helakit.nic.NICBatchResult">NICBatchResult</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>NICBatchResult</code> for any iterable input.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="InvalidInputError (helakit._core.exceptions.InvalidInputError)" href="../helakit/#helakit.InvalidInputError">InvalidInputError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>For unsupported input types, an invalid
+<code>errors</code> value, or unparseable gender / DOB values when
+<code>errors="raise"</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../helakit/" class="md-footer__link md-footer__link--prev" aria-label="Previous: helakit">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                helakit
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../helakit.phone/" class="md-footer__link md-footer__link--next" aria-label="Next: helakit.phone">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                helakit.phone
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "navigation.indexes", "content.code.copy", "content.code.annotate", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
