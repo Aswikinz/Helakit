@@ -264,3 +264,80 @@ def test_pandas_decoded_dob_is_real_date() -> None:
     batch = validate_nic(df, nic_col="nic")
     decoded_dob = batch.df["nic_decoded_dob"].iloc[0]
     assert decoded_dob == date(1982, 1, 14)
+
+
+# --- Series input for validate_nic ----------------------------------------
+
+
+def test_pandas_validate_accepts_series() -> None:
+    series = pd.Series(["820149894V", "garbage"], name="nic")
+    batch = validate_nic(series)
+    assert batch.summary.total == 2
+    assert batch.is_valid == [True, False]
+    assert batch.df is None  # no frame to annotate; use to_pandas()
+
+
+def test_polars_validate_accepts_series() -> None:
+    series = pl.Series("nic", ["820149894V", "199201409894"])
+    batch = validate_nic(series)
+    assert batch.summary.valid == 2
+
+
+def test_pandas_validate_series_rejects_column_args() -> None:
+    series = pd.Series(["820149894V"], name="nic")
+    with pytest.raises(InvalidInputError):
+        validate_nic(series, nic_col="nic")
+    with pytest.raises(InvalidInputError):
+        validate_nic(series, dob_col="dob")
+
+
+def test_pandas_validate_series_mask_filters_frame() -> None:
+    df = pd.DataFrame({"nic": ["820149894V", "garbage", "830250995X"]})
+    batch = validate_nic(df["nic"])
+    assert df[batch.is_valid]["nic"].tolist() == ["820149894V", "830250995X"]
+
+
+# --- to_pandas / to_polars conversions -------------------------------------
+
+
+def test_to_pandas_from_list_input() -> None:
+    batch = validate_nic(["820149894V", "garbage"])
+    out = batch.to_pandas()
+    assert isinstance(out, pd.DataFrame)
+    assert out["nic"].tolist() == ["820149894V", "garbage"]
+    assert out["nic_valid"].tolist() == [True, False]
+
+
+def test_to_pandas_returns_annotated_frame_for_pandas_input() -> None:
+    df = pd.DataFrame({"nic": ["820149894V"], "extra": [1]})
+    batch = validate_nic(df, nic_col="nic")
+    out = batch.to_pandas()
+    assert out is batch.df
+    assert "extra" in out.columns
+
+
+def test_to_pandas_from_polars_input_builds_fresh_frame() -> None:
+    df = pl.DataFrame({"nic": ["820149894V"]})
+    batch = validate_nic(df, nic_col="nic")
+    out = batch.to_pandas()
+    assert isinstance(out, pd.DataFrame)
+    assert out["nic_valid"].tolist() == [True]
+
+
+def test_to_polars_from_list_input() -> None:
+    batch = validate_nic(["820149894V", "garbage"])
+    out = batch.to_polars()
+    assert isinstance(out, pl.DataFrame)
+    assert out["nic_valid"].to_list() == [True, False]
+
+
+def test_to_polars_returns_annotated_frame_for_polars_input() -> None:
+    df = pl.DataFrame({"nic": ["820149894V"]})
+    batch = validate_nic(df, nic_col="nic")
+    assert batch.to_polars() is batch.df
+
+
+def test_to_pandas_column_order_matches_record_fields() -> None:
+    batch = validate_nic(["820149894V"])
+    out = batch.to_pandas()
+    assert list(out.columns) == list(batch.results[0].record_fields())

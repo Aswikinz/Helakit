@@ -143,9 +143,10 @@ only way to get an `InvalidInputError` is to pass the wrong type.
 ### `NICFormatError`
 
 Raised by `convert_nic` when its input cannot be parsed as either NIC
-format. Conversion has no sensible result object to return — failure
-must propagate as an exception. In batch mode, pass `errors="coerce"`
-to capture the failure inline instead.
+format, or parses but fails validation (for example a 12-digit input
+encoding an impossible birth date). Conversion has no sensible result
+object to return — failure must propagate as an exception. In batch
+mode, pass `errors="coerce"` to capture the failure inline instead.
 
 ```python
 from helakit import NICFormatError, convert_nic

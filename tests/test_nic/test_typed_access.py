@@ -31,6 +31,33 @@ def test_typed_attribute_access() -> None:
     assert result.voting_eligible == decoded.voting_eligible
 
 
+def test_age_at_is_deterministic_for_a_fixed_reference_date() -> None:
+    """age_at takes an explicit date, so it never depends on the wall clock."""
+    result = validate_nic("199201409894")  # DOB 1992-01-14
+    decoded = result.decoded
+    assert decoded is not None
+    assert decoded.age_at(date(2026, 1, 14)) == 34  # birthday reached
+    assert decoded.age_at(date(2026, 1, 13)) == 33  # day before birthday
+    assert result.age_at(date(2026, 1, 14)) == 34  # same via the result
+
+
+def test_age_is_not_a_stored_constructor_field() -> None:
+    """Age depends on the current date, so it must not be baked into the
+    immutable decoded payload."""
+    with pytest.raises(TypeError):
+        NICDecoded(  # type: ignore[call-arg]
+            format="new",
+            dob=date(1992, 1, 14),
+            gender="male",
+            age=33,
+            year=1992,
+            day_code=14,
+            serial=989,
+            check_digit=4,
+            voting_eligible=None,
+        )
+
+
 def test_dict_style_access() -> None:
     """`result["decoded"]` mirrors `result.data["decoded"]`."""
     result = validate_nic("199201409894")

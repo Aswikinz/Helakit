@@ -19,6 +19,23 @@ def test_new_passes_through_unchanged() -> None:
     assert convert_nic("198201409894") == "198201409894"
 
 
+def test_new_format_is_validated_not_blindly_passed_through() -> None:
+    # 12 digits but the day code (999 → 499 after the female offset) is
+    # impossible; must be rejected, not returned as-is.
+    with pytest.raises(NICFormatError):
+        convert_nic("199299999894")
+
+
+def test_new_format_phantom_feb29_rejected() -> None:
+    # Day 60 in the non-leap year 1983 is the reserved-but-phantom Feb 29.
+    with pytest.raises(NICFormatError):
+        convert_nic("198306000123")
+
+
+def test_new_format_invalid_coerces_to_none_in_batch() -> None:
+    assert convert_nic(["199299999894"], errors="coerce") == [None]
+
+
 def test_normalises_input() -> None:
     assert convert_nic("  820149894v ") == "198201409894"
 

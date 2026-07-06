@@ -13,7 +13,15 @@ from typing import Any, Literal
 
 from helakit._core.exceptions import InvalidInputError
 
-InputKind = Literal["str", "list_of_str", "list_of_dict", "pandas", "polars"]
+InputKind = Literal[
+    "str",
+    "list_of_str",
+    "list_of_dict",
+    "pandas",
+    "pandas_series",
+    "polars",
+    "polars_series",
+]
 
 _VALID_GENDER_TOKENS: dict[str, Literal["male", "female"]] = {
     "m": "male",
@@ -36,9 +44,9 @@ def detect_kind(value: Any) -> InputKind:
     module = cls.__module__
     root = module.split(".", 1)[0]
     if root == "pandas":
-        return "pandas"
+        return "pandas_series" if cls.__name__ == "Series" else "pandas"
     if root == "polars":
-        return "polars"
+        return "polars_series" if cls.__name__ == "Series" else "polars"
 
     if isinstance(value, (list, tuple)):
         if not value:

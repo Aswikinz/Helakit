@@ -95,7 +95,7 @@ fields it extracts.
 | Validator | Returns | Typed properties |
 | --------- | ------- | ---------------- |
 | `validate_phone` | `PhoneResult` | `carrier`, `line_type`, `local`, `decoded` |
-| `validate_nic` | `NicResult` | `decoded`, `format`, `dob`, `gender`, `age`, `year`, `serial`, `voting_eligible`, `dob_match`, `gender_match`, `mismatch_reasons`, `mismatch_detail` |
+| `validate_nic` | `NicResult` | `decoded`, `format`, `dob`, `gender`, `age`, `age_at(...)`, `year`, `serial`, `voting_eligible`, `dob_match`, `gender_match`, `mismatch_reasons`, `mismatch_detail`, `to_dict()` |
 | `validate_postal` | `PostalResult` | `district`, `province`, `post_office`, `decoded` |
 
 The properties read from the same `data` dict — they are **not separate
@@ -167,10 +167,17 @@ list(result)                   # ['decoded', 'carrier', 'line_type', 'local']
 
 ## Equality and hashing
 
-`ValidationResult` does **not** override `__eq__` or `__hash__` — two
-distinct results compare by identity, not by content. If you need
-content equality (e.g. in tests), compare specific fields or compare
-`result.data`.
+`ValidationResult` is a dataclass, so two results with the same field
+values **compare equal by content**:
+
+```python
+validate_phone("0712345678") == validate_phone("0712345678")   # True
+```
+
+Results are **not hashable** — the `errors` list makes `hash()` raise
+`TypeError` — so they cannot be used as dict keys or set members. Use
+the frozen `decoded` dataclass (or `result.normalized`) for that
+instead.
 
 ## See also
 

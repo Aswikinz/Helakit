@@ -18,6 +18,15 @@ def test_list_of_strings() -> None:
     assert batch.summary.invalid == 1
 
 
+def test_year_zero_row_does_not_abort_batch() -> None:
+    # A single malformed row (year 0 → invalid date) must not raise and abort
+    # the whole batch; it is reported as one invalid result alongside the rest.
+    batch = validate_nic(["199201409894", "000020000018"])
+    assert batch.summary.total == 2
+    assert batch.summary.valid == 1
+    assert batch.summary.invalid == 1
+
+
 def test_duplicate_detection_strips_v_x() -> None:
     batch = validate_nic(["820149894V", "820149894X", "199201409894"])
     assert batch.summary.duplicate_groups == 1
@@ -179,3 +188,80 @@ def test_errors_raise_default_still_propagates() -> None:
     rows = [{"nic": "820149894V", "gender": "other"}]
     with pytest.raises(InvalidInputError):
         validate_nic(rows, nic_col="nic", gender_col="gender")
+
+
+# --- pandas-style container API ------------------------------------------
+
+
+def test_slicing_returns_list() -> None:
+    batch = validate_nic(["820149894V", "199201409894", "garbage"])
+    first_two = batch[:2]
+    assert isinstance(first_two, list)
+    assert len(first_two) == 2
+    assert first_two[0].is_valid
+
+
+def test_head_mirrors_dataframe_head() -> None:
+    batch = validate_nic(["820149894V", "199201409894", "garbage"])
+    assert len(batch.head(2)) == 2
+    assert len(batch.head()) == 3  # fewer rows than the default 5
+
+
+def test_is_valid_mask_is_row_aligned() -> None:
+    batch = validate_nic(["820149894V", "garbage", "199201409894"])
+    assert batch.is_valid == [True, False, True]
+
+
+def test_valid_and_invalid_filters() -> None:
+    batch = validate_nic(["820149894V", "garbage"])
+    assert [r.value for r in batch.valid] == ["820149894V"]
+    assert [r.value for r in batch.invalid] == ["garbage"]
+
+
+def test_describe_returns_summary() -> None:
+    batch = validate_nic(["820149894V", "garbage"])
+    summary = batch.describe()
+    assert summary is batch.summary
+    assert summary.to_dict() == {
+        "total": 2,
+        "valid": 1,
+        "invalid": 1,
+        "duplicate_groups": 0,
+        "duplicate_rows": 0,
+        "dob_mismatches": 0,
+        "gender_mismatches": 0,
+    }
+
+
+def test_to_dicts_produces_flat_records() -> None:
+    batch = validate_nic(["820149894V", "garbage"])
+    records = batch.to_dicts()
+    assert len(records) == 2
+    good, bad = records
+    assert good["nic"] == "820149894V"
+    assert good["nic_valid"] is True
+    assert good["nic_normalized"] == "820149894"
+    assert good["nic_format"] == "old"
+    assert good["nic_errors"] is None
+    assert bad["nic_valid"] is False
+    assert bad["nic_errors"] == "nic.bad_length"
+
+
+def test_to_dicts_includes_cross_check_columns() -> None:
+    rows = [{"nic": "820149894V", "dob": "1982-03-14", "gender": "F"}]
+    batch = validate_nic(rows, nic_col="nic", dob_col="dob", gender_col="gender")
+    record = batch.to_dicts()[0]
+    assert record["nic_dob_match"] is False
+    assert record["nic_gender_match"] is False
+    assert record["nic_mismatch_reasons"] == "dob,gender"
+
+
+def test_result_to_dict_matches_record_fields() -> None:
+    result = validate_nic("820149894V")
+    record = result.to_dict()
+    assert tuple(record) == type(result).record_fields()
+
+
+def test_batch_repr_shows_counts() -> None:
+    batch = validate_nic(["820149894V", "garbage"])
+    assert repr(batch) == "NICBatchResult(total=2, valid=1, invalid=1, duplicate_groups=0)"

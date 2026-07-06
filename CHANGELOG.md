@@ -7,6 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- pandas-style API on `NICBatchResult` so batch results feel like the
+  containers DataFrame users already know:
+  - `to_pandas()` / `to_polars()` — return the batch as a DataFrame for
+    *any* input shape (list, list-of-dicts, Series, DataFrame), not just
+    DataFrame input.
+  - `to_dicts()` — list of flat record dicts, zero optional dependencies.
+  - `describe()` — the `NICSummary` roll-up, mirroring `DataFrame.describe()`.
+  - `is_valid` — row-aligned boolean mask that drops into `df[batch.is_valid]`.
+  - `valid` / `invalid` — filtered lists of per-row results.
+  - `head(n)` and slice indexing (`batch[:3]`), mirroring pandas.
+  - a concise `repr` showing the summary counts.
+- `NicResult.to_dict()` flattens a single result into the same record
+  shape as one `to_pandas()` row; `NICSummary.to_dict()` returns the
+  counts as a plain dict.
+- `validate_nic` now accepts a pandas or polars **Series** directly
+  (`validate_nic(df["nic"])`), treated like a list of strings. Previously
+  Series input crashed with an `AttributeError` (pandas) or a misleading
+  `nic_col is required` error (polars).
+
+### Changed
+
+- `convert_nic` now validates new-format (12-digit) input instead of
+  passing it through unchecked. A 12-digit string that encodes an
+  impossible birth date (day code out of range, phantom Feb 29 in a
+  non-leap year) now raises `NICFormatError` — or coerces to `None`
+  under `errors="coerce"` — instead of being silently returned as-is.
+- `NICDecoded.age` is now computed on access instead of being baked into the
+  immutable result at validation time, so it no longer goes stale. Age is no
+  longer a constructor field on `NICDecoded`. New `NICDecoded.age_at(today)`
+  (and `NicResult.age_at(today)`) compute completed years against an explicit
+  reference date for deterministic, testable results; the `age` property
+  remains as a convenience measured against the current date.
+
+### Fixed
+
+- `validate_nic` no longer raises an unhandled `ValueError` on a new-format
+  NIC whose four-digit year decodes to `0000` (e.g. `"000020000018"`). The
+  year is outside the range `datetime.date` can represent, so it is now
+  reported as a `nic.invalid_date` validation error instead. Previously this
+  also aborted an entire batch when one such row was present.
+
 ## [0.2.0] - 2026-05-05
 
 ### Added

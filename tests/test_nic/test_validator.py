@@ -130,6 +130,15 @@ def test_day_366_in_leap_year_valid() -> None:
     assert result.data["decoded"].dob == date(2000, 12, 31)
 
 
+def test_year_zero_new_format_is_invalid_not_a_crash() -> None:
+    # A "0000…" new-format NIC decodes to year 0, which is outside the range
+    # datetime.date can represent. It must surface as a validation error, not
+    # raise (malformed data is always reported through the result).
+    result = validate_nic("000020000018")
+    assert not result.is_valid
+    assert any(e.code == "nic.invalid_date" for e in result.errors)
+
+
 # ---------- Format hint ----------
 
 

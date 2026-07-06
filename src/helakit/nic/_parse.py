@@ -212,19 +212,24 @@ def _day_to_date(year: int, day_code: int) -> date | None:
     """Map an SL-NIC day-of-year code to a calendar date.
 
     Returns ``None`` if the code does not correspond to a real date in the
-    given year (phantom Feb 29, or day 366 outside a leap year).
+    given year (phantom Feb 29, day 366 outside a leap year, or a year that
+    falls outside the range :class:`datetime.date` can represent).
     """
     if day_code < MIN_DAY_CODE or day_code > MAX_DAY_CODE:
         return None
-    if calendar.isleap(year):
+    if not calendar.isleap(year):
+        if day_code == 60:
+            return None
+        if day_code > 60:
+            day_code -= 1
+        if day_code > 365:
+            return None
+    try:
         return date(year, 1, 1) + timedelta(days=day_code - 1)
-    if day_code == 60:
+    except ValueError:
+        # year 0 (only reachable from a "0000…" new-format NIC) is outside
+        # the range date() accepts; treat it as an invalid calendar date.
         return None
-    if day_code > 60:
-        day_code -= 1
-    if day_code > 365:
-        return None
-    return date(year, 1, 1) + timedelta(days=day_code - 1)
 
 
 def date_to_day_code(value: date) -> int:

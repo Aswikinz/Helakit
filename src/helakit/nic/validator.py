@@ -1,10 +1,10 @@
 """Public NIC validation entry points.
 
 :func:`validate_nic` accepts a single string, a ``list[str]``,
-a ``list[dict]``, a pandas DataFrame, or a polars DataFrame. When the
-input is a list-of-dicts or a DataFrame and ``dob_col`` / ``gender_col``
-are supplied, each row's NIC is also cross-checked against the supplied
-values and any mismatches are reported in detail.
+a ``list[dict]``, a pandas/polars Series, or a pandas/polars DataFrame.
+When the input is a list-of-dicts or a DataFrame and ``dob_col`` /
+``gender_col`` are supplied, each row's NIC is also cross-checked
+against the supplied values and any mismatches are reported in detail.
 
 Format / checksum validation is structural only — the Department for
 Registration of Persons has not published the modulo-11 check digit
@@ -82,10 +82,13 @@ def validate_nic(
 
     Args:
         data: A single NIC string, a ``list[str]``, a ``list[dict]``, a
-            pandas DataFrame, or a polars DataFrame.
+            pandas/polars Series, or a pandas/polars DataFrame. A Series
+            is treated like a list of strings — ``nic_col`` and friends
+            do not apply (a Series has no columns).
         format: Restrict to ``"old"`` or ``"new"`` only. ``"any"``
             (default) accepts both.
-        nic_col: Column name holding NICs (required for tabular input).
+        nic_col: Column name holding NICs (required for DataFrame and
+            list-of-dicts input; not accepted for Series input).
         dob_col: Column name holding dates of birth. When supplied each
             row is cross-checked and the per-row result records whether
             the decoded DOB matched.
@@ -173,7 +176,6 @@ def _validate_one(
             format=parsed.format,
             dob=parsed.dob,
             gender=parsed.gender,
-            age=_age(parsed.dob),
             year=parsed.year,
             day_code=parsed.day_code,
             serial=parsed.serial,
@@ -278,14 +280,6 @@ def _coerce_optional(
         return None, ValidationError(code=code, message=str(exc), field=field)
 
 
-def _age(dob: date, *, today: date | None = None) -> int:
-    today = today or date.today()
-    years = today.year - dob.year
-    if (today.month, today.day) < (dob.month, dob.day):
-        years -= 1
-    return years
-
-
 def _extract_rows(
     data: Any,
     *,
@@ -297,6 +291,16 @@ def _extract_rows(
     """Normalise any batch input into a list of ``{nic, dob, gender}`` dicts."""
     if kind == "list_of_str":
         return [{"nic": v} for v in data]
+
+    if kind in ("pandas_series", "polars_series"):
+        for name, value in (("nic_col", nic_col), ("dob_col", dob_col), ("gender_col", gender_col)):
+            if value is not None:
+                raise InvalidInputError(
+                    f"{name} does not apply to Series input — a Series has no columns. "
+                    "Pass the whole DataFrame to use column names."
+                )
+        values = data.tolist() if kind == "pandas_series" else data.to_list()
+        return [{"nic": v} for v in values]
 
     if kind == "list_of_dict":
         if nic_col is None:
@@ -469,32 +473,16 @@ def _validate_batch(
 
 
 def _result_columns(results: list[NicResult]) -> dict[str, list[Any]]:
-    cols: dict[str, list[Any]] = {
-        "nic_valid": [],
-        "nic_normalized": [],
-        "nic_format": [],
-        "nic_decoded_dob": [],
-        "nic_decoded_gender": [],
-        "nic_dob_match": [],
-        "nic_gender_match": [],
-        "nic_mismatch_reasons": [],
-        "nic_mismatch_detail": [],
-        "nic_errors": [],
-    }
-    for r in results:
-        decoded = r.data.get("decoded")
-        cols["nic_valid"].append(r.is_valid)
-        cols["nic_normalized"].append(r.normalized)
-        cols["nic_format"].append(r.data.get("format"))
-        cols["nic_decoded_dob"].append(decoded.dob if decoded else None)
-        cols["nic_decoded_gender"].append(decoded.gender if decoded else None)
-        cols["nic_dob_match"].append(r.data.get("dob_match"))
-        cols["nic_gender_match"].append(r.data.get("gender_match"))
-        reasons = r.data.get("mismatch_reasons") or []
-        cols["nic_mismatch_reasons"].append(",".join(reasons) if reasons else None)
-        cols["nic_mismatch_detail"].append(r.data.get("mismatch_detail"))
-        cols["nic_errors"].append(",".join(e.code for e in r.errors) if r.errors else None)
-    return cols
+    """Column-oriented view of the per-row records, minus the input echo.
+
+    Derived from :meth:`NicResult.to_dict` so the annotated-DataFrame
+    columns and ``NICBatchResult.to_pandas()`` can never drift apart.
+    The ``nic`` key is dropped because the source frame already holds
+    the input value in the caller's own column.
+    """
+    records = [r.to_dict() for r in results]
+    names = [key for key in NicResult.record_fields() if key != "nic"]
+    return {name: [record[name] for record in records] for name in names}
 
 
 def _annotate_pandas(df: Any, results: list[NicResult]) -> Any:

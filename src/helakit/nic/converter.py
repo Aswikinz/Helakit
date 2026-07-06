@@ -3,7 +3,9 @@
 The reverse direction is intentionally not supported — new NICs do not
 encode the V/X voting flag, so converting back would lose information.
 ``convert_nic`` is idempotent on inputs that are already in the new
-format: pass a 12-digit NIC and you get the same NIC back.
+format: pass a *valid* 12-digit NIC and you get the same NIC back.
+Invalid input is rejected in every direction — a 12-digit string that
+encodes an impossible birth date is an error, not a pass-through.
 """
 
 from __future__ import annotations
@@ -11,7 +13,7 @@ from __future__ import annotations
 from typing import Any, Literal, overload
 
 from helakit._core.exceptions import InvalidInputError
-from helakit.nic._data import DEFAULT_OLD_NIC_CENTURY, NEW_FORMAT_LENGTH
+from helakit.nic._data import DEFAULT_OLD_NIC_CENTURY
 from helakit.nic._dispatch import detect_kind
 from helakit.nic._normalize import normalize
 from helakit.nic._parse import parse
@@ -83,8 +85,10 @@ def convert_nic(
 
     Raises:
         NICFormatError: If a value cannot be parsed (e.g. wrong length,
-            non-numeric content) and ``errors="raise"``. New-format input
-            passes through unchanged.
+            non-numeric content, impossible birth date) and
+            ``errors="raise"``. Valid new-format input passes through
+            unchanged; invalid new-format input is rejected like any
+            other bad value.
         InvalidInputError: For unsupported input types or invalid
             ``errors`` values.
     """
@@ -108,22 +112,19 @@ def convert_nic(
                 "returned values directly or use validate_nic for per-row diagnostics."
             )
         return [_convert_with_mode(v, century=century, errors=effective_errors)[0] for v in value]
-    if kind == "pandas":
+    if kind in ("pandas", "pandas_series"):
         return _convert_pandas(value, nic_col, century, effective_errors, error_col)
-    if kind == "polars":
+    if kind in ("polars", "polars_series"):
         return _convert_polars(value, nic_col, century, effective_errors, error_col)
     raise InvalidInputError(f"convert_nic does not accept input of kind {kind!r}.")
 
 
 def _convert_one(value: str, *, century: int) -> str:
     cleaned = normalize(value)
-    if len(cleaned) == NEW_FORMAT_LENGTH and cleaned.isdigit():
-        return cleaned
-
     parsed, errors = parse(cleaned, century=century)
     if parsed is None or errors:
         codes = ", ".join(e.code for e in errors) or "unparseable"
-        raise NICFormatError(f"Cannot convert {value!r} — input is not a valid old NIC ({codes}).")
+        raise NICFormatError(f"Cannot convert {value!r} — input is not a valid NIC ({codes}).")
     if parsed.format == "new":
         return cleaned
 

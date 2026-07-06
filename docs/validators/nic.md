@@ -17,12 +17,45 @@ Helakit supports **both** formats:
 | Validate one NIC and decode it      | `validate_nic("820149894V")`                       |
 | Yes/no check                        | `is_valid_nic("820149894V")`                       |
 | Old → new format                    | `convert_nic("820149894V")`                        |
-| Audit a list / DataFrame            | `validate_nic(df, nic_col=..., dob_col=..., ...)`  |
+| Validate a whole column             | `validate_nic(df["nic"])`                          |
+| Audit a DataFrame with cross-checks | `validate_nic(df, nic_col=..., dob_col=..., ...)`  |
+| Batch → DataFrame of diagnostics    | `validate_nic(anything).to_pandas()`               |
+
+## If you're coming from pandas
+
+The batch API is designed to feel like the tools you already use. A
+typical audit is three lines:
+
+```python
+import pandas as pd
+from helakit import validate_nic
+
+df = pd.read_csv("customers.csv")
+
+batch = validate_nic(df["nic"])       # a Series works directly
+df[batch.is_valid]                    # boolean-mask filtering, like df[mask]
+batch.describe()                      # summary counts, like df.describe()
+batch.to_pandas()                     # diagnostics as a DataFrame
+```
+
+Everything follows pandas conventions you already know:
+
+| pandas habit                  | helakit equivalent                          |
+| ----------------------------- | ------------------------------------------- |
+| `df[mask]`                    | `df[batch.is_valid]`                        |
+| `df.head()`                   | `batch.head()`                              |
+| `df[:3]`                      | `batch[:3]`                                 |
+| `df.describe()`               | `batch.describe()`                          |
+| `df.to_dict("records")`       | `batch.to_dicts()`                          |
+| `pd.to_numeric(errors="coerce")` | `validate_nic(..., errors="coerce")`, `convert_nic(..., errors="coerce")` |
+| `Series.map(...)` column transforms | `df["nic_new"] = convert_nic(df["nic"], errors="coerce")` |
 
 ## `validate_nic`
 
 The headline function. Accepts a single string or any batch
-input — list, list-of-dicts, pandas DataFrame, or polars DataFrame.
+input — list, list-of-dicts, pandas/polars Series, or pandas/polars
+DataFrame. Scalar input returns a `NicResult`; every batch shape
+returns a `NICBatchResult`.
 
 ### Single NIC
 
@@ -33,28 +66,37 @@ result = validate_nic("820149894V")
 
 result.is_valid          # True
 result.normalized        # "820149894"  (V/X stripped, used for dedup)
-result.data["decoded"]   # NICDecoded(...)
 
-decoded = result.data["decoded"]
-decoded.format           # "old"
-decoded.dob              # datetime.date(1982, 1, 14)
-decoded.gender           # "male"
-decoded.age              # 44 (computed at call time)
-decoded.voting_eligible  # True
-decoded.serial           # 989
-decoded.check_digit      # 4
+# Decoded fields are one attribute away:
+result.format            # "old"
+result.dob               # datetime.date(1982, 1, 14)
+result.gender            # "male"
+result.age               # 44 (vs today, recomputed on each access)
+result.age_at(date(2026, 1, 1))  # 43 (vs an explicit reference date)
+result.year              # 1982
+result.serial            # 989
+result.voting_eligible   # True
+
+# The same fields, bundled into one frozen dataclass:
+result.decoded           # NICDecoded(format='old', dob=date(1982, 1, 14), ...)
+result.to_dict()         # flat record dict — one row of to_pandas()
 ```
 
-`ValidationResult` is truthy when `is_valid` is `True`, so the rich
-form drops into `if` statements naturally:
+Properties return `None` on invalid results, so attribute access never
+raises. `NicResult` is truthy when valid, so it drops into `if`
+statements naturally:
 
 ```python
 if result := validate_nic(user_input):
-    print(result.data["decoded"].dob)
+    print(result.dob)
 else:
     for err in result.errors:
         print(err.code, err.message)
 ```
+
+See **[Working with results](../concepts/results.md)** for the full
+menu of access patterns (`result.dob`, `result["decoded"]`,
+`result.get(...)`, `result.data`).
 
 ### Restricting the format
 
@@ -86,27 +128,21 @@ is_valid_nic("820149894V", format="new")    # False
 ```
 
 `is_valid_nic` is **scalar-only**. For batch checks, use
-`validate_nic` and inspect each result.
-
-## `convert_nic`
-
-Old → new conversion. The reverse direction is not supported because
-new NICs do not encode the V/X voting flag.
-
-```python
-from helakit import convert_nic
-
-convert_nic("820149894V")     # "198201409894"
-convert_nic("198201409894")   # "198201409894"  (idempotent)
-convert_nic("garbage")        # raises NICFormatError
-```
-
-For lists and DataFrames see the **Batch input** section below.
+`validate_nic` and the `is_valid` mask.
 
 ## Batch input
 
-`validate_nic` and `convert_nic` accept four batch shapes; the return
-type follows the input shape.
+`validate_nic` accepts five batch shapes. All of them return the same
+`NICBatchResult`, so the reading code never changes when the input
+shape does.
+
+| Input shape           | Example                                       | Needs `nic_col`? |
+| --------------------- | --------------------------------------------- | ---------------- |
+| `list[str]`           | `validate_nic(["820149894V", ...])`           | no               |
+| `list[dict]`          | `validate_nic(rows, nic_col="nic")`           | yes              |
+| pandas/polars Series  | `validate_nic(df["nic"])`                     | no (not allowed) |
+| pandas DataFrame      | `validate_nic(df, nic_col="nic")`             | yes              |
+| polars DataFrame      | `validate_nic(df, nic_col="nic")`             | yes              |
 
 ### List of strings
 
@@ -119,6 +155,19 @@ batch.duplicates                 # {"820149894": [0, 1]}
 
 for result in batch:
     print(result.is_valid, result.normalized)
+```
+
+### Series (pandas or polars)
+
+A Series is treated like a list of strings — no `nic_col` needed
+(a Series has no columns, so passing `nic_col` raises
+`InvalidInputError`):
+
+```python
+batch = validate_nic(df["nic"])
+
+df[batch.is_valid]               # rows with valid NICs
+batch.to_pandas()                # fresh frame of diagnostics
 ```
 
 ### List of dicts (with cross-checking)
@@ -143,9 +192,11 @@ batch = validate_nic(
 batch.summary.dob_mismatches      # 1
 batch.summary.gender_mismatches   # 1
 
-mismatch = batch.results[1].data
-mismatch["mismatch_reasons"]      # ["dob", "gender"]
-mismatch["mismatch_detail"]
+mismatch = batch[1]
+mismatch.dob_match                # False
+mismatch.gender_match             # False
+mismatch.mismatch_reasons         # ["dob", "gender"]
+mismatch.mismatch_detail
 # "dob: NIC says 1982-01-14, supplied 1982-03-14;
 #  gender: NIC says male, supplied female"
 mismatch["dob_decoded"]           # date(1982, 1, 14)
@@ -155,7 +206,8 @@ mismatch["dob_supplied"]          # date(1982, 3, 14)
 Accepted formats:
 
 - **Gender:** `"M"`, `"F"`, `"Male"`, `"Female"`, `"MALE"`, `"FEMALE"`
-  (case-insensitive). Anything else raises `InvalidInputError`.
+  (case-insensitive). Anything else raises `InvalidInputError` (or is
+  captured per-row with `errors="coerce"` — see below).
 - **DOB:** `datetime.date`, `datetime.datetime`, ISO 8601 string
   (`"YYYY-MM-DD"`), or any object exposing `to_pydatetime()` (covers
   pandas Timestamp and numpy datetime64).
@@ -165,8 +217,9 @@ Accepted formats:
 
 ### pandas / polars DataFrames
 
-Pass a DataFrame and helakit returns a copy with diagnostic columns
-appended. The original frame is never mutated.
+Pass a DataFrame and helakit annotates a **copy** with diagnostic
+columns (the original frame is never mutated). The copy is available
+as `batch.df`, or equivalently `batch.to_pandas()` / `batch.to_polars()`:
 
 ```python
 import pandas as pd
@@ -179,7 +232,7 @@ df = pd.DataFrame({
 })
 
 batch = validate_nic(df, nic_col="nic", dob_col="dob", gender_col="gender")
-batch.df  # copy of df with the columns below appended
+out = batch.to_pandas()   # your columns + the diagnostic columns below
 ```
 
 | Column                 | Meaning                                                            |
@@ -195,17 +248,121 @@ batch.df  # copy of df with the columns below appended
 | `nic_mismatch_detail`  | Human-readable string showing supplied vs decoded values.          |
 | `nic_errors`           | Comma-joined error codes for invalid rows.                         |
 
-`pyproject.toml` keeps pandas and polars as optional extras. Install
-them only if you need DataFrame support:
+pandas and polars are optional extras — install only what you need:
 
 ```bash
 pip install helakit[pandas]   # or [polars], or [pandas,polars]
 ```
 
-`convert_nic` works the same way — pass a DataFrame and `nic_col` and
-get a frame back with a `nic_converted` column. By default, conversion
-is strict and an invalid value raises `NICFormatError`. See
-**Lenient batch handling** below for `errors="coerce"` and `error_col`.
+## The `NICBatchResult` container
+
+Every batch call returns a `NICBatchResult`. It behaves like the
+containers you already know — sized, iterable, indexable, sliceable —
+and converts to tabular form on demand.
+
+### Indexing, slicing, iteration
+
+```python
+batch = validate_nic(["820149894V", "garbage", "830250995X"])
+
+len(batch)          # 3
+batch[0]            # first NicResult
+batch[:2]           # list of the first two, like df[:2]
+batch.head(2)       # same thing, pandas-style
+for r in batch: ...  # iterates NicResults in input order
+```
+
+### Filtering
+
+```python
+batch.is_valid      # [True, False, True] — row-aligned boolean mask
+batch.valid         # [NicResult, NicResult] — only the clean rows
+batch.invalid       # [NicResult] — only the failures
+
+df[batch.is_valid]                      # pandas filtering
+pl_df.filter(pl.Series(batch.is_valid)) # polars filtering
+```
+
+### Summarising
+
+```python
+batch.describe()              # NICSummary(total=3, valid=2, invalid=1, ...)
+batch.describe().to_dict()    # plain dict, e.g. for pd.Series(...)
+batch.summary                 # same object, attribute-style
+bool(batch)                   # True only when *every* row is valid
+```
+
+`NICSummary` fields: `total`, `valid`, `invalid`, `duplicate_groups`,
+`duplicate_rows`, `dob_mismatches`, `gender_mismatches`.
+
+### Converting
+
+```python
+batch.to_dicts()     # list of flat record dicts — zero dependencies
+batch.to_pandas()    # pandas DataFrame (needs helakit[pandas])
+batch.to_polars()    # polars DataFrame (needs helakit[polars])
+```
+
+- For **DataFrame input**, `to_pandas()` / `to_polars()` return the
+  annotated copy of your frame (all your columns preserved).
+- For **every other input shape** (list, dicts, Series), they build a
+  fresh frame with a `nic` column (the original values) plus the
+  diagnostic columns from the table above.
+- `to_dicts()` uses the same keys, so a record and a frame row always
+  agree. A single `NicResult` flattens the same way via
+  `result.to_dict()`.
+
+### Duplicate detection
+
+`batch.duplicates` maps each canonical NIC (uppercased, V/X suffix
+stripped) to the row indices where it appears — only groups of two or
+more are included. Because old and new formats normalise differently,
+duplicates are detected *within* a format, and a reissued card with a
+different voting letter (`...V` vs `...X`) still counts as the same
+person:
+
+```python
+batch = validate_nic(["820149894V", "820149894X"])
+batch.duplicates                  # {"820149894": [0, 1]}
+batch.summary.duplicate_groups    # 1
+batch.summary.duplicate_rows      # 2
+```
+
+## `convert_nic`
+
+Old → new conversion. The reverse direction is not supported because
+new NICs do not encode the V/X voting flag, so converting back would
+lose information.
+
+```python
+from helakit import convert_nic
+
+convert_nic("820149894V")     # "198201409894"
+convert_nic("198201409894")   # "198201409894"  (valid new input is idempotent)
+convert_nic("garbage")        # raises NICFormatError
+convert_nic("199299999894")   # raises NICFormatError — 12 digits but an
+                              # impossible day code; invalid input is never
+                              # silently passed through
+```
+
+The mapping is: 2-digit year gets the century prefix (see
+[Old-NIC century](#old-nic-century)), the 3-digit day code is kept
+as-is, the 3-digit serial is zero-padded to 4 digits, and the check
+digit carries over. `820149894V` → `1982` + `014` + `0989` + `4`.
+
+`convert_nic` accepts the same batch shapes as `validate_nic`
+(minus list-of-dicts): a list returns a list, a Series returns a
+Series (index and name preserved), a DataFrame returns a copy with a
+`nic_converted` column:
+
+```python
+convert_nic(["820149894V", "830250995X"])
+# ["198201409894", "198302500995"]
+
+df["nic_new"] = convert_nic(df["nic"], errors="coerce")   # Series in, Series out
+
+out = convert_nic(df, nic_col="nic")                      # frame + nic_converted
+```
 
 ## Lenient batch handling
 
@@ -254,6 +411,11 @@ batch.summary.invalid          # 1
 batch.df["nic_errors"].iloc[1] # "nic.bad_dob_input,nic.bad_gender_input"
 ```
 
+Note the difference in scope: for `validate_nic` an unreadable **NIC**
+never raises — it is always reported per-row — so `errors` only
+concerns the cross-check inputs. For `convert_nic` the NIC itself is
+the payload, so `errors` governs every value.
+
 ### Capturing failures in a separate column
 
 For `convert_nic` on DataFrames, pass `error_col` to add a per-row
@@ -265,7 +427,7 @@ out = convert_nic(df, nic_col="nic", error_col="nic_error")
 out[["nic_converted", "nic_error"]]
 #   nic_converted   nic_error
 # 0 198201409894    None
-# 1 None            Cannot convert 'garbage' — input is not a valid old NIC (...)
+# 1 None            Cannot convert 'garbage' — input is not a valid NIC (...)
 ```
 
 `validate_nic` already exposes failures through the `nic_errors`
@@ -274,11 +436,24 @@ there.
 
 ## Encoding details
 
+### Anatomy of a NIC
+
+```
+Old:  82 014 989 4 V        New:  1982 014 0989 4
+      │  │   │   │ │              │    │   │    │
+      │  │   │   │ └ voting flag  │    │   │    └ check digit
+      │  │   │   └ check digit    │    │   └ serial (4 digits)
+      │  │   └ serial (3 digits)  │    └ day-of-year code
+      │  └ day-of-year code       └ full birth year
+      └ birth year (2 digits)
+```
+
 ### Day-of-year
 
 Both formats encode birth date as **day-of-year**, with female DOBs
 offset by 500. So day codes 1–366 are male and 501–866 are female; the
-parser strips the offset before decoding.
+parser strips the offset before decoding and reports the gender it
+implies.
 
 ### Leap years
 
@@ -286,8 +461,8 @@ Sri Lankan NICs reserve **day 60 for February 29 in every year**, leap
 or not. In a non-leap year day 60 is therefore a *phantom* date with no
 real calendar equivalent and is reported as `nic.invalid_date`. Days
 61–366 in non-leap years shift down by one to land on the correct
-calendar date; for example **March 1 in 1982 encodes as day 61, not
-day 60**.
+calendar date; for example **March 1 in 1983 encodes as day 61, not
+day 60**, and day 366 in a non-leap year decodes to December 31.
 
 ### Check digit
 
@@ -296,6 +471,13 @@ modulo-11 check digit algorithm and no public implementation has
 reverse-engineered it. Helakit extracts the digit (`decoded.check_digit`)
 but does **not** verify it. Once the algorithm becomes available,
 verification can be enabled without changing the public API.
+
+### Age
+
+Age is deliberately **not** stored on the result — it depends on the
+current date, which the NIC does not encode. Read it through
+`result.age` (recomputed against today on every access, never goes
+stale) or `result.age_at(some_date)` (deterministic, testable).
 
 ## Errors
 
