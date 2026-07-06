@@ -27,8 +27,20 @@ jobs:
           python-version: "3.12"
           enable-cache: true
 
+      - name: Verify tag matches package version
+        run: |
+          TAG_VERSION="${GITHUB_REF#refs/tags/v}"
+          PKG_VERSION=$(sed -n 's/^__version__ = "\(.*\)"$/\1/p' src/helakit/__init__.py)
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "Tag v$TAG_VERSION does not match __version__ = $PKG_VERSION in src/helakit/__init__.py." >&2
+            echo "Bump the package version before tagging — PyPI rejects re-uploads of an existing version." >&2
+            exit 1
+          fi
+
       - name: Build distributions
-        run: uv build
+        run: |
+          uv build
+          rm -f dist/.gitignore
 
       - name: Publish to PyPI (Trusted Publishing)
         uses: pypa/gh-action-pypi-publish@release/v1
