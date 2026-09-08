@@ -1,7 +1,8 @@
 """Provinces of Sri Lanka, keyed by short code.
 
-Placeholder data — the remaining provinces will be added alongside the
-postal-code validator.
+Sources:
+    - Department of Census and Statistics, Sri Lanka:
+      http://www.statistics.gov.lk/
 """
 
 from __future__ import annotations
@@ -12,4 +13,10 @@ PROVINCES: Final[dict[str, str]] = {
     "WP": "Western",
     "CP": "Central",
     "SP": "Southern",
+    "NP": "Northern",
+    "EP": "Eastern",
+    "NW": "North Western",
+    "NC": "North Central",
+    "UP": "Uva",
+    "SG": "Sabaragamuwa",
 }

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-08-09
+
+### Added
+
+- `PROVINCES` now includes all 9 provinces of Sri Lanka (previously only
+  Western, Central, and Southern). `DISTRICTS` now includes all 25
+  districts (previously only Colombo, Kandy, and Galle). Sourced from the
+  Department of Census and Statistics and Wikipedia's list of Sri Lankan
+  districts/provinces.
+
 ## [0.3.0] - 2026-07-06
 
 ### Added
