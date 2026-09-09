@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.4.0] - 2026-09-09
 
 ### Added
 
@@ -40,8 +40,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   per-row `postal.bad_district_input` error instead of aborting the batch.
 - `PostalResult.to_dict()` and `PostalResult.record_fields()`, matching the
   `postal_*` columns that `to_pandas()` produces.
+- `PROVINCES` now includes all 9 provinces of Sri Lanka (previously only
+  Western, Central, and Southern). `DISTRICTS` now includes all 25
+  districts (previously only Colombo, Kandy, and Galle). Sourced from the
+  Department of Census and Statistics and Wikipedia's list of Sri Lankan
+  districts/provinces.
 - `DISTRICT_PROVINCE` in `helakit._data.districts`, mapping each of the 25
-  districts to its province.
+  districts to its province. Together with the two tables above this is
+  what lets a postal code resolve all the way to a province.
 - `PhoneError` and `PostalError` are now re-exported from the top-level
   `helakit` namespace. `docs/concepts/errors.md` already told users they
   could write `except PhoneError`, but only
@@ -59,25 +65,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   recognised code always names one. This changes the previously-documented
   "planned shape", which nothing could depend on because the validator
   raised `NotImplementedError`.
-- `__version__` corrected to `0.3.1` to match the released version in this
-  changelog; it had been left at `0.3.0` when 0.3.1 was cut.
-
 ### Fixed
 
 - Postal code `60043` (Udahorombuwa) is recorded under Kurunegala. The
   directory's English column lists it under Kandy, but its Sinhala and
   Tamil columns both say Kurunegala, which is also where the `60xxx` block
   sits.
-
-## [0.3.1] - 2026-08-09
-
-### Added
-
-- `PROVINCES` now includes all 9 provinces of Sri Lanka (previously only
-  Western, Central, and Southern). `DISTRICTS` now includes all 25
-  districts (previously only Colombo, Kandy, and Galle). Sourced from the
-  Department of Census and Statistics and Wikipedia's list of Sri Lankan
-  districts/provinces.
 
 ## [0.3.0] - 2026-07-06
 

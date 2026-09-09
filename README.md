@@ -107,9 +107,10 @@ object — `len()`, indexing and slicing, `head()`, `describe()`,
 `to_pandas()` / `to_polars()` / `to_dicts()`, and a row-aligned
 `is_valid` mask you can pass straight to `df[...]`.
 
-More (driving licence numbers, BR numbers, …) will follow. Stubs for
-unimplemented validators raise `NotImplementedError` so call-sites
-written against the planned API don't silently no-op.
+More (driving licence numbers, BR numbers, …) will follow. Every
+validator in the tree is now implemented — there are no
+`NotImplementedError` stubs left, so anything you can import, you can
+call.
 
 ## Adding a new validator
 

@@ -24,7 +24,7 @@ from helakit.postal import (
     validate_postal,
 )
 
-__version__ = "0.3.1"
+__version__ = "0.4.0"
 
 __all__ = [
     "HelakitError",

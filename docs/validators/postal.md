@@ -328,8 +328,8 @@ down by province as follows.
 
 | Province | Codes |
 | -------- | ----- |
-| Central | 332 |
-| North Western | 307 |
+| Central | 331 |
+| North Western | 308 |
 | Western | 289 |
 | Southern | 245 |
 | Sabaragamuwa | 234 |

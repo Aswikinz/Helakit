@@ -60,3 +60,23 @@ def test_known_landmark_codes() -> None:
     assert POSTAL_CODES["20000"].district == "KAN"
     assert POSTAL_CODES["80000"].post_office == "Galle"
     assert POSTAL_CODES["82600"].post_office == "Tissamaharama"
+
+
+def test_counts_match_the_numbers_quoted_in_the_docs() -> None:
+    """Keeps the prose honest.
+
+    ``README.md``, ``docs/index.md`` and ``docs/validators/postal.md`` all
+    quote these totals, and the postal docs carry a per-province table. If
+    you add or correct entries this test will fail — update those numbers
+    in the same pull request, then update the numbers here.
+    """
+    assert len(POSTAL_CODES) == 2121
+    assert sum(1 for e in POSTAL_CODES.values() if not e.sub_post) == 592
+    assert sum(1 for e in POSTAL_CODES.values() if e.sub_post) == 1529
+
+
+def test_documented_data_correction_is_applied() -> None:
+    """``60043`` is listed under Kandy in the directory's English column but
+    Kurunegala in its Sinhala and Tamil columns, and the ``60xxx`` block is
+    Kurunegala. Recorded as Kurunegala; see the ``_data`` module docstring."""
+    assert POSTAL_CODES["60043"].district == "KUR"
