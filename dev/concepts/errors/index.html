@@ -682,10 +682,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#postal-planned" class="md-nav__link">
+  <a href="#postal" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Postal (planned)
+        Postal
       
     </span>
   </a>
@@ -1243,10 +1243,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#postal-planned" class="md-nav__link">
+  <a href="#postal" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Postal (planned)
+        Postal
       
     </span>
   </a>
@@ -1472,7 +1472,7 @@ worked examples of each.</p>
 </tbody>
 </table>
 <p>See <a href="../../validators/nic/#errors">NIC › Errors</a> for context on each.</p>
-<h3 id="postal-planned">Postal (planned)</h3>
+<h3 id="postal">Postal</h3>
 <table>
 <thead>
 <tr>
@@ -1482,19 +1482,29 @@ worked examples of each.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>postal.invalid_length</code></td>
-<td>Not exactly 5 characters.</td>
+<td><code>postal.invalid_characters</code></td>
+<td>Anything other than ASCII digits after whitespace and <code>-</code> are stripped, including an empty string and Unicode digits.</td>
 </tr>
 <tr>
-<td><code>postal.invalid_characters</code></td>
-<td>Contains non-digit characters.</td>
+<td><code>postal.invalid_length</code></td>
+<td>All digits, but not exactly five of them.</td>
 </tr>
 <tr>
 <td><code>postal.unknown_code</code></td>
-<td>Five digits but not a code in our table.</td>
+<td>Five digits that are not in the Department of Posts directory.</td>
+</tr>
+<tr>
+<td><code>postal.not_a_string</code></td>
+<td>A row in a batch supplied a non-string postal code.</td>
+</tr>
+<tr>
+<td><code>postal.bad_district_input</code></td>
+<td>Cross-check <code>district</code> was unparseable; only emitted with <code>errors="coerce"</code>.</td>
 </tr>
 </tbody>
 </table>
+<p>See <a href="../../validators/postal/#error-codes">Postal › Error codes</a> for
+worked examples of each.</p>
 <h2 id="exceptions">Exceptions</h2>
 <p>Helakit's exception hierarchy is small:</p>
 <div class="highlight"><pre><span></span><code>HelakitError

@@ -1258,7 +1258,8 @@ validator, see <a href="../concepts/results/">Working with results</a>.</p>
 <p>Helakit supports Python 3.10 and newer and has <strong>no runtime
 dependencies</strong> — installing it adds nothing to your dependency tree
 beyond the package itself.</p>
-<p>The optional extras enable DataFrame batch validation:</p>
+<p>The optional extras enable DataFrame batch validation for the NIC and
+postal validators:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;helakit[pandas]&quot;</span><span class="w">          </span><span class="c1"># or [polars], or [pandas,polars]</span>
 </code></pre></div>
 <div class="admonition tip">
@@ -1369,6 +1370,9 @@ invalid results, returning <code>None</code> instead.</p>
 <li><strong><a href="../validators/nic/">NIC validator</a></strong> — parse old (<code>820149894V</code>) and
   new (<code>198201409894</code>) NICs, extract date of birth, gender, and voting
   eligibility, and batch-validate lists or DataFrames.</li>
+<li><strong><a href="../validators/postal/">Postal validator</a></strong> — resolve any of the
+  2,121 postal codes to its post office, district, and province, and
+  batch-validate or district-cross-check a whole column.</li>
 <li><strong><a href="../validators/phone/">Phone validator</a></strong> — every option, every error
   code, every prefix table.</li>
 <li><strong><a href="../concepts/results/">Working with results</a></strong> — <code>ValidationResult</code>,
