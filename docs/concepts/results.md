@@ -96,7 +96,7 @@ fields it extracts.
 | --------- | ------- | ---------------- |
 | `validate_phone` | `PhoneResult` | `carrier`, `line_type`, `local`, `decoded` |
 | `validate_nic` | `NicResult` | `decoded`, `format`, `dob`, `gender`, `age`, `age_at(...)`, `year`, `serial`, `voting_eligible`, `dob_match`, `gender_match`, `mismatch_reasons`, `mismatch_detail`, `to_dict()` |
-| `validate_postal` | `PostalResult` | `district`, `province`, `post_office`, `decoded` |
+| `validate_postal` | `PostalResult` | `decoded`, `post_office`, `district`, `province`, `district_code`, `province_code`, `sub_post`, `district_match`, `mismatch_reasons`, `mismatch_detail`, `to_dict()` |
 
 The properties read from the same `data` dict — they are **not separate
 storage**, just a typed view. Both styles are stable, supported, and

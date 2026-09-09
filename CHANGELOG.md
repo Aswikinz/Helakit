@@ -5,6 +5,70 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Postal-code validation is implemented.** `validate_postal` and
+  `is_valid_postal` no longer raise `NotImplementedError`. A valid code
+  resolves to its post office, district, and province, and reports whether
+  it names a sub post office:
+
+  ```python
+  result = validate_postal("10250")
+  result.post_office  # "Nugegoda"
+  result.district  # "Colombo"
+  result.province  # "Western"
+  result.sub_post  # False
+  ```
+
+- `src/helakit/postal/_data.py` — 2,121 postal codes (592 main and 1,529
+  sub post offices, all 25 districts) transcribed from the Department of
+  Posts *Sri Lanka Postal Code Directory* (CM 34041, 2021/06).
+- `validate_postal` accepts the same input shapes as `validate_nic` — a
+  string, a `list[str]`, a `list[dict]`, a pandas/polars Series, or a
+  pandas/polars DataFrame — and returns a `PostalBatchResult` with the
+  pandas-style surface: `len()`, iteration, integer and slice indexing,
+  `head()`, `describe()`, `valid` / `invalid`, a row-aligned `is_valid`
+  mask, `to_pandas()` / `to_polars()` / `to_dicts()`, and duplicate
+  detection.
+- `district_col` cross-checking. Supply a district column (short code or
+  name, any letter case) and each row records `district_match` and a
+  `mismatch_detail` string. A mismatch is a data-quality signal, not an
+  invalid code, so the row stays valid; `PostalSummary.district_mismatches`
+  counts them. `errors="coerce"` turns an unparseable district into a
+  per-row `postal.bad_district_input` error instead of aborting the batch.
+- `PostalResult.to_dict()` and `PostalResult.record_fields()`, matching the
+  `postal_*` columns that `to_pandas()` produces.
+- `DISTRICT_PROVINCE` in `helakit._data.districts`, mapping each of the 25
+  districts to its province.
+- `PhoneError` and `PostalError` are now re-exported from the top-level
+  `helakit` namespace. `docs/concepts/errors.md` already told users they
+  could write `except PhoneError`, but only
+  `from helakit.phone import PhoneError` worked.
+
+### Changed
+
+- Input-type detection moved from `helakit.nic._dispatch` to the shared
+  `helakit._core.dispatch`, and DataFrame plumbing now lives in
+  `helakit._core.frames`, so the postal validator reuses the NIC
+  validator's batch machinery rather than copying it. `helakit.nic`
+  re-exports `detect_kind` unchanged; no public behaviour changed.
+- `PostalDecoded` gained `district_code`, `province_code`, and `sub_post`,
+  and `post_office` is now a required field rather than optional — a
+  recognised code always names one. This changes the previously-documented
+  "planned shape", which nothing could depend on because the validator
+  raised `NotImplementedError`.
+- `__version__` corrected to `0.3.1` to match the released version in this
+  changelog; it had been left at `0.3.0` when 0.3.1 was cut.
+
+### Fixed
+
+- Postal code `60043` (Udahorombuwa) is recorded under Kurunegala. The
+  directory's English column lists it under Kandy, but its Sinhala and
+  Tamil columns both say Kurunegala, which is also where the `60xxx` block
+  sits.
+
 ## [0.3.1] - 2026-08-09
 
 ### Added

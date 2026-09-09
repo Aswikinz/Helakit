@@ -98,13 +98,18 @@ worked examples of each.
 
 See [NIC › Errors](../validators/nic.md#errors) for context on each.
 
-### Postal (planned)
+### Postal
 
 | Code | Triggered by |
 | ---- | ------------ |
-| `postal.invalid_length` | Not exactly 5 characters. |
-| `postal.invalid_characters` | Contains non-digit characters. |
-| `postal.unknown_code` | Five digits but not a code in our table. |
+| `postal.invalid_characters` | Anything other than ASCII digits after whitespace and `-` are stripped, including an empty string and Unicode digits. |
+| `postal.invalid_length` | All digits, but not exactly five of them. |
+| `postal.unknown_code` | Five digits that are not in the Department of Posts directory. |
+| `postal.not_a_string` | A row in a batch supplied a non-string postal code. |
+| `postal.bad_district_input` | Cross-check `district` was unparseable; only emitted with `errors="coerce"`. |
+
+See [Postal › Error codes](../validators/postal.md#error-codes) for
+worked examples of each.
 
 ## Exceptions
 

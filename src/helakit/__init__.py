@@ -13,10 +13,18 @@ from helakit.nic import (
     is_valid_nic,
     validate_nic,
 )
-from helakit.phone import PhoneDecoded, PhoneResult, is_valid_phone, validate_phone
-from helakit.postal import PostalDecoded, PostalResult, is_valid_postal, validate_postal
+from helakit.phone import PhoneDecoded, PhoneError, PhoneResult, is_valid_phone, validate_phone
+from helakit.postal import (
+    PostalBatchResult,
+    PostalDecoded,
+    PostalError,
+    PostalResult,
+    PostalSummary,
+    is_valid_postal,
+    validate_postal,
+)
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 __all__ = [
     "HelakitError",
@@ -28,9 +36,13 @@ __all__ = [
     "NICSummary",
     "NicResult",
     "PhoneDecoded",
+    "PhoneError",
     "PhoneResult",
+    "PostalBatchResult",
     "PostalDecoded",
+    "PostalError",
     "PostalResult",
+    "PostalSummary",
     "ValidationError",
     "ValidationResult",
     "__version__",

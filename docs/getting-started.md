@@ -28,7 +28,8 @@ Helakit supports Python 3.10 and newer and has **no runtime
 dependencies** — installing it adds nothing to your dependency tree
 beyond the package itself.
 
-The optional extras enable DataFrame batch validation:
+The optional extras enable DataFrame batch validation for the NIC and
+postal validators:
 
 ```bash
 pip install "helakit[pandas]"          # or [polars], or [pandas,polars]
@@ -140,6 +141,9 @@ Output:
 - **[NIC validator](validators/nic.md)** — parse old (`820149894V`) and
   new (`198201409894`) NICs, extract date of birth, gender, and voting
   eligibility, and batch-validate lists or DataFrames.
+- **[Postal validator](validators/postal.md)** — resolve any of the
+  2,121 postal codes to its post office, district, and province, and
+  batch-validate or district-cross-check a whole column.
 - **[Phone validator](validators/phone.md)** — every option, every error
   code, every prefix table.
 - **[Working with results](concepts/results.md)** — `ValidationResult`,

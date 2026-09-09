@@ -1,4 +1,4 @@
-"""Districts of Sri Lanka, keyed by short code.
+"""Districts of Sri Lanka, keyed by short code, and the province each sits in.
 
 Sources:
     - Department of Census and Statistics, Sri Lanka:
@@ -44,4 +44,41 @@ DISTRICTS: Final[dict[str, str]] = {
     # Sabaragamuwa Province
     "RAT": "Ratnapura",
     "KEG": "Kegalle",
+}
+
+DISTRICT_PROVINCE: Final[dict[str, str]] = {
+    # Western Province
+    "CMB": "WP",
+    "GMP": "WP",
+    "KAL": "WP",
+    # Central Province
+    "KAN": "CP",
+    "MTL": "CP",
+    "NUE": "CP",
+    # Southern Province
+    "GAL": "SP",
+    "MAT": "SP",
+    "HAM": "SP",
+    # Northern Province
+    "JAF": "NP",
+    "KIL": "NP",
+    "MAN": "NP",
+    "VAV": "NP",
+    "MUL": "NP",
+    # Eastern Province
+    "TRI": "EP",
+    "BAT": "EP",
+    "AMP": "EP",
+    # North Western Province
+    "KUR": "NW",
+    "PUT": "NW",
+    # North Central Province
+    "ANU": "NC",
+    "POL": "NC",
+    # Uva Province
+    "BAD": "UP",
+    "MON": "UP",
+    # Sabaragamuwa Province
+    "RAT": "SG",
+    "KEG": "SG",
 }

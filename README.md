@@ -50,6 +50,8 @@ src/helakit/
 ├── _core/             # shared primitives, no domain logic
 │   ├── result.py      # ValidationResult + ValidationError dataclasses
 │   ├── base.py        # Validator Protocol
+│   ├── dispatch.py    # input-type detection for batch-capable validators
+│   ├── frames.py      # list / Series / DataFrame plumbing, domain-agnostic
 │   └── exceptions.py  # HelakitError hierarchy
 ├── _data/             # cross-domain lookup tables (provinces, districts, …)
 └── <domain>/          # one folder per identifier type
@@ -91,12 +93,19 @@ write `from helakit import validate_nic` without thinking about layout.
 
 ## Validators
 
-| Validator | Function          | Status      |
-| --------- | ----------------- | ----------- |
-| NIC       | `validate_nic`    | Available   |
-| Phone     | `validate_phone`  | Planned     |
-| Postal    | `validate_postal` | Planned     |
-| Passport  | (planned)         | Planned     |
+| Validator | Function          | Status    | Batch input |
+| --------- | ----------------- | --------- | ----------- |
+| NIC       | `validate_nic`    | Available | Yes         |
+| Postal    | `validate_postal` | Available | Yes         |
+| Phone     | `validate_phone`  | Available | Not yet     |
+| Passport  | (planned)         | Planned   | —           |
+
+"Batch input" means the validator accepts a list, a list of dicts, a
+pandas/polars Series, or a pandas/polars DataFrame in addition to a
+single string, and returns a container that behaves like a pandas
+object — `len()`, indexing and slicing, `head()`, `describe()`,
+`to_pandas()` / `to_polars()` / `to_dicts()`, and a row-aligned
+`is_valid` mask you can pass straight to `df[...]`.
 
 More (driving licence numbers, BR numbers, …) will follow. Stubs for
 unimplemented validators raise `NotImplementedError` so call-sites
@@ -122,6 +131,11 @@ the easiest way to contribute and doesn't require deep Python — each
 table is a plain `dict` in `src/helakit/_data/` or
 `src/helakit/<domain>/_data.py`. Cite a source in the PR description
 so we can verify it.
+
+The largest of them is `src/helakit/postal/_data.py` — 2,121 postal
+codes transcribed from the Department of Posts *Sri Lanka Postal Code
+Directory*, sorted by code. Post offices open, close, and get renamed,
+so corrections there are especially welcome.
 
 ## Documentation
 

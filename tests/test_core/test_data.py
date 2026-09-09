@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from helakit._data.districts import DISTRICTS
+from helakit._data.districts import DISTRICT_PROVINCE, DISTRICTS
 from helakit._data.provinces import PROVINCES
 from helakit.nic._data import (
     FEMALE_DAY_OFFSET,
@@ -27,3 +27,15 @@ def test_nic_format_constants() -> None:
     assert NEW_FORMAT_LENGTH == 12
     assert FEMALE_DAY_OFFSET == 500
     assert OLD_FORMAT_SUFFIXES == frozenset({"V", "X"})
+
+
+def test_district_province_covers_every_district() -> None:
+    assert set(DISTRICT_PROVINCE) == set(DISTRICTS)
+
+
+def test_district_province_points_at_real_provinces() -> None:
+    assert set(DISTRICT_PROVINCE.values()) <= set(PROVINCES)
+
+
+def test_every_province_has_at_least_one_district() -> None:
+    assert set(DISTRICT_PROVINCE.values()) == set(PROVINCES)
