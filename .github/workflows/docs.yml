@@ -26,19 +26,19 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@caf0cab7a618c569241d31dcd442f54681755d39 # v3.2.4
         with:
           python-version: "3.12"
           enable-cache: true
 
       - name: Install docs dependencies
-        run: uv sync --extra docs
+        run: uv sync --locked --extra docs --no-build
 
       - name: Deploy dev docs
-        run: uv run mike deploy --push --update-aliases dev
+        run: uv run --locked --no-build mike deploy --push --update-aliases dev
 
       - name: Set root default to dev (only if no release exists yet)
         run: |
-          if ! uv run mike list 2>/dev/null | grep -qE '(^|[^a-z])latest([^a-z]|$)'; then
-            uv run mike set-default --push dev
+          if ! uv run --locked --no-build mike list 2>/dev/null | grep -qE '(^|[^a-z])latest([^a-z]|$)'; then
+            uv run --locked --no-build mike set-default --push dev
           fi

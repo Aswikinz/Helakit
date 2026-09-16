@@ -1,0 +1,15 @@
+# Keeps the SHA-pinned GitHub Actions in .github/workflows/ up to date.
+# Without this, pinning to a commit SHA (SonarCloud githubactions:S7637) freezes
+# the actions on whatever version was current when they were pinned.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"
